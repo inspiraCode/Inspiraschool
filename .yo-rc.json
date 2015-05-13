@@ -1,0 +1,20 @@
+{
+  "generator-jhipster": {
+    "baseName": "inspiraschool",
+    "packageName": "com.inspiracode.inspiraschool",
+    "packageFolder": "com/inspiracode/inspiraschool",
+    "authenticationType": "xauth",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Memory",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "rememberMeKey": "6d17f1a512ef7da0d23173b8083b6bba653c0592"
+  }
+}

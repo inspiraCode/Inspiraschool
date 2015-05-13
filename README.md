@@ -1,2 +1,2 @@
-# Inspiraschool
-Inspiracode school control solution
+README for inspiraschool
+==========================

@@ -1,0 +1,437 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"manager",
+				"manager-script"
+			],
+			[
+				"Has",
+				"HAS_SHADOW"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/main/webapp/swagger-ui/index.html",
+			"settings":
+			{
+				"buffer_size": 3298,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/main/webapp/scripts/app/main/main.html",
+			"settings":
+			{
+				"buffer_size": 2220,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "tail",
+		"selected_items":
+		[
+			[
+				"tail",
+				"Tail: Tail File In New View"
+			],
+			[
+				"diff",
+				"Set Syntax: Diff"
+			],
+			[
+				"Tail",
+				"Tail: Tail File In New View"
+			],
+			[
+				"TAIL",
+				"Tail: New View"
+			],
+			[
+				"",
+				"Preferences: Browse Packages"
+			],
+			[
+				"pack",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui/src/main",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui/src/main/html",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app/admin",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app/main",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/swagger-ui"
+	],
+	"file_history":
+	[
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application-prod.yml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application-dev.yml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application.yml",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/webapp/index.html",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/webapp/swagger-ui/index.html",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/webapp/scripts/app/main/main.html",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/.gitignore",
+		"/C/Users/torredie/Documents/projects/inspira/gits/CUPNPortal/Tabbed_Portal/app/index.html",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/SCS 2-11 DTF.txt",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/zebra_print.bat",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/SCS 2-15.txt",
+		"/C/Users/torredie/Documents/projects/inspira/kalisch/jasperserver/applicationContext.xml",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application-prod.yml",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application-dev.yml",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application.yml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/spring-datasource.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/security-context.xml",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/java/com/inspiracode/cupn/inspiraschool/config/DatabaseConfiguration.java",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/node_modules/generator-jhipster/app/templates/src/main/java/package/config/_DatabaseConfiguration.java",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/node_modules/generator-jhipster/heroku/templates/src/main/java/package/config/_HerokuDatabaseConfiguration.java",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/java/com/inspiracode/cupn/inspiraschool/ApplicationWebXml.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/CUPNPortal/Scrollable_Portal/bower.json",
+		"/C/Users/torredie/Documents/projects/inspira/gits/CUPNPortal/Scrollable_Portal/package.json",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/SCS 2-13 DTF.txt",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/SCS 2-12 DTF.txt",
+		"/C/Temp/1058.txt",
+		"/C/Temp/scsproxl.log",
+		"/C/Tomcat/apache-tomcat-7.0.54/conf/tomcat-users.xml",
+		"/C/maven/apache-maven-3.2.1/conf/settings.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/src/main/resources/excel/column_map.properties",
+		"/C/Users/torredie/Documents/RCU/F5s/statistics/ltm.log",
+		"/C/Users/torredie/Documents/projects/inspira/gits/jasper-bi/monitor/monitor/src/main/java/com/inspiracode/praxma/rhi/web/monitor/db/DbUtil.java",
+		"/C/Users/torredie/Documents/projects/inspira/poppassd.c",
+		"/C/Users/torredie/Documents/projects/inspira/poppasd_v186.c",
+		"/C/Users/torredie/Desktop/SOAPUI_POST.log",
+		"/C/Users/torredie/Desktop/Ping Service Req.txt",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/Users/torredie/Desktop/SNX Prod.url",
+		"/E/department.dat",
+		"/E/user.dat",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/src/main/resources/styles/styles.css",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Promidocs/promidocs/launcherTracker/pom.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/src/main/resources/excel/column_names.properties",
+		"/C/Tomcat/apache-tomcat-8.0.20/logs/aberaty.log",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/pom.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/.project",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/.classpath",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/.settings/org.eclipse.m2e.core.prefs",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scsproxl/.settings/org.eclipse.jdt.core.prefs",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/dispatcher-servlet.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/spring-web-scspro.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/service/UserServiceImpl.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/hibernate/UserDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/hibernate/RoleDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/hibernate/PermissionDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/domain/dao/hibernate/common/ScsproHibernateSupport.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/UserDao.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/RoleDao.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/dao/PermissionDao.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/domain/dao/common/BaseDao.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/authority/ScsproUserDetailsService.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/service/UserService.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/authority/ScsproAuthenticationFailureHandler.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/authority/ScsproAuthenticationSuccessHandler.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/authority/ScsproUserDetails.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/User.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/Role.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/domain/Permission.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/domain/common/Dominable.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/authentication/authority/ScsproAuthenticationEntryPoint.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/logger/ScsproLoggeableFactory.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/logger/ScsproLogger.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/java/com/inspiracode/nowgroup/scspro/logger/ScsproLoggeable.java",
+		"/C/Users/torredie/Documents/RCU/certs/MO/rcutest/public.pem",
+		"/C/Users/torredie/Documents/RCU/certs/MO/rcutest/request.csr",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/controller/LoginController.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/webapp/WEB-INF/security-context.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/web/controller/HomeController.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/webapp/login.jsp",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/web/controller/rest/CredentialsServices.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/webapp/WEB-INF/web.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/dbScripts/fixedData.sql",
+		"/C/Tomcat/apache-tomcat-8.0.20/logs/scspro.log",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/auth/AuthenticationSuccessHandler.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/auth/CustomUserDetails.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/auth/CustomUserDetailsService.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/auth/AuthenticationEntryPoint.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/java/com/diego/service/UserServiceImpl.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/webapp/WEB-INF/dispatcher-servlet.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/diego/src/main/webapp/WEB-INF/jdbc-config.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/webapp/WEB-INF/dispatcher-servlet.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/webapp/WEB-INF/spring/security-context.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/webapp/WEB-INF/spring/spring-datasource.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/webapp/WEB-INF/spring/spring-web-aberaty.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/webapp/WEB-INF/spring/spring-hibernate.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/hibernate/UserDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/hibernate/RoleDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/hibernate/PermissionDaoHibernate.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/domain/dao/hibernate/common/AberatyHibernateDaoSupport.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/authority/AberatyUserDetailService.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/service/UserServiceImpl.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/UserDao.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/domain/dao/common/BaseDao.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/RoleDao.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/dao/PermissionDao.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/domain/common/BaseDomain.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/service/UserService.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/authority/AberatyAuthenticationEntryPoint.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/authority/AberatyAuthenticationSuccessHandler.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/authority/AberatyUserDetails.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/model/domain/Role.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/model/domain/User.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/model/domain/Permission.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/authentication/authority/AberatyAuthenticationFailureHandler.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/logger/AberatyLogger.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/logger/AberatyLogFactory.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/src/main/java/com/aberaty/logger/AberatyLoggerImpl.java",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/web-platform/pom.xml",
+		"/C/Temp/kadmin-free-responsive-admin-dashboard-template/KAdmin/index.html",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/dbScripts/fixedData.sql",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/dbScripts/static_data.sql",
+		"/C/Users/torredie/Documents/projects/aberaty/ebooks/SPwH/9781430226321/springPersistenceWithHibernate/gallery/src/main/webapp/WEB-INF/web.xml",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/security-layer/src/main/java/com/aberaty/authentication/controller/AuthenticationWebservices.java",
+		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/ddl.sql",
+		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/security-layer/src/main/webapp/WEB-INF/jdbc-config.xml",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/Permission.java",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/Role.java",
+		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/User.java"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"postgres",
+			"expect",
+			"Killed",
+			"ReadFromClient",
+			"your password please",
+			"expect(master_read, P4, buf)",
+			"Stage",
+			"Pite 1",
+			"getpwnam",
+			"passwd",
+			"quit",
+			"crypt",
+			"advalorem",
+			"login",
+			"aberatyPersistenceUnit",
+			"HomeController",
+			"UserDao",
+			"sessionFactory",
+			"HibernateTransactionManager",
+			"org.springframework.orm.hibernate3.HibernateTransactionManager"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/main/webapp/swagger-ui/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3298,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1878,
+								1878
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 570.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/main/webapp/scripts/app/main/main.html",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 2220,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								359,
+								374
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "inspiraschool.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 331.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
