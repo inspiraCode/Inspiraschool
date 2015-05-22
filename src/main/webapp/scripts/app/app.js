@@ -97,7 +97,7 @@ angular.module('inspiraschoolApp', ['LocalStorageModule', 'tmh.dynamicLocale',
             urlTemplate: 'i18n/{lang}/{part}.json'
         });
 
-        $translateProvider.preferredLanguage('es');
+        $translateProvider.preferredLanguage('en');
         $translateProvider.useCookieStorage();
 
         tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');

@@ -10,7 +10,7 @@ spring:
         databaseName: inspiraschool
         serverName: localhost
         username: inspiraschool
-        password: inspiraschool
+        password: 
 
     jpa:
         database-platform: org.hibernate.dialect.PostgreSQL82Dialect

@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.inspiracode.inspiraschool</groupId>
+    <groupId>com.inspiracode.cupn.inspiraschool</groupId>
     <artifactId>inspiraschool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -536,7 +536,7 @@
                     <defaultSchemaName></defaultSchemaName>
                     <username></username>
                     <password></password>
-                    <referenceUrl>hibernate:spring:com.inspiracode.inspiraschool.domain?dialect=</referenceUrl>
+                    <referenceUrl>hibernate:spring:com.inspiracode.cupn.inspiraschool.domain?dialect=</referenceUrl>
                     <verbose>true</verbose>
                     <logging>debug</logging>
                 </configuration>
