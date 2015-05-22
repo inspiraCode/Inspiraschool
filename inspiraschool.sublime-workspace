@@ -16,14 +16,6 @@
 	"buffers":
 	[
 		{
-			"file": "src/main/webapp/swagger-ui/index.html",
-			"settings":
-			{
-				"buffer_size": 3298,
-				"line_ending": "Unix"
-			}
-		},
-		{
 			"file": "src/main/webapp/scripts/app/main/main.html",
 			"settings":
 			{
@@ -40,7 +32,7 @@
 	"command_palette":
 	{
 		"height": 392.0,
-		"last_filter": "tail",
+		"last_filter": "",
 		"selected_items":
 		[
 			[
@@ -91,19 +83,31 @@
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/service",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/service/util",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/web",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/web/rest",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/web/rest/dto",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp",
-		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui",
-		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui/src/main",
-		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/bower_components/swagger-ui/src/main/html",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app",
-		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app/admin",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app/main",
-		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/swagger-ui"
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/components"
 	],
 	"file_history":
 	[
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/java/com/inspiracode/inspiraschool/web/rest/AuthorResource.java",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/app/app.js",
+		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/spring-datasource.xml",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/scripts/components/language/language.service.js",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/node_modules/generator-jhipster/languages/templates/src/main/webapp/i18n/es/activate.json",
+		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/webapp/i18n/es/activate.json",
+		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/webapp/swagger-ui/index.html",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application-prod.yml",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application-dev.yml",
 		"/C/Users/torredie/Documents/projects/inspira/gits/Inspiraschool/src/main/resources/config/application.yml",
@@ -119,7 +123,6 @@
 		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application-prod.yml",
 		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application-dev.yml",
 		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/target/classes/config/application.yml",
-		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/spring-datasource.xml",
 		"/C/Users/torredie/Documents/projects/inspira/gits/scspro/scsweb/src/main/webapp/WEB-INF/spring/security-context.xml",
 		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/src/main/java/com/inspiracode/cupn/inspiraschool/config/DatabaseConfiguration.java",
 		"/C/Users/torredie/Documents/projects/inspira/angular_test_projects/node_modules/generator-jhipster/app/templates/src/main/java/package/config/_DatabaseConfiguration.java",
@@ -225,13 +228,7 @@
 		"/C/Temp/kadmin-free-responsive-admin-dashboard-template/KAdmin/index.html",
 		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/dbScripts/fixedData.sql",
 		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/dbScripts/static_data.sql",
-		"/C/Users/torredie/Documents/projects/aberaty/ebooks/SPwH/9781430226321/springPersistenceWithHibernate/gallery/src/main/webapp/WEB-INF/web.xml",
-		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/security-layer/src/main/java/com/aberaty/authentication/controller/AuthenticationWebservices.java",
-		"/C/Users/torredie/Documents/projects/aberaty/freelancer/security_layer/final_delivery/ddl.sql",
-		"/C/Users/torredie/Documents/projects/aberaty/git/aberaty/security-layer/src/main/webapp/WEB-INF/jdbc-config.xml",
-		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/Permission.java",
-		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/Role.java",
-		"/C/Users/torredie/Documents/projects/inspira/nowgroup/supplyChainPro/src/main/java/com/inspiracode/nowgroup/scspro/datamodel/domain/User.java"
+		"/C/Users/torredie/Documents/projects/aberaty/ebooks/SPwH/9781430226321/springPersistenceWithHibernate/gallery/src/main/webapp/WEB-INF/web.xml"
 	],
 	"find":
 	{
@@ -239,9 +236,10 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -249,6 +247,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			".when",
+			"when",
+			" '",
 			"postgres",
 			"expect",
 			"Killed",
@@ -286,43 +287,13 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "src/main/webapp/swagger-ui/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3298,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1878,
-								1878
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 570.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "src/main/webapp/scripts/app/main/main.html",
-					"semi_transient": true,
+					"semi_transient": false,
 					"settings":
 					{
 						"buffer_size": 2220,
@@ -332,8 +303,8 @@
 						"selection":
 						[
 							[
-								359,
-								374
+								632,
+								632
 							]
 						],
 						"settings":
@@ -358,7 +329,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"layout":
 	{
@@ -400,6 +371,18 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"authorres",
+				"src\\main\\java\\com\\inspiracode\\inspiraschool\\web\\rest\\AuthorResource.java"
+			],
+			[
+				"activate.json",
+				"node_modules\\generator-jhipster\\languages\\templates\\src\\main\\webapp\\i18n\\es\\activate.json"
+			],
+			[
+				"es/activate",
+				"node_modules\\generator-jhipster\\languages\\templates\\src\\main\\webapp\\i18n\\es\\activate.json"
+			]
 		],
 		"width": 0.0
 	},
