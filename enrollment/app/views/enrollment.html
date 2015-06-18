@@ -1,0 +1,105 @@
+<form id="enrollment-form" class="form-horizontal" role="form">
+
+  <div class="form-group">
+    <div class="col-sm-6">
+      <label for="inputFirstName">Nombre(s)</label>
+      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.firstName">
+    </div>
+    <div class="col-sm-6">
+      <label for="inputLastName">Apellido(s)</label>
+       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.lastName">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-2">
+      <label for="selGender">Sexo</label>
+       <select class="form-control" id="selGender" ng-model="enrollmentForm.gender">
+          <option value="m">hombre</option>
+          <option value="f">mujer</option>
+        </select>
+    </div>
+    <div class="col-sm-5">
+      <label for="birthPlace">Lugar de Nacimiento</label>
+      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birthPlace">
+    </div>
+    <div class="col-sm-5">
+      <label for="birthDate">Fecha de Nacimiento</label>
+      <div class="input-group date">
+        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birthDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="inputCurp">CURP</label>
+      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.personId">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="inputAddress1">Dirección</label>
+      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address1">
+      <input class="form-control" id="inputAddress1" placeholder="Colonia" ng-model="enrollmentForm.address2">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-4">
+      <label for="selState">Estado</label>
+       <select class="form-control" id="selState" ng-model="enrollmentForm.state">
+          <option>Baja California Norte</option>
+          <option>Chihuahua</option>
+          <option>Zacatecas</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+      <label for="selCity">Ciudad</label>
+       <select class="form-control" id="selCity" ng-model="enrollmentForm.city">
+          <option>Buenaventura</option>
+          <option>Cd. Juárez</option>
+          <option>Parral</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+      <label for="zipCode">Código postal</label>
+      <input class="form-control" id="zipCode" placeholder="Código postal" ng-model="enrollmentForm.zip">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="inputEmail">Correo Electrónico</label>
+      <input class="col-sm-12 form-control" id="inputEmail" placeholder="Correo Electrónico" ng-model="enrollmentForm.email">
+    </div>
+  </div>
+
+ <div class="form-group">
+    <div class="col-sm-6">
+      <label for="inputPhone">Teléfono</label>
+      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone">
+    </div>
+    <div class="col-sm-6">
+      <label for="inputCellPhone">Celular</label>
+       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.cellPhone">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-xs-offset-6 col-xs-2">
+      <button class="btn btn-danger">Reiniciar</button>
+    </div>
+    <div class="col-xs-2">
+      <button type="submit" class="btn btn-success">Inscribirme</button>
+    </div>
+  </div>
+  <span>{{enrollmentForm}}</span>
+</form>
+<script>
+  $('#enrollment-form .input-group.date').datepicker({
+    startView: 2,
+    clearBtn: true,
+    language: "es",
+    orientation: "top auto",
+    autoclose: true
+  });
+</script>
