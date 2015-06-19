@@ -36,7 +36,7 @@
 		}
 
 		private function subscribe(){
-			$this->response('NOT IMPLEMENTED YET', 204);	
+			$this->response('NOT IMPLEMENTED YET', 204);
 		}
 
 	} // end API class
