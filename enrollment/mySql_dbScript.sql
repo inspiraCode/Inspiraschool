@@ -1,7 +1,11 @@
+CREATE SCHEMA `enrollment` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci ;
+
 CREATE TABLE `enrollment` (
   `idenrollment` int(11) NOT NULL AUTO_INCREMENT,
   `enrollment_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `shift` varchar(1) COLLATE latin1_spanish_ci NOT NULL,
+  `course` varchar(2) COLLATE latin1_spanish_ci NOT NULL,
+  `course_plan` varchar(4) COLLATE latin1_spanish_ci NOT NULL,
   `first_name` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `last_name` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `gender` varchar(1) COLLATE latin1_spanish_ci NOT NULL,

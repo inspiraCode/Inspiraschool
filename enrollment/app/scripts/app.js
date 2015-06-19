@@ -12,7 +12,8 @@
     'ngAnimate',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngResource'
   ]);
 app.config(function ($routeProvider) {
     $routeProvider
@@ -32,3 +33,7 @@ app.config(function ($routeProvider) {
         redirectTo: '/'
       });
   });
+
+app.factory('services', function($resource) {
+  return $resource('http://localhost:8080/services/create.json');
+});

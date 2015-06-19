@@ -1,26 +1,58 @@
-<form id="enrollment-form" class="form-horizontal" role="form">
+<form id="enrollment-form" class="form-horizontal" role="form" ng-submit="enrollForm()">
+
+  <div class="form-group">
+    <div class="col-sm-4">
+      <label for="selState">Turno</label>
+       <select class="form-control" id="selShift" ng-model="enrollmentForm.shift" required>
+          <option value="v">Virtual</option>
+          <option value="s">Sabatino</option>
+          <option value="d">Dominical</option>
+          <option value="e">Empresarial</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+      <label for="selCity">Curso</label>
+       <select class="form-control" id="selCourse" ng-model="enrollmentForm.course" required>
+          <option value="pp">Preparatoria</option>
+          <option value="un">Universidad</option>
+          <option value="dp">Diplomado</option>
+        </select>
+    </div>
+    <div class="col-sm-4">
+      <label for="zipCode">Especialidad</label>
+      <select class="form-control" id="selCourse" ng-model="enrollmentForm.coursePlan" required>
+          <option value="LEAE">Lic. En Administración de Empresas</option>
+          <option value="LECP">Lic. En Contaduría Pública</option>
+          <option value="LEDP">Lic. En Derecho</option>
+          <option value="BGPS">Bachillerato General Plan Semestral</option>
+          <option value="BGPT">Bachillerato General Plan Tetramestral</option>
+          <option value="DPAE">Diplomado en Asistencia Educativa</option>
+          <option value="DAFS">Diplomado en Asistencia Familiar y de Salud</option>
+        </select>
+    </div>
+  </div>
 
   <div class="form-group">
     <div class="col-sm-6">
       <label for="inputFirstName">Nombre(s)</label>
-      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.firstName">
+      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.firstName" required ng-minlength=4 ng-maxlength=45>
     </div>
     <div class="col-sm-6">
       <label for="inputLastName">Apellido(s)</label>
-       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.lastName">
+       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.lastName" required ng-minlength=4 ng-maxlength=45>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-2">
       <label for="selGender">Sexo</label>
-       <select class="form-control" id="selGender" ng-model="enrollmentForm.gender">
+       <select class="form-control" id="selGender" ng-model="enrollmentForm.gender" required>
           <option value="m">hombre</option>
           <option value="f">mujer</option>
         </select>
     </div>
     <div class="col-sm-5">
       <label for="birthPlace">Lugar de Nacimiento</label>
-      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birthPlace">
+      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birthPlace" ng-maxlength=80>
     </div>
     <div class="col-sm-5">
       <label for="birthDate">Fecha de Nacimiento</label>
@@ -32,14 +64,14 @@
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputCurp">CURP</label>
-      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.personId">
+      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.personId" ng-minlength=18 ng-maxlength=18>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputAddress1">Dirección</label>
-      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address1">
-      <input class="form-control" id="inputAddress1" placeholder="Colonia" ng-model="enrollmentForm.address2">
+      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address1" ng-minlength=15 ng-maxlength=50>
+      <input class="form-control" id="inputAddress1" placeholder="Colonia" ng-model="enrollmentForm.address2" ng-minlength=15 ng-maxlength=50>
     </div>
   </div>
 
@@ -62,31 +94,44 @@
     </div>
     <div class="col-sm-4">
       <label for="zipCode">Código postal</label>
-      <input class="form-control" id="zipCode" placeholder="Código postal" ng-model="enrollmentForm.zip">
+      <input class="form-control" id="zipCode" placeholder="Código postal" ng-model="enrollmentForm.zip" ng-minlength=5 ng-maxlength=10>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputEmail">Correo Electrónico</label>
-      <input class="col-sm-12 form-control" id="inputEmail" placeholder="Correo Electrónico" ng-model="enrollmentForm.email">
+      <input class="col-sm-12 form-control" id="inputEmail" placeholder="Correo Electrónico" type="email" ng-model="enrollmentForm.email" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <label for="inputFromSchool">Escuela de Procedencia</label>
+      <input class="col-sm-12 form-control" id="inputFromSchool" placeholder="Escuela de procedencia" ng-model="enrollmentForm.fromSchool">
     </div>
   </div>
 
  <div class="form-group">
     <div class="col-sm-6">
       <label for="inputPhone">Teléfono</label>
-      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone">
+      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone" ng-minlength=7 ng-maxlength=20>
     </div>
     <div class="col-sm-6">
       <label for="inputCellPhone">Celular</label>
-       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.cellPhone">
+       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.cellPhone" ng-minlength=7 ng-maxlength=20>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-12">
+      <div class="g-recaptcha" data-sitekey="6LcDjQgTAAAAAN21EhGq9LKV-j28J--kNBGs6t8S"></div>
     </div>
   </div>
 
   <div class="form-group">
     <div class="col-xs-offset-6 col-xs-2">
-      <button class="btn btn-danger">Reiniciar</button>
+      <button class="btn btn-danger" ng-click="resetForm()">Reiniciar</button>
     </div>
     <div class="col-xs-2">
       <button type="submit" class="btn btn-success">Inscribirme</button>
@@ -95,11 +140,13 @@
   <span>{{enrollmentForm}}</span>
 </form>
 <script>
-  $('#enrollment-form .input-group.date').datepicker({
+  $('#enrollment-form .input-group').datepicker({
     startView: 2,
     clearBtn: true,
-    language: "es",
-    orientation: "top auto",
-    autoclose: true
+    language: 'es',
+    orientation: 'top auto',
+    autoclose: true,
+    dateformat:'dd-MM-yyyy'
   });
 </script>
+<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
