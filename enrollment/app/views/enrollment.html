@@ -1,33 +1,22 @@
-<form id="enrollment-form" class="form-horizontal" role="form" ng-submit="enrollForm()">
+<form id="enrollment-form" class="form-horizontal" role="form" ng-submit="enrollForm()" ng-show="enrollmentForm.folio==0">
 
   <div class="form-group">
     <div class="col-sm-4">
       <label for="selState">Turno</label>
        <select class="form-control" id="selShift" ng-model="enrollmentForm.shift" required>
-          <option value="v">Virtual</option>
-          <option value="s">Sabatino</option>
-          <option value="d">Dominical</option>
-          <option value="e">Empresarial</option>
+          <option ng-repeat="shift in shifts" value="{{shift.shift_code}}">{{shift.shift_name}}</option>
         </select>
     </div>
     <div class="col-sm-4">
       <label for="selCity">Curso</label>
        <select class="form-control" id="selCourse" ng-model="enrollmentForm.course" required>
-          <option value="pp">Preparatoria</option>
-          <option value="un">Universidad</option>
-          <option value="dp">Diplomado</option>
+          <option ng-repeat="course in courses | filter:{shift_code:enrollmentForm.shift}" value="{{course.course_code}}">{{course.course_name}}</option>
         </select>
     </div>
     <div class="col-sm-4">
       <label for="zipCode">Especialidad</label>
-      <select class="form-control" id="selCourse" ng-model="enrollmentForm.coursePlan" required>
-          <option value="LEAE">Lic. En Administración de Empresas</option>
-          <option value="LECP">Lic. En Contaduría Pública</option>
-          <option value="LEDP">Lic. En Derecho</option>
-          <option value="BGPS">Bachillerato General Plan Semestral</option>
-          <option value="BGPT">Bachillerato General Plan Tetramestral</option>
-          <option value="DPAE">Diplomado en Asistencia Educativa</option>
-          <option value="DAFS">Diplomado en Asistencia Familiar y de Salud</option>
+      <select class="form-control" id="selCourse" ng-model="enrollmentForm.course_plan" required>
+          <option ng-repeat="course_plan in coursePlans | filter:{course_code:enrollmentForm.course}" value="{{course_plan.plan_code}}">{{course_plan.plan_name}}</option>
         </select>
     </div>
   </div>
@@ -35,11 +24,11 @@
   <div class="form-group">
     <div class="col-sm-6">
       <label for="inputFirstName">Nombre(s)</label>
-      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.firstName" required ng-minlength=4 ng-maxlength=45>
+      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.first_name" required ng-minlength=4 ng-maxlength=45>
     </div>
     <div class="col-sm-6">
       <label for="inputLastName">Apellido(s)</label>
-       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.lastName" required ng-minlength=4 ng-maxlength=45>
+       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.last_name" required ng-minlength=4 ng-maxlength=45>
     </div>
   </div>
   <div class="form-group">
@@ -52,26 +41,26 @@
     </div>
     <div class="col-sm-5">
       <label for="birthPlace">Lugar de Nacimiento</label>
-      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birthPlace" ng-maxlength=80>
+      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birth_place" ng-maxlength=80>
     </div>
     <div class="col-sm-5">
       <label for="birthDate">Fecha de Nacimiento</label>
       <div class="input-group date">
-        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birthDate"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birth_date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
       </div>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputCurp">CURP</label>
-      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.personId" ng-minlength=18 ng-maxlength=18>
+      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.person_unique_id" ng-minlength=18 ng-maxlength=18>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputAddress1">Dirección</label>
-      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address1" ng-minlength=15 ng-maxlength=50>
-      <input class="form-control" id="inputAddress1" placeholder="Colonia" ng-model="enrollmentForm.address2" ng-minlength=15 ng-maxlength=50>
+      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address_1" ng-minlength=15 ng-maxlength=50>
+      <input class="form-control" id="inputAddress2" placeholder="Colonia" ng-model="enrollmentForm.address_2" ng-minlength=15 ng-maxlength=50>
     </div>
   </div>
 
@@ -79,17 +68,13 @@
     <div class="col-sm-4">
       <label for="selState">Estado</label>
        <select class="form-control" id="selState" ng-model="enrollmentForm.state">
-          <option>Baja California Norte</option>
-          <option>Chihuahua</option>
-          <option>Zacatecas</option>
+          <option selected>Chihuahua</option>
         </select>
     </div>
     <div class="col-sm-4">
       <label for="selCity">Ciudad</label>
        <select class="form-control" id="selCity" ng-model="enrollmentForm.city">
-          <option>Buenaventura</option>
-          <option>Cd. Juárez</option>
-          <option>Parral</option>
+          <option selected>Cd. Juárez</option>
         </select>
     </div>
     <div class="col-sm-4">
@@ -108,27 +93,20 @@
   <div class="form-group">
     <div class="col-sm-12">
       <label for="inputFromSchool">Escuela de Procedencia</label>
-      <input class="col-sm-12 form-control" id="inputFromSchool" placeholder="Escuela de procedencia" ng-model="enrollmentForm.fromSchool">
+      <input class="col-sm-12 form-control" id="inputFromSchool" placeholder="Escuela de procedencia" ng-model="enrollmentForm.from_school">
     </div>
   </div>
 
  <div class="form-group">
     <div class="col-sm-6">
       <label for="inputPhone">Teléfono</label>
-      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone" ng-minlength=7 ng-maxlength=20>
+      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone_home" ng-minlength=7 ng-maxlength=20>
     </div>
     <div class="col-sm-6">
       <label for="inputCellPhone">Celular</label>
-       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.cellPhone" ng-minlength=7 ng-maxlength=20>
+       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.phone_mobile" ng-minlength=7 ng-maxlength=20>
     </div>
   </div>
-
-  <div class="form-group">
-    <div class="col-sm-12">
-      <div class="g-recaptcha" data-sitekey="6LcDjQgTAAAAAN21EhGq9LKV-j28J--kNBGs6t8S"></div>
-    </div>
-  </div>
-
   <div class="form-group">
     <div class="col-xs-offset-6 col-xs-2">
       <button class="btn btn-danger" ng-click="resetForm()">Reiniciar</button>
@@ -137,8 +115,12 @@
       <button type="submit" class="btn btn-success">Inscribirme</button>
     </div>
   </div>
-  <span>{{enrollmentForm}}</span>
 </form>
+<div ng-show="enrollmentForm.folio!=0">
+  <p>Su solicitud ha sido grabada exitosamente con el folio {{enrollmentForm.folio}}. En breve el personal de control escolar se pondrá en contacto con usted.</p>
+  <p>Tenga a la mano la documentación que acredite su nacionalidad y comprobantes de estudios.</p>
+  <p><a href="/#/">Volver al menú principal.</a></p>
+</div>
 <script>
   $('#enrollment-form .input-group').datepicker({
     startView: 2,
@@ -149,4 +131,3 @@
     dateformat:'dd-MM-yyyy'
   });
 </script>
-<script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
