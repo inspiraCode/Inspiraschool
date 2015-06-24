@@ -22,6 +22,5 @@ CREATE TABLE `enrollment` (
   `from_school` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `email` varchar(80) COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idenrollment`),
-  UNIQUE KEY `NAME` (`first_name`,`last_name`),
   UNIQUE KEY `idenrollment_UNIQUE` (`idenrollment`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci COMMENT='student enrollment form';

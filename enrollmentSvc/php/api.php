@@ -31,12 +31,56 @@
 				$this->response('', 404); // If the method is not found "PAGE NOT FOUND".
 		}
 
+		/**
+		 * Encode array into JSON
+		 */
+		private function json($data){
+			if(is_array($data)){
+				return json_encode($data);
+			}
+		}
+
 		private function ping(){
-			$this->response('RESTful API is alive!', 200);
+			$this->response('RESTful API is alive: v0.4!', 200);
 		}
 
 		private function subscribe(){
-			$this->response('NOT IMPLEMENTED YET', 204);
+			if($this->get_request_method() != "POST"){
+				$this->response($this->get_request_method().' NOT ALLOWED',406);
+			}
+
+			$enrollmentForm = json_decode(file_get_contents('php://input'), TRUE);
+			$column_names = array('shift', 'course', 'course_plan', 'first_name', 'last_name',  'gender',  
+				'birth_place',  'birth_date',  'address_1',  'address_2',  'city',  'state',  'zip',  'phone_home',  
+				'phone_mobile',  'person_unique_id',  'from_school',  'email');
+			$keys = array_keys($enrollmentForm);
+			$columns = '';
+			$values = '';
+
+			$enrollmentForm['birth_date'] = preg_replace('#(\d{2})/(\d{2})/(\d{4})#', '$3-$1-$2', $enrollmentForm['birth_date']);
+			
+			foreach($column_names as $desired_key){
+				if(!in_array($desired_key, $keys)){
+					$$desired_key = '';
+				}else{
+					$$desired_key = $enrollmentForm[$desired_key];
+				}
+				$columns = $columns.$desired_key.',';
+				$values = $values."'".$$desired_key."',";
+			}
+			$insertSentence = "INSERT INTO enrollment(".trim($columns,',').") VALUES(".trim($values,',').")";
+			$insertSentence = utf8_decode($insertSentence);
+			//error_log(print_r($insertSentence, TRUE));
+			if(!empty($enrollmentForm)){
+				$result = $this->conn->query($insertSentence) or die($this->conn->error.__LINE__);
+				$enrollmentForm['folio'] = $this->conn->insert_id;
+				//error_log(print_r($enrollmentForm, TRUE));
+				$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $enrollmentForm);
+				$this->response($this->json($success),200);
+			}else{
+				// EMPTY REQUEST, EMPTY RESPONSE
+				$this->response('',204);	
+			}
 		}
 
 	} // end API class
