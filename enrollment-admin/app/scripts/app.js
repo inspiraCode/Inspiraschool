@@ -23,9 +23,16 @@ angular
 
     jwtInterceptorProvider.tokenGetter = function(store){
       return store.get('jwt');
-    }
+    };
 
     $httpProvider.interceptors.push('jwtInterceptor');
+
+    // Enable cross domain calls
+    $httpProvider.defaults.useXDomain = true;
+
+    // Remove the header containing XMLHttpRequest used to identify ajax calls
+    // that would prevent CORS from working
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
   })
   .run(function($rootScope, $state, store, jwtHelper){

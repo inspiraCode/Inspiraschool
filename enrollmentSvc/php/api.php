@@ -5,6 +5,7 @@
 
 	class API extends REST{
 		public $data = "";
+		public $jwt_key = "";
 
 		const DB_SERVER = "127.0.0.1";
 		const DB_USER = "root";
@@ -43,7 +44,7 @@
 		}
 
 		private function ping(){
-			$this->response('RESTful API is alive: v0.4!', 200);
+			$this->response('RESTful API is alive: v1.0!', 200);
 		}
 
 		private function login(){
@@ -55,12 +56,55 @@
 			$user_name = $loginForm['username'];
 			$password = $loginForm['password'];
 
-			// TODO: Validate username and password in mysql database
-			// use "SELECT password($password), password FROM sys_users WHERE user_name = ?"
+			error_log(print_r('LOGIN REQUEST AS '.$user_name.'::'.$password, TRUE));
 
-			// TODO: If succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
-			// and respond in json format
+			if(!empty($user_name) and !empty($password)){
+				// Validate username and password in mysql database
+				$query="SELECT idsys_user FROM sys_user WHERE user_password = password('".$password."') AND user_name = '".$user_name."' LIMIT 1";
+				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+				error_log(print_r($query, TRUE));
 
+				if($r->num_rows > 0) {
+					error_log(print_r('login succeed, tokenizing with key '.$this->jwt_key, TRUE));
+					$row = $r->fetch_assoc();
+					$user_id = $row["idsys_user"];
+
+					// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
+					$tokenId = base64_encode(mcrypt_create_iv(32));
+					$issuedAt = time();
+					$notBefore = $issuedAt + 10; // Adding 10 seconds
+					$expire = $notBefore + 60; // Adding 60 seconds
+					$serverName = gethostname();
+
+					/*
+					 * Create the token as an array
+					 */
+					$_jwt = [
+						'iat' => $issuedAt,
+						'jti' => $tokenId,
+						'iss' => $serverName,
+						'nbf' => $notBefore,
+						'exp' => $expire,
+						'data' => [
+							'userId' => $user_id,
+							'userName' => $user_name
+						]
+					];
+
+					// and respond in json format
+					$jwt = JWT::encode($_jwt, $this->jwt_key, 'HS512');
+					error_log(print_r($jwt, TRUE));
+					$response_array = ['jwt'=>$jwt];
+					$this->response($this->json($response_array), 200);
+				}
+				
+				$error = array('status'=>"Failed", "msg"=>"Invalid user name or Password");
+				$this->response($this->json($error), 401);
+			}
+
+			$error = array('status'=>"Failed", "msg"=>"Invalid user name or Password");
+			$this->response($this->json($error), 401);
+			
 		}
 
 		private function enrollments(){
@@ -72,6 +116,7 @@
 			// TODO: If succeed, query the database for available enrollments
 
 			// TODO: Token renewal
+			$this->response('NOT IMPLEMENTED YET', 206);
 		}
 
 		private function subscribe(){
@@ -117,5 +162,13 @@
 
 	// Library initialization
 	$api = new API;
+	// $jwt_key stored in include file "secret.php"
+	/*
+	 * include file example:
+	 * <?php
+	 * $jwt_key = "replace with secret phrase";
+	 * ?>
+	 */
+	$api->jwt_key = $jwt_key;
 	$api->processApi();
 ?>

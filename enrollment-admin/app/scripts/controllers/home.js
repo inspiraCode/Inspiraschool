@@ -18,14 +18,14 @@ angular
     $stateProvider.state('home', {
       url: '/',
       controller: 'HomeCtrl',
-      templateUrl: 'home/home.html',
+      templateUrl: 'views/home.html',
       data: {
         requiresLogin: true
       }
     });
 
   })
-  .controller('HomeCtrl', function AppCtrl( $scope, $http, store, jwtHelper ){
+  .controller('HomeCtrl', function AppCtrl( $scope, $http ){
     
     $scope.response = null;
     $scope.enrollmentForms = [];
@@ -39,5 +39,5 @@ angular
       }, function(error){
         $scope.response = error.data;
       });
-    }
+    };
   });
