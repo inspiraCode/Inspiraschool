@@ -1,5 +1,7 @@
 <?php
+	require_once("secret.php"); // Includes the secret keys for jwt ($jwt_key)
 	require_once("Rest.inc.php");
+	require_once("jwt_helper.php");
 
 	class API extends REST{
 		public $data = "";
@@ -42,6 +44,34 @@
 
 		private function ping(){
 			$this->response('RESTful API is alive: v0.4!', 200);
+		}
+
+		private function login(){
+			if($this->get_request_method() != "POST"){
+				$this->response($this->get_request_method().' NOT ALLOWED',406);
+			}
+
+			$loginForm = json_decode(file_get_contents('php://input'), TRUE);
+			$user_name = $loginForm['username'];
+			$password = $loginForm['password'];
+
+			// TODO: Validate username and password in mysql database
+			// use "SELECT password($password), password FROM sys_users WHERE user_name = ?"
+
+			// TODO: If succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
+			// and respond in json format
+
+		}
+
+		private function enrollments(){
+			if($this->get_request_method() != "POST"){
+				$this->response($this->get_request_method().' NOT ALLOWED',406);
+			}
+
+			// TODO: Validate token
+			// TODO: If succeed, query the database for available enrollments
+
+			// TODO: Token renewal
 		}
 
 		private function subscribe(){

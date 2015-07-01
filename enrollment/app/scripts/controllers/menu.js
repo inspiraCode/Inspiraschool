@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name enrollmentApp.controller:MainCtrl
+ * @name enrollmentApp.controller:MenuClassCtrl
  * @description
- * # MainCtrl
+ * # MenuClassCtrl
  * Controller of the enrollmentApp
  */
 angular.module('enrollmentApp')
@@ -12,6 +12,5 @@ angular.module('enrollmentApp')
     $scope.activePath = null;
   	$scope.$on('$routeChangeSuccess', function(){
     	$scope.activePath = $location.path();
-    	//console.log( $location.path() );
   	});
   });
