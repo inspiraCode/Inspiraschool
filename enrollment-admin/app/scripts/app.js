@@ -27,13 +27,8 @@ angular
 
     $httpProvider.interceptors.push('jwtInterceptor');
 
-    // Enable cross domain calls
+    // Enable CORS domain calls
     $httpProvider.defaults.useXDomain = true;
-
-    // Remove the header containing XMLHttpRequest used to identify ajax calls
-    // that would prevent CORS from working
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-
   })
   .run(function($rootScope, $state, store, jwtHelper){
     $rootScope.$on('$stateChangeStart', function(e, to){

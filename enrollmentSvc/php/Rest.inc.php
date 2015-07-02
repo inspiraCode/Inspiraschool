@@ -28,8 +28,14 @@
 					parse_str(file_get_contents("php://input"), $this->_request);
 					$this->_request = $this->cleanInputs($this->_request);
 					break;
+				case "OPTIONS":
+					// respond to preflights
+					// return only the headers and not the content
+					header('Access-Control-Allow-Origin: *');
+    				header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Authorization');
+    				exit;
 				default:
-					$this->response('', 406);
+					$this->response('method not allowed', 406);
 					break;
 			} // end switch
 		} // end function :: inputs
@@ -66,6 +72,7 @@
 			header("Content-Type:".$this->_content_type);
 			header("Access-Control-Allow-Origin: *");
 			header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT");
+			header('Access-Control-Allow-Headers: X-Requested-With, Content-Type, Accept, Authorization');
 		} // end function :: set_headers
 
 		private function get_status_message(){

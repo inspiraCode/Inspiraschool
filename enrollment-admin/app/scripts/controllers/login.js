@@ -31,10 +31,10 @@ angular
         method:'POST',
         url: 'http://localhost:8080/services/login',
         headers: {
-          // REMOVE CONTENT TYPE DUE TO CORS Acceptance.
-          'Content-Type': undefined
+          'Content-Type': 'application/json'
         },
-        data: $scope.user
+        data: $scope.user,
+        dataType: 'json'
       };
       
       $http(req).
@@ -43,12 +43,11 @@ angular
             store.set('jwt', quote.jwt);
             $state.go('home');
           } else {
-            $scope.error = "No fue posible autenticar al usuario";
+            $scope.error = 'Usuario incorrecto';
           }
         }).
         error(function(){
-          console.log('Usuaro o contraseña incorrectos');
-          $scope.error = "Usuario o contraseña incorrectos";
+          $scope.error = 'Usuario o contraseña incorrectos';
         });
     };
   });

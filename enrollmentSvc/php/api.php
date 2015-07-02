@@ -56,16 +56,12 @@
 			$user_name = $loginForm['username'];
 			$password = $loginForm['password'];
 
-			error_log(print_r('LOGIN REQUEST AS '.$user_name.'::'.$password, TRUE));
-
 			if(!empty($user_name) and !empty($password)){
 				// Validate username and password in mysql database
 				$query="SELECT idsys_user FROM sys_user WHERE user_password = password('".$password."') AND user_name = '".$user_name."' LIMIT 1";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
-				error_log(print_r($query, TRUE));
 
 				if($r->num_rows > 0) {
-					error_log(print_r('login succeed, tokenizing with key '.$this->jwt_key, TRUE));
 					$row = $r->fetch_assoc();
 					$user_id = $row["idsys_user"];
 
@@ -93,7 +89,7 @@
 
 					// and respond in json format
 					$jwt = JWT::encode($_jwt, $this->jwt_key, 'HS512');
-					error_log(print_r($jwt, TRUE));
+					//error_log(print_r($jwt, TRUE));
 					$response_array = ['jwt'=>$jwt];
 					$this->response($this->json($response_array), 200);
 				}
