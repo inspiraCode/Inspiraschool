@@ -41,6 +41,8 @@ module.exports = function(config) {
       'bower_components/datatables-responsive/js/dataTables.responsive.js',
       'bower_components/flot.tooltip/js/jquery.flot.tooltip.js',
       'bower_components/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js',
+      'bower_components/morris.js/morris.js',
+      'bower_components/angular-morris-chart/src/angular-morris-chart.min.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

@@ -12,7 +12,8 @@ angular
   .module('enrollmentAdminApp.home', [
     'ui.router',
     'angular-jwt',
-    'angular-storage'
+    'angular-storage',
+    'angular.morris-chart'    
   ])
   .config(function ($stateProvider) {
     $stateProvider.state('home', {
@@ -30,6 +31,27 @@ angular
     $scope.response = null;
     $scope.enrollmentForms = [];
     $rootScope.loggedUser = LoginService.data;
+
+    $scope.chartExample = {area : [
+                      { y: '2005', a: 25, b: 90 },
+                      { y: '2006', a: 100, b: 90 },
+                      { y: '2007', a: 75,  b: 65 },
+                      { y: '2008', a: 50,  b: 40 },
+                      { y: '2009', a: 75,  b: 65 },
+                      { y: '2010', a: 50,  b: 40 },
+                      { y: '2011', a: 75,  b: 65 },
+                      { y: '2012', a: 100, b: 90 }
+                    ],
+                    bar: [
+                        { y: "2006", a: 100, b: 90 },
+                        { y: "2007", a: 75,  b: 65 },
+                        { y: "2008", a: 50,  b: 40 },
+                        { y: "2009", a: 75,  b: 65 },
+                        { y: "2010", a: 50,  b: 40 },
+                        { y: "2011", a: 75,  b: 65 },
+                        { y: "2012", a: 100, b: 90 }
+                    ]
+                  };
 
     $scope.listEnrollmentForms = function(){
       $http({
