@@ -25,10 +25,11 @@ angular
     });
 
   })
-  .controller('HomeCtrl', function AppCtrl( $scope, $http ){
+  .controller('HomeCtrl', function AppCtrl( $rootScope, $scope, $http, LoginService ){
     
     $scope.response = null;
     $scope.enrollmentForms = [];
+    $rootScope.loggedUser = LoginService.data;
 
     $scope.listEnrollmentForms = function(){
       $http({

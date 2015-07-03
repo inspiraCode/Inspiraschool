@@ -21,10 +21,8 @@ angular
     });
 
   })
-  .controller('LoginCtrl', function AppCtrl( $scope, $http, store, $state ){
-    
-    $scope.user = {};
-    
+  .controller('LoginCtrl', function AppCtrl( $scope, $http, store, $state, LoginService, jwtHelper ){
+    $scope.loginData = LoginService.data;
     $scope.login = function(){
 
       var req = {
@@ -42,6 +40,8 @@ angular
           if(quote.jwt){
             store.set('jwt', quote.jwt);
             $state.go('home');
+            var tokenPayload = jwtHelper.decodeToken(quote.jwt);
+            LoginService.update(tokenPayload.data.userId, tokenPayload.data.userName);
           } else {
             $scope.error = 'Usuario incorrecto';
           }
