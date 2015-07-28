@@ -121,6 +121,7 @@
 			if($jwt!=""){
 				try{
 					$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+					error_log(print_r('decoded token', TRUE));
 				}catch(Exception $e){
 					// The token could not be decoded.
 					// this is likely because the signature was not able to be verified.
@@ -128,8 +129,7 @@
 					$this->response('UNAUTHORIZED', 401);
 				}
 				// If succeed, query the database for available enrollments
-				$query="SELECT idenrollment, enrollment_date, shift, course, course_plan, first_name, last_name, gender, birth_place, birth_date, address_1, address_2, city, state, zip, phone_home, phone_mobile, person_unique_id, from_school, email FROM enrollment ORDER BY idenrollment LIMIT 5000";
-				error_log(print_r('query: '.$query, TRUE));
+				$query="SELECT idenrollment as id, enrollment_date, shift, course, course_plan, first_name, last_name, gender, birth_place, birth_date, address_1, address_2, city, state, zip, phone_home, phone_mobile, person_unique_id, from_school, email FROM enrollment ORDER BY idenrollment LIMIT 5000";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				while($row = $r->fetch_assoc()){
@@ -137,10 +137,10 @@
 				}
 
 				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
-				$response_array = ['data'=>$rows, 'jwt'=>$jwt];
+				$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','result'=>$rows, 'token'=>$jwt];
 				// Token renewal
-				error_log(print_r('SUCCESS RESPONSE', TRUE));
-				$this->response($this->json($response_array), 200);
+				$response = $this->json($response_array);
+				$this->response($response, 200);
 			}else{
 				// No token found in the header.
 				error_log(print_r('Token not found in request', TRUE));
