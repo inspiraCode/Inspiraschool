@@ -44,7 +44,7 @@
 		}
 
 		private function ping(){
-			$this->response('RESTful API is alive: v1.0!', 200);
+			$this->response('RESTful API is alive: v2.0!', 200);
 		}
 
 		private function login(){
@@ -66,29 +66,7 @@
 					$user_id = $row["idsys_user"];
 
 					// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
-					$tokenId = base64_encode(mcrypt_create_iv(32));
-					$issuedAt = time();
-					$notBefore = $issuedAt + 10; // Adding 10 seconds
-					$expire = $notBefore + 60; // Adding 60 seconds
-					$serverName = gethostname();
-
-					/*
-					 * Create the token as an array
-					 */
-					$_jwt = [
-						'iat' => $issuedAt,
-						'jti' => $tokenId,
-						'iss' => $serverName,
-						'nbf' => $notBefore,
-						'exp' => $expire,
-						'data' => [
-							'userId' => $user_id,
-							'userName' => $user_name
-						]
-					];
-
-					// and respond in json format
-					$jwt = JWT::encode($_jwt, $this->jwt_key, 'HS512');
+					$jwt = $this->tokenize($user_id, $user_name);
 					//error_log(print_r($jwt, TRUE));
 					$response_array = ['jwt'=>$jwt];
 					$this->response($this->json($response_array), 200);
@@ -103,16 +81,82 @@
 			
 		}
 
+		private function tokenize($user_id, $user_name){
+			error_log(print_r('Tokenize for '.$user_id.': '.$user_name, TRUE));
+			// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
+			$tokenId = base64_encode(mcrypt_create_iv(32));
+			$issuedAt = time();
+			$notBefore = $issuedAt + 10; // Adding 10 seconds
+			$expire = $notBefore + 300; // Adding 5 minutes (300 seconds)
+			$serverName = gethostname();
+
+			/*
+			 * Create the token as an array
+			 */
+			$_jwt = [
+				'iat' => $issuedAt,
+				'jti' => $tokenId,
+				'iss' => $serverName,
+				'nbf' => $notBefore,
+				'exp' => $expire,
+				'data' => [
+					'userId' => $user_id,
+					'userName' => $user_name
+				]
+			];
+
+			error_log(print_r('Tokenization Success', TRUE));
+			// and respond in json format
+			return JWT::encode($_jwt, $this->jwt_key, 'HS512');
+		}
+
 		private function enrollments(){
 			if($this->get_request_method() != "POST"){
+				error_log(print_r($this->get_request_method().' NOT ALLOWED', TRUE));
 				$this->response($this->get_request_method().' NOT ALLOWED',406);
 			}
 
-			// TODO: Validate token
-			// TODO: If succeed, query the database for available enrollments
+			// Validate token
+			$jwt = $this->getJWT();
+			if($jwt!=""){
+				try{
+					$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+				}catch(Exception $e){
+					// The token could not be decoded.
+					// this is likely because the signature was not able to be verified.
+					error_log(print_r('Token signature not valid', TRUE));
+					$this->response('UNAUTHORIZED', 401);
+				}
+				// If succeed, query the database for available enrollments
+				$query="SELECT idenrollment, enrollment_date, shift, course, course_plan, first_name, last_name, gender, birth_place, birth_date, address_1, address_2, city, state, zip, phone_home, phone_mobile, person_unique_id, from_school, email FROM enrollment ORDER BY idenrollment LIMIT 5000";
+				error_log(print_r('query: '.$query, TRUE));
+				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+				$rows = array();
+				while($row = $r->fetch_assoc()){
+					$rows[]=$row;
+				}
 
-			// TODO: Token renewal
-			$this->response('NOT IMPLEMENTED YET', 206);
+				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
+				$response_array = ['data'=>$rows, 'jwt'=>$jwt];
+				// Token renewal
+				error_log(print_r('SUCCESS RESPONSE', TRUE));
+				$this->response($this->json($response_array), 200);
+			}else{
+				// No token found in the header.
+				error_log(print_r('Token not found in request', TRUE));
+				$this->response('Bad Request', 400);	
+			}
+		}
+
+		private function getJWT() {
+			foreach(getallheaders() as $name => $value) {
+				if($name == 'Authorization') {
+					list($jwt) = sscanf($value, 'Bearer %s');
+					return $jwt;
+				}
+			}
+
+			return "";
 		}
 
 		private function subscribe(){

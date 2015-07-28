@@ -14,6 +14,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'enrollmentAdminApp.home',
+    'enrollmentAdminApp.solicitudes',
     'enrollmentAdminApp.login',
     'enrollmentAdminApp.logout',
     'enrollmentAdminApp.loginService',
