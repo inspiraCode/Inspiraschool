@@ -190,7 +190,8 @@
 				$result = $this->conn->query($insertSentence) or die($this->conn->error.__LINE__);
 				$enrollmentForm['folio'] = $this->conn->insert_id;
 				//error_log(print_r($enrollmentForm, TRUE));
-				$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $enrollmentForm);
+				//$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $enrollmentForm);
+				$success = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','result'=>$enrollmentForm, 'token'=>'empty'];
 				$this->response($this->json($success),200);
 			}else{
 				// EMPTY REQUEST, EMPTY RESPONSE
