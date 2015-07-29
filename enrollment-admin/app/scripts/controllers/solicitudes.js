@@ -32,11 +32,15 @@ angular
     $scope.listEnrollmentForms = function(){
       $http({
         url: 'http://localhost:8080/services/enrollments',
-        method: 'GET'
-      }).then(function(quote){
-        $scope.response = quote.data;
+        method: 'POST'
+      }).then(function(response){
+        $scope.enrollmentForms = response.data.result;
+        console.log(response.data.token);
       }, function(error){
         $scope.response = error.data;
       });
     };
+
+    $scope.listEnrollmentForms();
+
   });
