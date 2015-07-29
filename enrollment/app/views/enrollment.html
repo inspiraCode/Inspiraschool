@@ -1,133 +1,127 @@
 <form id="enrollment-form" class="form-horizontal" role="form" ng-submit="enrollForm()" ng-show="enrollmentForm.folio==0">
-
-  <div class="form-group">
-    <div class="col-sm-4">
-      <label for="selState">Turno</label>
-       <select class="form-control" id="selShift" ng-model="enrollmentForm.shift" required>
-          <option ng-repeat="shift in shifts" value="{{shift.shift_code}}">{{shift.shift_name}}</option>
-        </select>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label for="selState">Turno</label>
+            <select class="form-control" id="selShift" ng-model="enrollmentForm.shift" required>
+                <option ng-repeat="shift in theShifts" value="{{shift.shift_code}}">{{shift.Value}}</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="selCity">Curso</label>
+            <select class="form-control" id="selCourse" ng-model="enrollmentForm.course" required>
+                <option ng-repeat="course in theCourses | filter:{shift_code:enrollmentForm.shift}" value="{{course.course_code}}">{{course.Value}}</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="zipCode">Especialidad</label>
+            <select class="form-control" id="selCourse" ng-model="enrollmentForm.course_plan" required>
+                <option ng-repeat="course_plan in theCoursePlans | filter:{course_code:enrollmentForm.course}" value="{{course_plan.plan_code}}">{{course_plan.Value}}</option>
+            </select>
+        </div>
     </div>
-    <div class="col-sm-4">
-      <label for="selCity">Curso</label>
-       <select class="form-control" id="selCourse" ng-model="enrollmentForm.course" required>
-          <option ng-repeat="course in courses | filter:{shift_code:enrollmentForm.shift}" value="{{course.course_code}}">{{course.course_name}}</option>
-        </select>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="inputFirstName">Nombre(s)</label>
+            <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.first_name" required ng-minlength=4 ng-maxlength=45>
+        </div>
+        <div class="col-sm-6">
+            <label for="inputLastName">Apellido(s)</label>
+            <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.last_name" required ng-minlength=4 ng-maxlength=45>
+        </div>
     </div>
-    <div class="col-sm-4">
-      <label for="zipCode">Especialidad</label>
-      <select class="form-control" id="selCourse" ng-model="enrollmentForm.course_plan" required>
-          <option ng-repeat="course_plan in coursePlans | filter:{course_code:enrollmentForm.course}" value="{{course_plan.plan_code}}">{{course_plan.plan_name}}</option>
-        </select>
+    <div class="form-group">
+        <div class="col-sm-2">
+            <label for="selGender">Sexo</label>
+            <select class="form-control" id="selGender" ng-model="enrollmentForm.gender" required>
+                <option value="m">hombre</option>
+                <option value="f">mujer</option>
+            </select>
+        </div>
+        <div class="col-sm-5">
+            <label for="birthPlace">Lugar de Nacimiento</label>
+            <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birth_place" ng-maxlength=80>
+        </div>
+        <div class="col-sm-5">
+            <label for="birthDate">Fecha de Nacimiento</label>
+            <div class="input-group date">
+                <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birth_date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-6">
-      <label for="inputFirstName">Nombre(s)</label>
-      <input class="form-control" id="inputFirstName" placeholder="Nombre(s)" ng-model="enrollmentForm.first_name" required ng-minlength=4 ng-maxlength=45>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="inputCurp">CURP</label>
+            <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.person_unique_id" ng-minlength=18 ng-maxlength=18>
+        </div>
     </div>
-    <div class="col-sm-6">
-      <label for="inputLastName">Apellido(s)</label>
-       <input class="form-control" id="inputLastName" placeholder="Apellidos(s)" ng-model="enrollmentForm.last_name" required ng-minlength=4 ng-maxlength=45>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="inputAddress1">Dirección</label>
+            <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address_1" ng-minlength=15 ng-maxlength=50>
+            <input class="form-control" id="inputAddress2" placeholder="Colonia" ng-model="enrollmentForm.address_2" ng-minlength=15 ng-maxlength=50>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-2">
-      <label for="selGender">Sexo</label>
-       <select class="form-control" id="selGender" ng-model="enrollmentForm.gender" required>
-          <option value="m">hombre</option>
-          <option value="f">mujer</option>
-        </select>
+    <div class="form-group">
+        <div class="col-sm-4">
+            <label for="selState">Estado</label>
+            <select class="form-control" id="selState" ng-model="enrollmentForm.state">
+                <option selected>Chihuahua</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="selCity">Ciudad</label>
+            <select class="form-control" id="selCity" ng-model="enrollmentForm.city">
+                <option selected>Cd. Juárez</option>
+            </select>
+        </div>
+        <div class="col-sm-4">
+            <label for="zipCode">Código postal</label>
+            <input class="form-control" id="zipCode" placeholder="Código postal" ng-model="enrollmentForm.zip" ng-minlength=5 ng-maxlength=10>
+        </div>
     </div>
-    <div class="col-sm-5">
-      <label for="birthPlace">Lugar de Nacimiento</label>
-      <input class="form-control" id="birthPlace" placeholder="Lugar de Nacimiento" ng-model="enrollmentForm.birth_place" ng-maxlength=80>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="inputEmail">Correo Electrónico</label>
+            <input class="col-sm-12 form-control" id="inputEmail" placeholder="Correo Electrónico" type="email" ng-model="enrollmentForm.email" required>
+        </div>
     </div>
-    <div class="col-sm-5">
-      <label for="birthDate">Fecha de Nacimiento</label>
-      <div class="input-group date">
-        <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birth_date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-      </div>
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label for="inputFromSchool">Escuela de Procedencia</label>
+            <input class="col-sm-12 form-control" id="inputFromSchool" placeholder="Escuela de procedencia" ng-model="enrollmentForm.from_school">
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <label for="inputCurp">CURP</label>
-      <input class="col-sm-12 form-control" id="inputCurp" placeholder="CURP" ng-model="enrollmentForm.person_unique_id" ng-minlength=18 ng-maxlength=18>
+    <div class="form-group">
+        <div class="col-sm-6">
+            <label for="inputPhone">Teléfono</label>
+            <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone_home" ng-minlength=7 ng-maxlength=20>
+        </div>
+        <div class="col-sm-6">
+            <label for="inputCellPhone">Celular</label>
+            <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.phone_mobile" ng-minlength=7 ng-maxlength=20>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-12">
-      <label for="inputAddress1">Dirección</label>
-      <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address_1" ng-minlength=15 ng-maxlength=50>
-      <input class="form-control" id="inputAddress2" placeholder="Colonia" ng-model="enrollmentForm.address_2" ng-minlength=15 ng-maxlength=50>
+    <div class="form-group">
+        <div class="col-xs-offset-6 col-xs-2">
+            <button class="btn btn-danger" ng-click="resetForm()">Reiniciar</button>
+        </div>
+        <div class="col-xs-2">
+            <button type="submit" class="btn btn-success">Inscribirme</button>
+        </div>
     </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-4">
-      <label for="selState">Estado</label>
-       <select class="form-control" id="selState" ng-model="enrollmentForm.state">
-          <option selected>Chihuahua</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-      <label for="selCity">Ciudad</label>
-       <select class="form-control" id="selCity" ng-model="enrollmentForm.city">
-          <option selected>Cd. Juárez</option>
-        </select>
-    </div>
-    <div class="col-sm-4">
-      <label for="zipCode">Código postal</label>
-      <input class="form-control" id="zipCode" placeholder="Código postal" ng-model="enrollmentForm.zip" ng-minlength=5 ng-maxlength=10>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-12">
-      <label for="inputEmail">Correo Electrónico</label>
-      <input class="col-sm-12 form-control" id="inputEmail" placeholder="Correo Electrónico" type="email" ng-model="enrollmentForm.email" required>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-12">
-      <label for="inputFromSchool">Escuela de Procedencia</label>
-      <input class="col-sm-12 form-control" id="inputFromSchool" placeholder="Escuela de procedencia" ng-model="enrollmentForm.from_school">
-    </div>
-  </div>
-
- <div class="form-group">
-    <div class="col-sm-6">
-      <label for="inputPhone">Teléfono</label>
-      <input class="form-control" id="inputPhone" placeholder="Teléfono" ng-model="enrollmentForm.phone_home" ng-minlength=7 ng-maxlength=20>
-    </div>
-    <div class="col-sm-6">
-      <label for="inputCellPhone">Celular</label>
-       <input class="form-control" id="inputCellPhone" placeholder="Celular" ng-model="enrollmentForm.phone_mobile" ng-minlength=7 ng-maxlength=20>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-xs-offset-6 col-xs-2">
-      <button class="btn btn-danger" ng-click="resetForm()">Reiniciar</button>
-    </div>
-    <div class="col-xs-2">
-      <button type="submit" class="btn btn-success">Inscribirme</button>
-    </div>
-  </div>
 </form>
 <div ng-show="enrollmentForm.folio!=0">
-  <p>Su solicitud ha sido grabada exitosamente con el folio {{enrollmentForm.folio}}. En breve el personal de control escolar se pondrá en contacto con usted.</p>
-  <p>Tenga a la mano la documentación que acredite su nacionalidad y comprobantes de estudios.</p>
-  <p><a href="/#/">Volver al menú principal.</a></p>
+    <p>Su solicitud ha sido grabada exitosamente con el folio {{enrollmentForm.folio}}. En breve el personal de control escolar se pondrá en contacto con usted.</p>
+    <p>Tenga a la mano la documentación que acredite su nacionalidad y comprobantes de estudios.</p>
+    <p><a href="/#/">Volver al menú principal.</a></p>
 </div>
 <script>
-  $('#enrollment-form .input-group').datepicker({
+$('#enrollment-form .input-group').datepicker({
     startView: 2,
     clearBtn: true,
     language: 'es',
     orientation: 'top auto',
     autoclose: true,
-    dateformat:'dd-MM-yyyy'
-  });
+    dateformat: 'dd-MM-yyyy'
+});
 </script>
