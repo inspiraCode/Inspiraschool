@@ -24,15 +24,17 @@ angular.module('enrollmentApp').service('enrollmentService', function(crudFactor
             optionalFields: {},
 
             requiredFields: {
-                city: "string",
+                shift: "string",
                 course: "string",
                 course_plan: "string",
+
+                city: "string",
                 email: "email",
                 first_name: "string",
                 gender: "string",
                 last_name: "string",
-                shift: "string",
-                state: "string"
+                state: "string",
+                birth
             }
         },
 

@@ -27,11 +27,20 @@
 		}
 
 		public function processApi(){
-			$func = strtolower(trim(str_replace("/", "", $_REQUEST['x'])));
-			if((int)method_exists($this, $func)>0)
-				$this->$func();
-			else
-				$this->response('', 404); // If the method is not found "PAGE NOT FOUND".
+			try{
+				$func = strtolower(trim(str_replace("/", "", $_REQUEST['x'])));
+				if((int)method_exists($this, $func)>0)
+					$this->$func();
+				else
+					$this->response('', 404); // If the method is not found "PAGE NOT FOUND".
+			}catch(Exception $e){
+				// The token could not be decoded.
+				// this is likely because the signature was not able to be verified.
+				$response_array = ['ErrorThrown'=>true, 'ResponseDescription'=>$e->getMessage(),'Result'=>'', 'Token'=>''];
+				// Token renewal
+				$response = $this->json($response_array);
+				$this->response($response, 200);
+			}
 		}
 
 		/**
@@ -137,7 +146,7 @@
 				}
 
 				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
-				$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','result'=>$rows, 'token'=>$jwt];
+				$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$rows, 'Token'=>$jwt];
 				// Token renewal
 				$response = $this->json($response_array);
 				$this->response($response, 200);
@@ -191,7 +200,7 @@
 				$enrollmentForm['folio'] = $this->conn->insert_id;
 				//error_log(print_r($enrollmentForm, TRUE));
 				//$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $enrollmentForm);
-				$success = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','result'=>$enrollmentForm, 'token'=>'empty'];
+				$success = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$enrollmentForm, 'Token'=>'empty'];
 				$this->response($this->json($success),200);
 			}else{
 				// EMPTY REQUEST, EMPTY RESPONSE
