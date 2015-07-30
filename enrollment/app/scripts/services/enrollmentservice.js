@@ -7,68 +7,60 @@
  * # enrollmentService
  * Service in the enrollmentApp.
  */
-angular.module('enrollmentApp').service('enrollmentService', function($http, $q, appConfig, $timeout, validatorService) {
+angular.module('enrollmentApp').service('enrollmentService', function(crudFactory, $q) {
+    var crudInstance = new crudFactory({
+        //Entity Name = WebService/API to call:
+        entityName: "subscribe",
 
-    var self = this;
-    var entityName = "subscribe";
-    var arrAllRecords = [];
+        //Entity Definition = For validate entity, for create new object instances, 
+        entityDefinition: {
+            systemFields: {
+                id: 'catalog',
+                folio: 'catalog',
+            },
 
-    var entityDefinition = {
-        systemFields: {
-            id: 'catalog',
-            folio: 'catalog',
+            calculatedFields: {},
+
+            optionalFields: {},
+
+            requiredFields: {
+                city: "string",
+                course: "string",
+                course_plan: "string",
+                email: "email",
+                first_name: "string",
+                gender: "string",
+                last_name: "string",
+                shift: "string",
+                state: "string"
+            }
         },
 
-        calculatedFields: {},
+        catalogs: [],
 
-        optionalFields: {},
-        requiredFields: {
-            SupplierName: 'string',
-            ContactName: 'string',
-            ContactEmail: 'email',
-            Visible: 'boolean',
-            city: "string",
-            course: "string",
-            course_plan: "string",
-            email: "email",
-            first_name: "string",
-            gender: "string",
-            last_name: "string",
-            shift: "string",
-            state: "string"
+        adapter: function(theEntity) {
+            return theEntity;
+        },
+
+        adaptFromServer: function(theEntity) {
+            //theEntity.QuoteDue = moment(theEntity.QuoteDue, moment.ISO_8601).format('MM/DD/YYYY');
+        },
+
+        adaptToServer: function(theEntity) {
+            //self.validate(theEntity);
+        },
+
+        loadAll: function(bForce) {
+            return $q.all([
+                this.loadEntities(bForce)
+            ]);
         }
-    };
+    });
 
-    this.create = function() {
-        var oNewEntity = {};
-
-        //System Fields
-        for (var prop in entityDefinition.systemFields) {
-            if (entityDefinition.systemFields.hasOwnProperty(prop)) {
-                oNewEntity[prop] = validatorService.getDefaultValueForType(entityDefinition.systemFields[prop]);
-            }
-        }
-
-        //Optional Fields
-        for (var prop in entityDefinition.optionalFields) {
-            if (entityDefinition.optionalFields.hasOwnProperty(prop)) {
-                oNewEntity[prop] = validatorService.getDefaultValueForType(entityDefinition.optionalFields[prop]);
-            }
-        }
-
-        //Required Fields
-        for (var prop in entityDefinition.requiredFields) {
-            if (entityDefinition.requiredFields.hasOwnProperty(prop)) {
-                oNewEntity[prop] = validatorService.getDefaultValueForType(entityDefinition.requiredFields[prop]);
-            }
-        }
-
-        return oNewEntity;
-    };
-
-    this.catalogs = {
+    //overwrite catalogs since they are not being pulled from server:
+    crudInstance.catalogs = {
         Shifts: {
-            arrAllRecords: [{
+            _arrAllRecords: [{
                 id: 0,
                 Value: '',
                 shift_code: ''
@@ -90,19 +82,19 @@ angular.module('enrollmentApp').service('enrollmentService', function($http, $q,
                 shift_code: 'v'
             }],
             getAll: function() {
-                return this.arrAllRecords;
+                return this._arrAllRecords;
             },
             getById: function(theId) {
-                for (var i = 0; i < this.arrAllRecords.length; i++) {
-                    if (theId == this.arrAllRecords[i].id) {
-                        return this.arrAllRecords[i];
+                for (var i = 0; i < this._arrAllRecords.length; i++) {
+                    if (theId == this._arrAllRecords[i].id) {
+                        return this._arrAllRecords[i];
                     }
                 }
-                return this.arrAllRecords[0];
+                return this._arrAllRecords[0];
             }
         },
         Courses: {
-            arrAllRecords: [{
+            _arrAllRecords: [{
                 id: 0,
                 Value: '',
                 shift_code: '',
@@ -169,20 +161,20 @@ angular.module('enrollmentApp').service('enrollmentService', function($http, $q,
                 course_code: 'dp'
             }],
             getAll: function() {
-                return this.arrAllRecords;
+                return this._arrAllRecords;
             },
             getById: function(theId) {
-                for (var i = 0; i < this.arrAllRecords.length; i++) {
-                    if (theId == this.arrAllRecords[i].id) {
-                        return this.arrAllRecords[i];
+                for (var i = 0; i < this._arrAllRecords.length; i++) {
+                    if (theId == this._arrAllRecords[i].id) {
+                        return this._arrAllRecords[i];
                     }
                 }
-                return this.arrAllRecords[0];
+                return this._arrAllRecords[0];
             }
         },
 
         CoursePlans: {
-            arrAllRecords: [{
+            _arrAllRecords: [{
                 id: 0,
                 plan_code: '',
                 Value: '',
@@ -224,314 +216,18 @@ angular.module('enrollmentApp').service('enrollmentService', function($http, $q,
                 course_code: 'dp'
             }],
             getAll: function() {
-                return this.arrAllRecords;
+                return this._arrAllRecords;
             },
             getById: function(theId) {
-                for (var i = 0; i < this.arrAllRecords.length; i++) {
-                    if (theId == this.arrAllRecords[i].id) {
-                        return this.arrAllRecords[i];
+                for (var i = 0; i < this._arrAllRecords.length; i++) {
+                    if (theId == this._arrAllRecords[i].id) {
+                        return this._arrAllRecords[i];
                     }
                 }
                 return null;
             }
-        },
-        ToDoCategorie: {
-            arrAllRecords: [],
-            getAll: function() {
-                return this.arrAllRecords;
-            },
-            getById: function(theId) {
-                for (var i = 0; i < this.arrAllRecords.length; i++) {
-                    if (theId == this.arrAllRecords[i].id) {
-                        return this.arrAllRecords[i];
-                    }
-                }
-                return null;
-            }
-        },
-
-    };
-
-    var adapter = function(theEntity) {
-        //Adapt entity from backend
-        return theEntity
-    };
-
-    this.getById = function(theId) {
-        for (var i = 0; i < arrAllRecords.length; i++) {
-            if (theId == arrAllRecords[i].id) {
-                return adapter(arrAllRecords[i]);
-            }
         }
-        return null;
     };
 
-    this.getAll = function() {
-        for (var i = 0; i < arrAllRecords.length; i++) {
-            arrAllRecords[i] = adapter(arrAllRecords[i]);
-        }
-        return arrAllRecords;
-    };
-
-    this.remove = function(theEntity, theArrayBelonging) {
-        return $http.delete(appConfig.API_URL + entityName + '/' + theEntity.id)
-            .then(function(response) {
-                if (typeof response.data === 'object') {
-                    var backendResponse = response.data;
-                    if (!backendResponse.ErrorThrown) {
-                        for (var i = 0; i < arrAllRecords.length; i++) {
-                            if (arrAllRecords[i].id == theEntity.id) {
-                                arrAllRecords.splice(i, 1);
-                                break;
-                            }
-                        }
-                        if (angular.isArray(theArrayBelonging)) {
-                            for (var i = 0; i < theArrayBelonging.length; i++) {
-                                if (theArrayBelonging[i].id == theEntity.id) {
-                                    theArrayBelonging.splice(i, 1);
-                                    break;
-                                }
-                            }
-                        }
-                        $timeout(function() {
-                            alertify.success(backendResponse.ResponseDescription);
-                        }, 100);
-                        return response.data;
-                    } else {
-                        alertify.alert(backendResponse.ResponseDescription).set('modal', true);
-                        console.debug(response);
-                        return $q.reject(response.data);
-                    }
-                } else {
-                    // invalid response
-                    alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                    console.debug(response);
-                    return $q.reject(response.data);
-                }
-            }, function(response) {
-                // something went wrong
-                alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                console.debug(response);
-                return $q.reject(response.data);
-            });
-    };
-
-    this.removeSelected = function(anArray) {
-        var arrItems;
-        if (anArray) {
-            arrItems = anArray;
-        } else {
-            arrItems = arrAllRecords;
-        }
-
-        var arrItemsToRemove = [];
-        var promises = [];
-        for (var i = arrItems.length - 1; i > -1; i--) {
-            var current = arrItems[i];
-            if (current.checked) {
-                arrItemsToRemove.push(current);
-            }
-        }
-
-        for (var j = 0; j < arrItemsToRemove.length; j++) {
-            var oEntity = arrItemsToRemove[j];
-            var promise = self.remove(oEntity, anArray);
-            promises.push(promise);
-        };
-
-        return $q.all(promises);
-    };
-
-    this.addBatch = function(addQty, theArrayBelonging) {
-        var promises = [];
-        for (var i = 0; i < addQty; i++) {
-            var oEntityToCreate = self.create();
-            var promise = self.save(oEntityToCreate, theArrayBelonging);
-            promises.push(promise);
-        }
-        return $q.all(promises);
-    };
-
-    this.save = function(theEntity, theArrayBelonging) {
-        if (this.validate(theEntity)) {
-
-            // New Entity
-            if (theEntity.id < 1) {
-
-
-                var req = {
-                    method: 'POST',
-                    url: appConfig.API_URL + entityName,
-                    headers: {
-                        // REMOVE CONTENT TYPE DUE TO CORS Acceptance.
-                        'Content-Type': undefined
-                    },
-                    data: theEntity
-                };
-
-                return $http(req).then(function(response) {
-                    if (typeof response.data === 'object') {
-                        var backendResponse = response.data;
-                        if (!backendResponse.ErrorThrown) {
-                            theEntity.id = backendResponse.Result.id;
-                            if (angular.isArray(theArrayBelonging)) {
-                                var theEntityCopy = angular.copy(theEntity);
-                                arrAllRecords.push(theEntityCopy);
-                                theArrayBelonging.push(theEntity);
-                            } else {
-                                arrAllRecords.push(theEntity);
-                            }
-                            $timeout(function() {
-                                alertify.success(backendResponse.ResponseDescription);
-                            }, 100);
-                            return response.data;
-                        } else {
-                            alertify.alert(backendResponse.ResponseDescription).set('modal', true);
-                            console.debug(response);
-                            return $q.reject(response.data);
-                        }
-                    } else {
-                        // invalid response
-                        alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                        console.debug(response);
-                        return $q.reject(response.data);
-                    }
-                }, function(response) {
-                    // something went wrong
-                    alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                    console.debug(response);
-                    return $q.reject(response.data);
-                });
-
-            } else { // Update Entity
-                var req = {
-                    method: 'PUT',
-                    url: appConfig.API_URL + entityName + '/' + theEntity.id,
-                    headers: {
-                        // REMOVE CONTENT TYPE DUE TO CORS Acceptance.
-                        'Content-Type': undefined
-                    },
-                    data: theEntity
-                };
-                return $http(req).then(function(response) {
-                    if (typeof response.data === 'object') {
-                        var backendResponse = response.data;
-                        if (!backendResponse.ErrorThrown) {
-                            theEntity.editMode = false;
-                            var current = self.getById(theEntity.id);
-                            angular.copy(theEntity, current);
-                            $timeout(function() {
-                                alertify.success(backendResponse.ResponseDescription);
-                            }, 100);
-                            return response.data;
-                        } else {
-                            alertify.alert(backendResponse.ResponseDescription).set('modal', true);
-                            console.debug(response);
-                            return $q.reject(response.data);
-                        }
-                    } else {
-                        // invalid response
-                        alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                        console.debug(response);
-                        return $q.reject(response.data);
-                    }
-                }, function(response) {
-                    // something went wrong
-                    alertify.alert('An error has occurred, see console for more details.').set('modal', true);
-                    console.debug(response);
-                    return $q.reject(response.data);
-                });
-            }
-            return false;
-        }
-        return false;
-    };
-
-    this.validate = function(oEntity) {
-        return true;
-    };
-
-    var loadEntitiesExecuted = false;
-    var loadCatalogsExecuted = false;
-
-    var adaptFromServer = function(theEntity) {
-        //theEntity.QuoteDue = moment(theEntity.QuoteDue, moment.ISO_8601).format('MM/DD/YYYY');
-    };
-    var adaptToServer = function(theEntity) {
-        //self.validate(theEntity);
-    };
-    this.loadEntities = function(bForce) {
-        if (bForce) loadEntitiesExecuted = false;
-        if (loadEntitiesExecuted) {
-            return $q(function(resolve, reject) {
-                resolve();
-            });
-        }
-        arrAllRecords = [];
-
-        return $http.get(appConfig.API_URL + entityName)
-            .success(function(data) {
-                var backendResponse = data;
-                if (backendResponse.ErrorThrown) {
-                    console.debug(response);
-                    return $q.reject(data);
-                } else {
-                    arrAllRecords = backendResponse.Result;
-                    for (var i = 0; i < arrAllRecords.length; i++) {
-                        adaptFromServer(arrAllRecords[i]);
-                    };
-                    loadEntitiesExecuted = true;
-                    return data;
-                }
-            })
-            .error(function(data) {
-                // something went wrong
-                console.debug(data);
-                return $q.reject(data);
-            });
-    };
-
-    this.loadCatalogs = function(bForce) {
-        if (bForce) loadCatalogsExecuted = false;
-        if (loadCatalogsExecuted) {
-            return $q(function(resolve, reject) {
-                resolve();
-            });
-        }
-
-        for (var catalog in self.catalogs) {
-            if (self.catalogs.hasOwnProperty(catalog)) {
-                self.catalogs[catalog].arrAllRecords = [];
-            }
-        }
-
-        return $http.get(appConfig.API_URL + entityName + 'Catalog')
-            .success(function(data) {
-                var backendResponse = data;
-                if (backendResponse.ErrorThrown) {
-                    console.debug(response);
-                    return $q.reject(data);
-                } else {
-                    for (var catalog in self.catalogs) {
-                        if (self.catalogs.hasOwnProperty(catalog)) {
-                            self.catalogs[catalog].arrAllRecords = backendResponse.Result[catalog];
-                        }
-                    }
-                    loadCatalogsExecuted = true;
-                    return data;
-                }
-            })
-            .error(function(data) {
-                // something went wrong
-                console.debug(data);
-                return $q.reject(data);
-            });
-    };
-
-    this.loadAll = function(bForce) {
-        return $q.all([
-            //self.loadCatalogs(), catalogs are hardcoded
-            self.loadEntities(bForce)
-        ]);
-    };
+    return crudInstance;
 });
