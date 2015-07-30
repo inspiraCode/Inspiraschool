@@ -27,11 +27,20 @@
 		}
 
 		public function processApi(){
-			$func = strtolower(trim(str_replace("/", "", $_REQUEST['x'])));
-			if((int)method_exists($this, $func)>0)
-				$this->$func();
-			else
-				$this->response('', 404); // If the method is not found "PAGE NOT FOUND".
+			try{
+				$func = strtolower(trim(str_replace("/", "", $_REQUEST['x'])));
+				if((int)method_exists($this, $func)>0)
+					$this->$func();
+				else
+					$this->response('', 404); // If the method is not found "PAGE NOT FOUND".
+			}catch(Exception $e){
+				// The token could not be decoded.
+				// this is likely because the signature was not able to be verified.
+				$response_array = ['ErrorThrown'=>true, 'ResponseDescription'=>$e->getMessage(),'result'=>'', 'token'=>''];
+				// Token renewal
+				$response = $this->json($response_array);
+				$this->response($response, 200);
+			}
 		}
 
 		/**
