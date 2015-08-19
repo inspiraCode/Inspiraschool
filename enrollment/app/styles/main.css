@@ -47,6 +47,7 @@
         .navbar-inverse {
             background-color: #323131;
             background-image: none;
+            border: none;
         }
         
         .logo {
