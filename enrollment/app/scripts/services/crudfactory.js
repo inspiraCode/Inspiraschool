@@ -10,14 +10,14 @@
 angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appConfig, $timeout, validatorService) {
     //Class for create Catalog objects, which will be used on select controls
     function ClassCatalog() {
-        var _arrAllRecords = [];
+        this._arrAllRecords = [];
         this.getAll = function() {
-            return _arrAllRecords;
+            return this._arrAllRecords;
         };
         this.getById = function(theId) {
-            for (var i = 0; i < _arrAllRecords.length; i++) {
-                if (theId == _arrAllRecords[i].id) {
-                    return _arrAllRecords[i];
+            for (var i = 0; i < this._arrAllRecords.length; i++) {
+                if (theId == this._arrAllRecords[i].id) {
+                    return this._arrAllRecords[i];
                 }
             }
             return {
@@ -46,9 +46,9 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
         var _adapter = oConfig.adapter;
         var _adaptFromServer = oConfig.adaptFromServer;
         var _adaptToServer = oConfig.adaptToServer;
-        var _loadAll = oConfig.loadAll;
+        var _arrDependencies = oConfig.dependencies;
+        var _parentField = oConfig.parentField;
         /////////////////////END CONFIG
-
 
         var _arrAllRecords = [];
 
@@ -88,6 +88,16 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
             return null;
         };
 
+        var _getByParentId = function(theParentId) {
+            var result = [];
+            for (var i = 0; i < _arrAllRecords.length; i++) {
+                if (theParentId == _arrAllRecords[i][_parentField]) {
+                    result.push(_adapter(_arrAllRecords[i]));
+                }
+            }
+            return result;
+        };
+
         var _getAll = function() {
             for (var i = 0; i < _arrAllRecords.length; i++) {
                 _arrAllRecords[i] = _adapter(_arrAllRecords[i]);
@@ -115,6 +125,7 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                         data: theEntity
                     };
 
+                    // Simple POST request example (passing data) :
                     return $http(req).then(function(response) {
                         if (typeof response.data === 'object') {
                             var backendResponse = response.data;
@@ -144,7 +155,7 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                         }
                     }, function(response) {
                         // something went wrong
-                        alertify.alert('An error has occurred, see console for more details.').set('modal', true);
+                        alertify.alert('Error: ' + response.statusText).set('modal', true);
                         console.debug(response);
                         return $q.reject(response.data);
                     });
@@ -168,7 +179,9 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                             if (!backendResponse.ErrorThrown) {
                                 theEntity.editMode = false;
                                 var current = _getById(theEntity.id);
-                                angular.copy(theEntity, current);
+                                if (!angular.equals(theEntity, current)) {
+                                    angular.copy(theEntity, current);
+                                }
                                 $timeout(function() {
                                     alertify.success(backendResponse.ResponseDescription);
                                 }, 100);
@@ -186,7 +199,7 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                         }
                     }, function(response) {
                         // something went wrong
-                        alertify.alert('An error has occurred, see console for more details.').set('modal', true);
+                        alertify.alert('Error: ' + response.statusText).set('modal', true);
                         console.debug(response);
                         return $q.reject(response.data);
                     });
@@ -195,6 +208,19 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
             }
             return false;
         };
+        // var _saveBatchSerial = function(arrEntities, index, callBackSuccess, callBackError, callBackComplete) {
+        //     if (arrEntities[i]) {
+        //         _save(arrEntities[i]).then(function(data) {
+        //             callBackSuccess(data);
+        //         }, function(data) {
+        //             callBackError(data);
+        //         }).finally(function() {
+        //             index++;
+        //             _saveBatchSerial(arrEntities, index, callBackSuccess, callBackError, callba);
+        //         });
+        //     }
+        //     callBackComplete();
+        // };
         var _addBatch = function(addQty, theArrayBelonging) {
             var promises = [];
             for (var i = 0; i < addQty; i++) {
@@ -241,7 +267,7 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                     }
                 }, function(response) {
                     // something went wrong
-                    alertify.alert('An error has occurred, see console for more details.').set('modal', true);
+                    alertify.alert('Error: ' + response.statusText).set('modal', true);
                     console.debug(response);
                     return $q.reject(response.data);
                 });
@@ -315,42 +341,91 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
                 });
             }
 
+            var bAtLeastOneCatalog = false;
             for (var catalog in _catalogs) {
                 if (_catalogs.hasOwnProperty(catalog)) {
+                    bAtLeastOneCatalog = true;
                     _catalogs[catalog]._arrAllRecords = [];
                 }
             }
 
-            return $http.get(appConfig.API_URL + _entityName + '/getCatalogs')
-                .success(function(data) {
-                    var backendResponse = data;
-                    if (backendResponse.ErrorThrown) {
-                        console.debug(response);
-                        return $q.reject(data);
-                    } else {
-                        for (var catalog in _catalogs) {
-                            if (_catalogs.hasOwnProperty(catalog)) {
-                                _catalogs[catalog]._arrAllRecords = backendResponse.Result[catalog];
+            if (bAtLeastOneCatalog) {
+                return $http.get(appConfig.API_URL + _entityName + '/getCatalogs')
+                    .success(function(data) {
+                        var backendResponse = data;
+                        if (backendResponse.ErrorThrown) {
+                            console.debug(response);
+                            return $q.reject(data);
+                        } else {
+                            for (var catalog in _catalogs) {
+                                if (_catalogs.hasOwnProperty(catalog)) {
+                                    _catalogs[catalog]._arrAllRecords = backendResponse.Result[catalog];
+                                }
                             }
+                            _loadCatalogsExecuted = true;
+                            return data;
                         }
-                        _loadCatalogsExecuted = true;
-                        return data;
-                    }
-                })
-                .error(function(data) {
-                    // something went wrong
-                    console.debug(data);
-                    return $q.reject(data);
-                });
+                    })
+                    .error(function(data) {
+                        // something went wrong
+                        console.debug(data);
+                        return $q.reject(data);
+                    });
+            } else {
+                return $q.resolve();
+            }
+        };
+
+        var _loadAll = function(bForce) {
+            var promises = [];
+            for (var i = 0; i < _arrDependencies.length; i++) {
+                if (_arrDependencies[i].hasOwnProperty('loadCatalogs')) {
+                    var promiseCatalogs = _arrDependencies[i].loadCatalogs(bForce);
+                    promises.push(promiseCatalogs);
+                }
+                var promiseEntities = _arrDependencies[i].loadEntities(bForce);
+                promises.push(promiseEntities);
+            }
+            return $q.all(promises);
+        };
+
+        var _readByParentId = function(parentKey) {
+            var result = [];
+            var deferred = $q.defer();
+
+            $http.get(appConfig.API_URL + _entityName + '?parentKey=' + parentKey)
+                .then(
+                    /*success*/
+                    function(response) {
+                        var backendResponse = response.data;
+                        if (backendResponse.ErrorThrown) {
+                            alertify.alert(backendResponse.ResponseDescription).set('modal', true);
+                            deferred.reject(response);
+                        } else {
+                            for (var i = 0; i < backendResponse.Result.length; i++) {
+                                _adapter(backendResponse.Result[i]);
+                            }
+                            deferred.resolve(backendResponse.Result);
+                        }
+                    },
+                    /*error*/
+                    function(response) {
+                        alertify.alert('An error has occurred, see console for more details.').set('modal', true);
+                        console.debug(response);
+                        deferred.reject(response);
+                    });
+
+            return deferred.promise;
         };
 
         // Public API here
-        return {
+        var oAPI = {
             //Local scripts
             entityName: _entityName,
             create: _create,
             validate: _validate,
             getById: _getById,
+            getByParentId: _getByParentId,
             getAll: _getAll,
             catalogs: _catalogs,
 
@@ -359,9 +434,12 @@ angular.module('enrollmentApp').factory('crudFactory', function($http, $q, appCo
             addBatch: _addBatch,
             remove: _remove,
             removeSelected: _removeSelected,
-            loadAll: _loadAll,
             loadCatalogs: _loadCatalogs,
-            loadEntities: _loadEntities
+            loadEntities: _loadEntities,
+            loadAll: _loadAll,
+            readByParentId: _readByParentId
         };
+        _arrDependencies.push(oAPI);
+        return oAPI;
     };
 });

@@ -26,6 +26,8 @@ angular.module('enrollmentApp').controller('EnrollmentCtrl', function($scope, $l
 
     //Server transactions:
     $scope.enrollForm = function() {
-        enrollmentService.save($scope.enrollmentForm);
+        enrollmentService.save($scope.enrollmentForm).then(function(data){
+            $scope.enrollmentForm.folio = data.Result.folio;
+        });
     };
 });

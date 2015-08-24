@@ -1,3 +1,5 @@
+<br>
+<br>
 <form id="enrollment-form" class="form-horizontal" role="form" ng-submit="enrollForm()" ng-show="enrollmentForm.folio==0">
     <div class="form-group">
         <div class="col-sm-4">
@@ -43,9 +45,9 @@
         </div>
         <div class="col-sm-5">
             <label for="birthDate">Fecha de Nacimiento</label>
-            <div class="input-group date">
-                <input type="text" class="form-control" placeholder="Fecha de Nacimiento" id="birthDate" ng-model="enrollmentForm.birth_date"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-            </div>
+            <date-directive the-date="enrollmentForm.birth_date">
+                <input type="text" class="form-control text-center" id="birthDate" ng-model="enrollmentForm.birth_date" placeholder="mm/dd/yyyy" ui-mask="99/99/9999" model-view-value="true">
+            </date-directive>
         </div>
     </div>
     <div class="form-group">
@@ -58,7 +60,7 @@
         <div class="col-sm-12">
             <label for="inputAddress1">Dirección</label>
             <input class="form-control" id="inputAddress1" placeholder="Calle y número" ng-model="enrollmentForm.address_1" ng-minlength=15 ng-maxlength=50>
-            <input class="form-control" id="inputAddress2" placeholder="Colonia" ng-model="enrollmentForm.address_2" ng-minlength=15 ng-maxlength=50>
+            <input class="form-control" style="margin-top:5px;" id="inputAddress2" placeholder="Colonia" ng-model="enrollmentForm.address_2" ng-minlength=15 ng-maxlength=50>
         </div>
     </div>
     <div class="form-group">
@@ -102,11 +104,11 @@
         </div>
     </div>
     <div class="form-group">
-        <div class="col-xs-offset-6 col-xs-2">
-            <button class="btn btn-danger" ng-click="resetForm()">Reiniciar</button>
+        <div class="col-sm-offset-8 col-sm-2 col-xs-6">
+            <button class="btn btn-danger" style="width:100%;" ng-click="resetForm()">Reiniciar</button>
         </div>
-        <div class="col-xs-2">
-            <button type="submit" class="btn btn-success">Inscribirme</button>
+        <div class="col-sm-2 col-xs-6">
+            <button type="submit" class="btn btn-success" style="width:100%;">Inscribirme</button>
         </div>
     </div>
 </form>
@@ -115,13 +117,3 @@
     <p>Tenga a la mano la documentación que acredite su nacionalidad y comprobantes de estudios.</p>
     <p><a href="/#/">Volver al menú principal.</a></p>
 </div>
-<script>
-$('#enrollment-form .input-group').datepicker({
-    startView: 2,
-    clearBtn: true,
-    language: 'es',
-    orientation: 'top auto',
-    autoclose: true,
-    dateformat: 'dd-MM-yyyy'
-});
-</script>

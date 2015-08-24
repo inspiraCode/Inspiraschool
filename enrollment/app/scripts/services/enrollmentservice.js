@@ -7,7 +7,7 @@
  * # enrollmentService
  * Service in the enrollmentApp.
  */
-angular.module('enrollmentApp').service('enrollmentService', function(crudFactory, $q) {
+angular.module('enrollmentApp').service('enrollmentService', function(crudFactory) {
     var crudInstance = new crudFactory({
         //Entity Name = WebService/API to call:
         entityName: "subscribe",
@@ -24,19 +24,20 @@ angular.module('enrollmentApp').service('enrollmentService', function(crudFactor
             optionalFields: {},
 
             requiredFields: {
-                shift: "string",
-                course: "string",
-                course_plan: "string",
-
-                city: "string",
-                email: "email",
-                first_name: "string",
-                gender: "string",
-                last_name: "string",
-                state: "string",
-                birth
+                shift: 'string',
+                course: 'string',
+                course_plan: 'string',
+                city: 'string',
+                email: 'email',
+                first_name: 'string',
+                gender: 'string',
+                last_name: 'string',
+                state: 'string',
+                birth_date: 'date'
             }
         },
+
+        parentField: '',
 
         catalogs: [],
 
@@ -52,11 +53,7 @@ angular.module('enrollmentApp').service('enrollmentService', function(crudFactor
             //self.validate(theEntity);
         },
 
-        loadAll: function(bForce) {
-            return $q.all([
-                this.loadEntities(bForce)
-            ]);
-        }
+        dependencies: []
     });
 
     //overwrite catalogs since they are not being pulled from server:
