@@ -16,6 +16,7 @@
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/zebraDatePickerBootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 </head>
@@ -25,24 +26,25 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Add your site or application content here -->
-    <div class="header">
-        <div class="navbar navbar-default" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-                        <span class="sr-only">Activar Navegación</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#/">Inscripciones</a>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                    <span class="sr-only">Activar Navegación</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <a href="https://centrouniversitariopasodelnorte.com"><img style="min-width: 90px;" src="../images/logo.png" border="0" alt="logo"></a>
                 </div>
-                <div class="collapse navbar-collapse" id="js-navbar-collapse">
-                    <ul class="nav navbar-nav" ng-controller="MenuClassCtrl">
-                        <li ng-class="{ active: activePath=='/'}"><a href="#/">Inicio</a></li>
-                        <li ng-class="{ active: activePath=='/enrollment'}"><a ng-href="#/enrollment">Formulario</a></li>
-                    </ul>
-                </div>
+                <a class="navbar-brand pull-left" href="#/">Inscripciones</a>
+            </div>
+            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right" ng-controller="MenuClassCtrl">
+                    <li ng-class="{ active: activePath=='/'}"><a ng-href="#/" href="" class="text-right">Inicio</a></li>
+                    <li ng-class="{ active: activePath=='/enrollment'}"><a ng-href="#/enrollment" href="" class="text-right">Formulario</a></li>
+                </ul>
             </div>
         </div>
     </div>
@@ -77,6 +79,12 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+<<<<<<< HEAD
+=======
+    <script src="bower_components/alertify-js/build/alertify.js"></script>
+    <script src="bower_components/zebra-datepicker/public/javascript/zebra_datepicker.js"></script>
+    <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
+>>>>>>> d64164b21d6c3ae78ae0e5aa92411c0fa0517c4e
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
@@ -88,6 +96,7 @@
     <script src="scripts/services/appconfig.js"></script>
     <script src="scripts/services/validatorservice.js"></script>
     <script src="scripts/services/crudfactory.js"></script>
+    <script src="scripts/directives/datedirective.js"></script>
     <!-- endbuild -->
 </body>
 

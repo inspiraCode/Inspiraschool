@@ -1,99 +1,168 @@
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-body {
-    padding: 0;
-}
-
-
-/* Everything but the jumbotron gets side spacing for mobile first views */
-
-.header,
-.marketing,
-.footer {
-    padding-left: 15px;
-    padding-right: 15px;
-}
-
-
-/* Custom page header */
-
-.header {
-    border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 10px;
-}
-
-
-/* Make the masthead heading the same height as the navigation */
-
-.header h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-}
-
-
-/* Custom page footer */
-
-.footer {
-    padding-top: 19px;
-    color: #777;
-    border-top: 1px solid #e5e5e5;
-}
-
-.container-narrow > hr {
-    margin: 30px 0;
-}
-
-
-/* Main marketing message and sign up button */
-
-.jumbotron {
-    text-align: center;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-
-/* Supporting marketing content */
-
-.marketing {
-    margin: 40px 0;
-}
-
-.marketing p + h4 {
-    margin-top: 28px;
-}
-
-
-/* Responsive: Portrait tablets and up */
-
-@media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-    /* Remove the padding we set earlier */
-    .header,
-    .marketing,
-    .footer {
-        padding-left: 0;
-        padding-right: 0;
-    }
-    /* Space out the masthead */
-    .header {
-        margin-bottom: 30px;
-    }
-    /* Remove the bottom border on the jumbotron for visual effect */
-    .jumbotron {
-        border-bottom: 0;
-    }
-}
+        .browsehappy {
+            margin: 0.2em 0;
+            background: #ccc;
+            color: #000;
+            padding: 0.2em 0;
+        }
+        /* Date Directive: */
+        
+        button.Zebra_DatePicker_Icon {
+            position: relative;
+        }
+        
+        button.Zebra_DatePicker_Icon_Inside {
+            margin: 0 0 0 3px;
+            top: 0 !important;
+            left: 0 !important;
+        }
+        /*CUPN Style*/
+        
+        @media screen and (min-width: 768px) {
+            .container {
+                max-width: 730px;
+            }
+        }
+        
+        @media only screen and (max-width:991px) {
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+            .logo {
+                position: relative;
+                float: left;
+                width: 15%;
+            }
+            .navbar-brand {
+                margin-left: 100px;
+            }
+        }
+        
+        body {
+            padding: 70px 0 0 0;
+            background-color: #413f3f;
+            /*font-family: 'brandon_grotesque_light';*/
+        }
+        
+        .navbar-inverse {
+            background-color: #323131;
+            background-image: none;
+            border: none;
+        }
+        
+        .logo {
+            position: absolute;
+            left: 10px;
+            top: 0px;
+            z-index: 100;
+        }
+        
+        a {
+            color: #7fbe76;
+            text-decoration: none;
+        }
+        
+        .CUPNForm {
+            font-size: 11px;
+        }
+        
+        .CUPNForm label {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        
+        .CUPNForm p {
+            margin: 0;
+            height: 15px;
+            font-size: 11px;
+        }
+        
+        .CUPNForm input,
+        textarea {
+            font-size: 11px;
+            height: 26px;
+            margin-bottom: 2px;
+        }
+        
+        .CUPNForm select {
+            font-size: 11px;
+            height: 26px;
+            padding: 2px 5px;
+            margin-bottom: 2px;
+        }
+        
+        .CUPNForm input[type="checkbox"] {
+            margin: 0 !important;
+            width: 17px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            margin-top: 5px !important;
+        }
+        
+        .CUPNForm h5 {
+            margin: 22px 0 0 0;
+            background-color: #F0EFEF;
+            border-bottom: 1px solid #e3e3e3;
+            padding: 5px;
+        }
+        
+        .CUPNForm table td {
+            padding: 1px;
+        }
+        
+        .CUPNForm table input,
+        textarea {
+            height: 12px;
+        }
+        
+        .CUPNForm th {
+            text-align: center;
+        }
+        
+        .CUPNForm tr {
+            text-align: center;
+        }
+        
+        .form-control {
+            background-color: #5d5c5c;
+            color: #fff;
+            border: none;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            border-radius: 0;
+        }
+        
+        label {
+            color: white;
+            font-weight: normal;
+        }
+        
+        .footer {
+            color: #868080;
+        }
+        
+        .greenBG {
+            width: 100%;
+            background: url(../images/greenbg.jpg)center no-repeat #6fa467 fixed;
+            padding: 60px 0;
+            text-align: center;
+            color: #fff;
+            font-size: 19px;
+        }
+        
+        .greenBtn {
+            width: 100%;
+            height: 48px;
+            border: solid 5px #73ab6b;
+            background-color: #7fbe76;
+            font-size: 19px;
+            color: #fff;
+            font-family: 'brandon_bld_0webfont';
+            text-transform: uppercase;
+            cursor: pointer;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }

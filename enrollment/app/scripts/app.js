@@ -12,7 +12,8 @@ var app = angular.module('enrollmentApp', [
     'ngAnimate',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.mask'
 ]);
 app.config(function($routeProvider, $httpProvider) {
     $routeProvider
