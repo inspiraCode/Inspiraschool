@@ -90,6 +90,50 @@
 			
 		}
 
+		/*
+		 * Lista de calificaciones para armar boleta
+		 *
+		 */
+		private function boleta() {
+			// Validate token
+			$jwt = $this->getJWT();
+			if($jwt!=""){
+				try{
+					$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+					error_log(print_r('decoded token', TRUE));
+				}catch(Exception $e){
+					// The token could not be decoded.
+					// this is likely because the signature was not able to be verified.
+					error_log(print_r('Token signature not valid', TRUE));
+					$this->response('UNAUTHORIZED', 401);
+				}
+				// If succeed, query the database for available enrollments
+				// TODO: Obtener calificaciones de los usuarios
+				$query="SELECT idenrollment as id, enrollment_date, shift, course, course_plan, first_name, ".
+				"last_name, gender, birth_place, birth_date, address_1, address_2, city, state, zip, phone_home, ".
+				"phone_mobile, person_unique_id, from_school, email ".
+				"FROM enrollment ".
+				"WHERE user_id=".$token->data->userId." "
+				"ORDER BY idenrollment LIMIT 5000";
+				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+				$rows = array();
+				// TODO: Obtener los datos de mysql y llenarlos en objeto de php
+				while($row = $r->fetch_assoc()){
+					$rows[]=$row;
+				}
+
+				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
+				$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$rows, 'Token'=>$jwt];
+				// Token renewal
+				$response = $this->json($response_array);
+				$this->response($response, 200);
+			}else{
+				// No token found in the header.
+				error_log(print_r('Token not found in request', TRUE));
+				$this->response('Bad Request', 400);	
+			}	
+		}
+
 		private function tokenize($user_id, $user_name){
 			error_log(print_r('Tokenize for '.$user_id.': '.$user_name, TRUE));
 			// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
