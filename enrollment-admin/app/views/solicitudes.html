@@ -4,6 +4,115 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+<div class="panel-default hidden-xs" ng-show="assembly.Components && assembly.Components.length > 0">
+            <div class="panel panel-heading">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label class="hidden-xs" style="margin-top: 33px;">Attachments</label>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <label class="hidden-xs" style="margin-top: 33px;">Attachments</label>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <label class="hidden-xs" style="margin-top: 33px;">P/N: CA2 | Cust | Manuf</label>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <label class="hidden-xs" style="margin-top: 33px;">Description</label>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <label class="hidden-xs" style="margin-top: 20px;">IQS Comments
+                            <br>APQM Comments</label>
+                    </div>
+                    <div class="col-sm-2 text-center">
+                        <label class="hidden-xs" style="margin-top: 33px;">Usage | UOM | Cost</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <accordion>
+            <div class="panel panel-default" ng-repeat='assembly in assembly.Components | filter:search'>
+                <expander-header ng-style="getCssStyleAssembly(assembly);">
+                    <div class="row" style="cursor: pointer;" ng-click="onExpandRFQs(assembly, this);">
+                        <div class="col-sm-2">
+                            <div class="row" ng-hide="assembly.editMode">
+                                <div class="col-xs-3" style="padding:2px;padding-left:10px;">
+                                    <span style="top: -7px; position: relative;">{{bullet}}</span>
+                                </div>
+                                <div class="col-xs-3" class="text-center" style="padding:2px;">
+                                    <!-- <button type="button" class="btn btn-default btn-sm"> -->
+                                    <a href="" class="btn glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeComponent(assembly);$event.stopPropagation();"></a>
+                                    <!--</button> -->
+                                </div>
+                                <div class="col-xs-3" class="text-center" style="padding:2px;">
+                                    <!-- <button type="button" class="btn btn-default btn-sm">  -->
+                                    <a href="" class="btn glyphicon glyphicon-pencil" aria-hidden="true" ng-click="openEditComponent(assembly);$event.stopPropagation();"></a>
+                                    <!-- </button> -->
+                                </div>
+                                <div class="col-xs-3" class="text-center" style="padding:2px;">
+                                    <input type="checkbox" class="form-control Unbordered" ng-model="assembly.checked" ng-click="checkComponent(assembly.checked);$event.stopPropagation();" style="margin:0;width:20px;margin-left: auto;margin-right: auto;" />
+                                </div>
+                            </div>
+                            <div class="row" ng-show="assembly.editMode">
+                                <div class="col-xs-3" style="padding:2px;padding-left:10px;">
+                                    <span style="top: -7px; position: relative;">{{bullet}}</span>
+                                </div>
+                                <div class="col-xs-9">
+                                    <div class="col-xs-6" class="text-center" style="padding:2px;">
+                                        <span class="btn glyphicon glyphicon-floppy-disk NeedsAttention" aria-hidden="true" ng-click="saveComponent(assembly);$event.stopPropagation();"></span>
+                                    </div>
+                                    <div class="col-xs-6" class="text-center" style="padding:2px;">
+                                        <span class="btn glyphicon glyphicon-floppy-remove" aria-hidden="true" ng-click="undoComponent(assembly);$event.stopPropagation();"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-2" class="text-center">
+                                    <input type="checkbox" ng-click="$event.stopPropagation();" ng-model="assembly.IQSReady" ng-change="on_input_change(assembly);" style="margin:0;width:20px;margin-left: auto;margin-right: auto;" />
+                                </div>
+                                <div class="col-xs-4" style="padding:2px;">
+                                    <label ng-click="$event.stopPropagation();">IQS Ready</label>
+                                </div>
+                                <div class="col-xs-6" style="padding:0;padding-top:2px;">
+                                    <input type="button" ng-click="openRFQSummary(assembly);$event.stopPropagation();" class="btn btn-xs btn-default" style="margin-top: 5px;" value="RFQ Summary" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="visible-xs">Attachments</label>
+                            <attachments-box owner-entity="assembly" kind="APQMBOMAttachments" after-upload="saveAfterUpload(oEntity)" printmode="false" when-change="on_attachments_change(oEntity)" after-delete="afterRemoveFile(oEntity)"></attachments-box>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="visible-xs">CA2 P/N</label>
+                            <input type="text" class="form-control PartNumber" style="text-align: center;" ng-change="on_input_change(assembly);" ng-model="assembly.CA2PN" placeholder="CA2 P/N" ng-click="$event.stopPropagation();">
+                            <label class="visible-xs">Customer P/N</label>
+                            <input type="text" class="form-control userEntry" style="text-align: center;" ng-change="on_input_change(assembly);" ng-model="assembly.CustomerPN" placeholder="Customer P/N" ng-click="$event.stopPropagation();">
+                            <label class="visible-xs">Manufacturer P/N</label>
+                            <input type="text" class="form-control userEntry" style="text-align: center;" ng-change="on_input_change(assembly);" ng-model="assembly.ManufacturerPN" placeholder="Manufacturer P/N" ng-click="$event.stopPropagation();">
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="visible-xs">Description</label>
+                            <textarea class="form-control userEntry" rows="1" msd-elastic style="resize: none; width: 100%;text-align:justify;font-size:11px;" ng-change="on_input_change(assembly);" ng-model="assembly.Description" placeholder="Description / Material" ng-click="$event.stopPropagation();"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="visible-xs">IQS Comments</label>
+                            <textarea class="form-control userEntry" rows="1" msd-elastic style="resize: none; width: 100%;text-align:justify;font-size:11px;" ng-change="on_input_change(assembly);" ng-model="assembly.IQSComments" placeholder="IQS Comments" ng-click="$event.stopPropagation();"></textarea>
+                            <label class="visible-xs">APQM Comments</label>
+                            <textarea class="form-control userEntry" rows="1" msd-elastic style="resize: none; width: 100%;text-align:justify;font-size:11px;" ng-change="on_input_change(assembly);" ng-model="assembly.APQMComments" placeholder="APQM Comments" ng-click="$event.stopPropagation();"></textarea>
+                        </div>
+                        <div class="col-sm-2">
+                            <label class="visible-xs">Usage</label>
+                            <input type="text" class="form-control text-right userEntry" ng-change="on_input_change(assembly);" ng-model="assembly.Quantity" ui-number-mask="0" placeholder="Usage" ng-click="$event.stopPropagation();">
+                            <label class="visible-xs">UOM</label>
+                            <select ng-change="on_input_change(assembly);" ng-model="assembly.UOMKey" class="form-control userEntry text-right" ng-options="item.id as item.Value for item in theUOMs" ng-click="$event.stopPropagation();"></select>
+                            <label class="visible-xs">Cost</label>
+                            <input type="text" class="form-control text-right userEntry" ng-change="on_input_change(assembly);" ng-model="assembly.Cost" ui-money-mask="5" placeholder="Cost" ng-click="$event.stopPropagation();">
+                        </div>
+                    </div>
+                </expander-header>
+                <expander-content ng-hide="true" class="fx-fade-down fx-easing-quad fx-speed-500"></expander-content>
+            </div>
+        </accordion>
+
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -13,45 +122,39 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="dataTable_wrapper">
-                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                        <thead>
-                            <tr>
-                                <th>folio</th>
-                                <th>turno</th>
-                                <th>Plan</th>
-                                <th>Nombre</th>
-                                <th>Edad</th>
-                                <th>Ciudad</th>
-                                <th>Teléfono</th>
-                                <th>Celular</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="enrollmentForm in enrollmentForms" ng-class-odd="odd" ng-class-even="even">
-                                <td>{{enrollmentForm.id}}</td>
-                                <td>{{enrollmentForm.shift}}</td>
-                                <td>{{enrollmentForm.course_plan}}</td>
-                                <td>{{enrollmentForm.first_name}} {{enrollmentForm.last_name}}</td>
-                                <td>{{enrollmentForm.birth_date}}</td>
-                                <td>{{enrollmentForm.city}} {{enrollmentForm.state}}</td>
-                                <td>{{enrollmentForm.phone_home}}</td>
-                                <td>{{enrollmentForm.phone_mobile}}</td>
-                                <td>{{enrollmentForm.email}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>folio</th>
+                                    <th>turno</th>
+                                    <th>Plan</th>
+                                    <th>Nombre</th>
+                                    <th>Edad</th>
+                                    <th>Ciudad</th>
+                                    <th>Teléfono</th>
+                                    <th>Celular</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="enrollmentForm in enrollmentForms" ng-class-odd="odd" ng-class-even="even">
+                                    <td>{{enrollmentForm.id}}</td>
+                                    <td>{{enrollmentForm.shift}}</td>
+                                    <td>{{enrollmentForm.course_plan}}</td>
+                                    <td>{{enrollmentForm.first_name}} {{enrollmentForm.last_name}}</td>
+                                    <td>{{enrollmentForm.birth_date}}</td>
+                                    <td>{{enrollmentForm.city}} {{enrollmentForm.state}}</td>
+                                    <td>{{enrollmentForm.phone_home}}</td>
+                                    <td>{{enrollmentForm.phone_mobile}}</td>
+                                    <td>{{enrollmentForm.email}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- /.table-responsive -->
             </div>
         </div>
     </div>
 </div>
-
-<script>
-$(document).ready(function() {
-    $('#dataTables-example').DataTable({
-            responsive: true
-    });
-});
-</script>
