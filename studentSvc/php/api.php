@@ -109,12 +109,19 @@
 				}
 				// If succeed, query the database for available enrollments
 				// TODO: Obtener calificaciones de los usuarios
-				$query="SELECT idenrollment as id, enrollment_date, shift, course, course_plan, first_name, ".
-				"last_name, gender, birth_place, birth_date, address_1, address_2, city, state, zip, phone_home, ".
-				"phone_mobile, person_unique_id, from_school, email ".
-				"FROM enrollment ".
-				"WHERE user_id=".$token->data->userId." "
-				"ORDER BY idenrollment LIMIT 5000";
+				$query="SELECT ". 
+						"note.id_student as id, note.id_cat_group, note.id_metter, note.p1, note.p2, ".
+						"note.average, note.special1, note.special2, student.enrollment_id, student.name, ".
+						"metter_course.id_metter, cat_group.grade, cat_group.period, student.Id, cat_group.I_cod_curso, metter_course.id_metter, metter_course.id_teacher ".
+						"FROM cat_group ".
+							"INNER JOIN (metter_course ".
+							"INNER JOIN (student ". 
+							"INNER JOIN note ".
+								"ON student.Id = note.id_student) ". 
+								"ON metter_course.id_metter = note.id_metter) ".
+								"ON cat_group.Id_cod_curso = note.id_cat_group ".
+						"WHERE (((note.id_metter) Not In (210,201,195)) AND ((student.enrollment_id)=22015)) ".
+						"ORDER BY student.name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
