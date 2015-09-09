@@ -15,7 +15,8 @@ angular.module('studentApp', [
     'ngTouch',
     'angular-jwt',
     'angular-storage',
-    'ngActivityIndicator'
+    'ngActivityIndicator',
+    'ngFx'
 ]).config(function($routeProvider, $activityIndicatorProvider, jwtInterceptorProvider, $httpProvider) {
     $routeProvider
         .when('/', {
