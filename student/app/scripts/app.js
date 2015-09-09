@@ -58,12 +58,16 @@ angular.module('studentApp', [
         });
     $activityIndicatorProvider.setActivityIndicatorStyle('CircledWhite');
     alertify.set('notifier', 'position', 'bottom-left');
+    alertify.defaults.glossary.title = 'Estudiante';
     jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('jwt');
     };
     $httpProvider.interceptors.push('jwtInterceptor');
     // Enable CORS domain calls
     $httpProvider.defaults.useXDomain = true;
+    // Remove the header containing XMLHttpRequest used to identify ajax calls
+    // that would prevent CORS from working
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }).run(function($rootScope, store, jwtHelper, LoginService) {
     $rootScope.loggedUser = LoginService.data;
     $rootScope.$on('$stateChangeStart', function(e, to) {

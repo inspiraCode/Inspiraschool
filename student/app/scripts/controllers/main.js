@@ -11,6 +11,7 @@ angular.module('studentApp').controller('MainCtrl', function($scope, $location, 
     $activityIndicator.stopAnimating();
     alertify.closeAll();
 
+    $scope.activePath = $location.url();
     $scope.go = function(path) {
         if (path != $location.url()) {
             $activityIndicator.startAnimating();

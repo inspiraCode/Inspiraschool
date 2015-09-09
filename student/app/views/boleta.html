@@ -1,1 +1,52 @@
-<h1>Boleta for user: {{userID}}</h1>
+<br class="hidden-print">
+<input type="button" class="btn btn-info pull-right hidden-print" value="Imprimir" ng-click="print();">
+<br class="hidden-print">
+<br class="hidden-print">
+<div class="content-fluid well" style="color:black;width:700px;">
+    <div class="col-xs-3">
+        <img src="../images/logo.png" style="width:130px;" />
+    </div>
+    <div class="col-xs-5 text-center">
+        <br>
+        <br>
+        <h5 style="margin-top: 0;">CENTRO UNIVERSITARIO PASO DEL NORTE</h5>
+        <h5>CLAVE 08PSU5031F</h5>
+        <h5>TELS. 679-94-65 Y 682-37-95</h5>
+    </div>
+    <div class="col-xs-4">
+        <br>
+        <br>
+        <p class="text-right" style="font-size:11px;">{{baseEntity.fecha}}</p>
+        <p class="text-right" style="font-size:11px;">{{baseEntity.hora}}</p>
+    </div>
+    <table class="table" style="font-size:11px;">
+        <thead>
+            <tr>
+                <th>Matricula</th>
+                <th>Nombre Alumno</th>
+                <th class="text-center">LCP-IX</th>
+                <th class="text-center">{{baseEntity.periodo}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>{{baseEntity.matricula}}</th>
+                <th>{{baseEntity.nombreAlumno}}</th>
+                <th class="text-center">Calificacion</th>
+                <th class="text-center">Extraordinario</th>
+            </tr>
+            <tr ng-repeat="materia in baseEntity.materias">
+                <td></td>
+                <td>{{materia.nombreMateria}}</td>
+                <td class="text-center">{{materia.calificacion}}</td>
+                <td class="text-center">{{materia.Extraordinario}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-right">Promedio:</td>
+                <td class="text-center">{{baseEntity.promedio}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

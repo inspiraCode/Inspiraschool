@@ -303,6 +303,28 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
             return $q.all(promises);
         };
 
+        var _loadEntity = function(qParams) {
+            if (qParams === undefined || qParams == null) {
+                qParams = '?';
+            }
+            return $http.get(appConfig.API_URL + _entityName + qParams + '&noCache=' + Number(new Date()))
+                .success(function(data) {
+                    var backendResponse = data;
+                    if (backendResponse.ErrorThrown) {
+                        return $q.reject(data);
+                    } else {
+                        _adapter(backendResponse.Result);
+                        return data;
+                    }
+                })
+                .error(function(data) {
+                    // something went wrong
+                    alertify.alert(data).set('modal', true);
+                    console.debug(data);
+                    return $q.reject(data);
+                });
+        };
+
         var _loadEntitiesExecuted = false;
         var _loadCatalogsExecuted = false;
 
@@ -441,6 +463,7 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
             removeSelected: _removeSelected,
             loadCatalogs: _loadCatalogs,
             loadEntities: _loadEntities,
+            loadEntity: _loadEntity,
             loadAll: _loadAll,
             readByParentId: _readByParentId
         };

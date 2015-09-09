@@ -42,8 +42,8 @@
             </div>
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-class="{ active: activePath=='/'}"><a ng-href="#/" href="" class="text-right">Inicio</a></li>
-                    <li ng-class="{ active: activePath=='/documents'}"><a ng-href="#/documents" href="" class="text-right">Documentos</a></li>
+                    <li ng-class="{ active: activePath=='/'}"><a ng-href="#/" ng-click="activePath = '/'" href="" class="text-right">Inicio</a></li>
+                    <li ng-class="{ active: activePath=='/documents'}"><a ng-href="#/documents" ng-click="activePath = '/documents'" href="" class="text-right">Documentos</a></li>
                 </ul>
             </div>
         </div>
@@ -51,7 +51,7 @@
     <div class="container">
         <div ng-view=""></div>
     </div>
-    <div class="footer">
+    <div class="footer hidden-print">
         <div class="container">
             <p><span class="glyphicon glyphicon-copyright-mark"></span> Inspiracode 2015. Todos los derechos reservados.</p>
         </div>
