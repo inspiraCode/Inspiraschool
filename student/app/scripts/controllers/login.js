@@ -7,10 +7,13 @@
  * # LoginCtrl
  * Controller of the studentApp
  */
-angular.module('studentApp').controller('LoginCtrl', function($scope, appConfig, $http, store, LoginService, jwtHelper, $activityIndicator) {
-    $scope.loginData = LoginService.data;
-    $scope.login = function() {
+angular.module('studentApp').controller('LoginCtrl', function($scope, appConfig, LoginService, $http, store, jwtHelper, $activityIndicator) {
+    $activityIndicator.stopAnimating();
+    alertify.closeAll();
 
+    $scope.loginData = LoginService.data;
+
+    $scope.getLogin = function() {
         var req = {
             method: 'POST',
             url: appConfig.API_URL + '/login',

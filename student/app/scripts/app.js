@@ -39,20 +39,15 @@ angular.module('studentApp', [
             controller: 'LoginCtrl',
             controllerAs: 'login'
         })
-        .when('/Logout', {
-          templateUrl: 'views/login.html',
-          controller: 'LogoutCtrl',
-          controllerAs: 'Logout'
-        })
         .when('/boleta', {
-          templateUrl: 'views/boleta.html',
-          controller: 'BoletaCtrl',
-          controllerAs: 'boleta'
+            templateUrl: 'views/boleta.html',
+            controller: 'BoletaCtrl',
+            controllerAs: 'boleta'
         })
         .when('/constancia', {
-          templateUrl: 'views/constancia.html',
-          controller: 'ConstanciaCtrl',
-          controllerAs: 'constancia'
+            templateUrl: 'views/constancia.html',
+            controller: 'ConstanciaCtrl',
+            controllerAs: 'constancia'
         })
         .otherwise({
             redirectTo: '/'
@@ -69,18 +64,26 @@ angular.module('studentApp', [
     // Remove the header containing XMLHttpRequest used to identify ajax calls
     // that would prevent CORS from working
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}).run(function($rootScope, store, jwtHelper, LoginService) {
+}).run(function($rootScope, store, jwtHelper, LoginService, $location) {
     $rootScope.loggedUser = LoginService.data;
-    $rootScope.$on('$stateChangeStart', function(e, to) {
-        if (to.data && to.data.requiresLogin) {
-            var jwt = store.get('jwt');
-            if (!jwt || jwtHelper.isTokenExpired(jwt)) {
-                e.preventDefault();
-                $rootScope.go('/login');
+
+    // register listener to watch route changes
+    $rootScope.$on("$routeChangeStart", function(event, next, current) {
+        var jwt = store.get('jwt');
+        if (!jwt || jwtHelper.isTokenExpired(jwt)) {
+            // no logged user, we should be going to #login
+            if (next.templateUrl == "/login.html") {
+                // already going to #login, no redirect needed
             } else {
-                var tokenPayload = jwtHelper.decodeToken(jwt);
-                LoginService.update(tokenPayload.data.userId, tokenPayload.data.userName);
+                $location.path('/login');
             }
+        } else {
+            var tokenPayload = jwtHelper.decodeToken(jwt);
+            LoginService.update(tokenPayload.data.userId, tokenPayload.data.userName);
         }
+    });
+
+    $rootScope.$on('$routeChangeSuccess', function() {
+        $rootScope.activePath = $location.path();
     });
 });

@@ -42,8 +42,23 @@
             </div>
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li ng-class="{ active: activePath=='/'}"><a ng-href="#/" ng-click="activePath = '/'" href="" class="text-right">Inicio</a></li>
-                    <li ng-class="{ active: activePath=='/documents'}"><a ng-href="#/documents" ng-click="activePath = '/documents'" href="" class="text-right">Documentos</a></li>
+                    <li ng-show="loggedUser.userId > 0" ng-class="{ active: activePath=='/'}">
+                        <a ng-click="go('/');hideMenuOpened();" href="">Inicio</a>
+                    </li>
+                    <li ng-show="loggedUser.userId > 0" ng-class="{ active: activePath=='/documents'}">
+                        <a ng-click="go('/documents');hideMenuOpened();" href="">Documentos</a>
+                    </li>
+                    <li ng-hide="loggedUser.userId > 0" ng-class="{ active: activePath=='/login' }">
+                        <a ng-click="go('/login');hideMenuOpened();" href="">Login</a>
+                    </li>
+                    <li ng-show="loggedUser.userId > 0" class="dropdown">
+                        <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{loggedUser.userName}} <span
+              class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <!-- <li><a ng-href="#/signup">New User</a></li> -->
+                            <li><a href="" ng-click="logOut();hideMenuOpened();">Logout</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -97,7 +112,6 @@
     <script src="scripts/services/validatorservice.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/services/loginservice.js"></script>
-    <script src="scripts/controllers/logout.js"></script>
     <script src="scripts/services/boletaservice.js"></script>
     <script src="scripts/controllers/boleta.js"></script>
     <script src="scripts/controllers/constancia.js"></script>
