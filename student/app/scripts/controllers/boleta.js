@@ -7,7 +7,10 @@
  * # BoletaCtrl
  * Controller of the studentApp
  */
-angular.module('studentApp').controller('BoletaCtrl', function($scope, $routeParams, $window) {
+angular.module('studentApp').controller('BoletaCtrl', function($scope, $routeParams, $window, $activityIndicator) {
+    $activityIndicator.stopAnimating();
+    alertify.closeAll();
+
     $scope.print = function() {
         $window.document.close();
         $window.print();
