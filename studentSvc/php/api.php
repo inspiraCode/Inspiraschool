@@ -109,19 +109,21 @@
 				}
 				// If succeed, query the database for available enrollments
 				// TODO: Obtener calificaciones de los usuarios
-				$query="SELECT ". 
-						"note.id_student as id, note.id_cat_group, note.id_metter, note.p1, note.p2, ".
-						"note.average, note.special1, note.special2, student.enrollment_id, student.name, ".
-						"metter_course.id_metter, cat_group.grade, cat_group.period, student.Id, cat_group.I_cod_curso, metter_course.id_metter, metter_course.id_teacher ".
-						"FROM cat_group ".
-							"INNER JOIN (metter_course ".
-							"INNER JOIN (student ". 
-							"INNER JOIN note ".
-								"ON student.Id = note.id_student) ". 
-								"ON metter_course.id_metter = note.id_metter) ".
-								"ON cat_group.Id_cod_curso = note.id_cat_group ".
-						"WHERE (((note.id_metter) Not In (210,201,195)) AND ((student.enrollment_id)=22015)) ".
-						"ORDER BY student.name";
+				$query="select" 
+					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
+					."		student.enroll_number, student.student_name, "
+					."		student.lastname as student_lastname, cat_metter.metter_name, note.p1 as partial_one, "
+					."		note.p2 as partial_two, "
+					."		note.special1 as special_one, note.special2 as special_two "
+					." from student  "
+					."	inner join cat_group on student.id_group = cat_group.id_group "
+					."	inner join metter_course on metter_course.id_group = cat_group.id_group "
+					."	inner join cat_metter on cat_metter.id_metter = metter_course.id_metter "
+					."	left join note on note.id_metter_course = metter_course.id_metter_course  "
+					."		and note.id_student = student.Id_student  "
+					."		and note.id_group = cat_group.id_group "
+					." where cat_metter.metter_name not like '% TESIS' and student.enroll_number = ".$token->data->userId
+					." order by cat_metter.metter_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -137,8 +139,8 @@
 			}else{
 				// No token found in the header.
 				error_log(print_r('Token not found in request', TRUE));
-				$this->response('Bad Request', 400);	
-			}	
+				$this->response('UNAUTHORIZED', 401);	
+			}
 		}
 
 		private function tokenize($user_id, $user_name){
