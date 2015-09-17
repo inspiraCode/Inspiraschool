@@ -122,7 +122,7 @@
 					."	left join note on note.id_metter_course = metter_course.id_metter_course  "
 					."		and note.id_student = student.Id_student  "
 					."		and note.id_group = cat_group.id_group "
-					." where cat_metter.metter_name not like '% TESIS' and student.enroll_number = ".$token->data->userId
+					." where cat_metter.metter_name not like '% TESIS' and student.enroll_number = ".$token->data->userName
 					." order by cat_metter.metter_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();

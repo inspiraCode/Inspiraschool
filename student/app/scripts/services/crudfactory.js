@@ -307,22 +307,33 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
             if (qParams === undefined || qParams == null) {
                 qParams = '?';
             }
-            return $http.get(appConfig.API_URL + _entityName + qParams + '&noCache=' + Number(new Date()))
-                .success(function(data) {
-                    var backendResponse = data;
-                    if (backendResponse.ErrorThrown) {
-                        return $q.reject(data);
-                    } else {
-                        _adapter(backendResponse.Result);
-                        return data;
-                    }
-                })
-                .error(function(data) {
-                    // something went wrong
-                    alertify.alert(data).set('modal', true);
-                    console.debug(data);
-                    return $q.reject(data);
-                });
+
+            var deferred = $q.defer();
+
+            var req = {
+                method: 'GET',
+                url: appConfig.API_URL + _entityName,
+                headers: {
+                    // REMOVE CONTENT TYPE DUE TO CORS Acceptance.
+                    'Content-Type': undefined
+                }
+            };
+
+            // Simple POST request example (passing data) :
+            $http(req).success(function(data) {
+                var backendResponse = data;
+                if (backendResponse.ErrorThrown) {
+                    deferred.reject(data);
+                } else {
+                    _adapter(backendResponse.Result);
+                    deferred.resolve(backendResponse.Result);
+                }
+            }).error(function(data) {
+                // something went wrong
+                alertify.alert(data).set('modal', true);
+                deferred.reject(response);
+            });
+            return deferred.promise;
         };
 
         var _loadEntitiesExecuted = false;

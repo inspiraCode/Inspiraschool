@@ -33,7 +33,8 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
 
         adapter: function(theEntity) {
             theEntity.currentUser = $rootScope.loggedUser;
-            theEntity.HRef = '#/' + theEntity.Name.toLowerCase() + '?userId=2' + theEntity.currentUser.userId;
+            theEntity.HRef = '#/' + theEntity.Name.toLowerCase();
+
             return theEntity;
         },
 
@@ -50,11 +51,18 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
     crudInstance.setAll([{
             id: 0,
             Name: 'Boleta',
-            HRef: ''
+            HRef: '',
+            IMGHref: 'images/calendar.png'
         }, {
             id: 1,
             Name: 'Constancia',
-            HRef: ''
+            HRef: '',
+            IMGHref: 'images/logo.png'
+        }, {
+            id: 2,
+            Name: 'Boletap',
+            HRef: '',
+            IMGHref: 'images/logo.png'
         }
 
     ]);

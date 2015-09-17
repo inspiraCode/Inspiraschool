@@ -7,7 +7,7 @@
  * # BoletaCtrl
  * Controller of the studentApp
  */
-angular.module('studentApp').controller('BoletaCtrl', function($scope, $routeParams, $window, $activityIndicator) {
+angular.module('studentApp').controller('BoletaCtrl', function($scope, $routeParams, $window, $activityIndicator, boletaService) {
     $activityIndicator.stopAnimating();
     alertify.closeAll();
 
@@ -15,34 +15,19 @@ angular.module('studentApp').controller('BoletaCtrl', function($scope, $routePar
         $window.document.close();
         $window.print();
     };
-    $scope.userID = $routeParams.userId;
-    $scope.baseEntity = {
-        fecha: 'miercoles, 9 de septiembre de 2015',
-        hora: '08:58:38 a. m.',
-        periodo: '2015 MAYO-AGOSTO',
-        matricula: '22015',
-        nombreAlumno: 'ORTIZ IBARRA GRISELDA',
-        promedio: 9.8,
-        materias: [{
-            nombreMateria: 'ORGANIZACIÓN Y PROCEDIMIENTOS ADMINISTRATIVOS',
-            calificacion: 10,
-            Extraordinario: ''
-        }, {
-            nombreMateria: 'COMERCIO EXTERIOR',
-            calificacion: 10,
-            Extraordinario: ''
-        }, {
-            nombreMateria: 'PRACTICAS CONTABLES',
-            calificacion: 10,
-            Extraordinario: ''
-        }, {
-            nombreMateria: 'ETICA PROFESIONAL',
-            calificacion: 9,
-            Extraordinario: ''
-        }, {
-            nombreMateria: 'ANALISIS Y EVALUACION DE PROYECTOS DE INVERSION',
-            calificacion: 10,
-            Extraordinario: ''
-        }, ]
+
+    $scope.baseEntity = [];
+    boletaService.loadEntity().then(function(data) {
+        $scope.baseEntity = data;
+    });
+    $scope.getAverage = function() {
+        var matters = $scope.baseEntity;
+        var sumPartialsOne = 0;
+        var mattersCount = matters.length;
+        for (var i = 0; i < matters.length; i++) {
+            var current = matters[i];
+            sumPartialsOne += Number(current.partial_one);
+        };
+        return sumPartialsOne / mattersCount;
     };
 });

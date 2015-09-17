@@ -49,6 +49,11 @@ angular.module('studentApp', [
             controller: 'ConstanciaCtrl',
             controllerAs: 'constancia'
         })
+        .when('/boletap', {
+          templateUrl: 'views/boletap.html',
+          controller: 'BoletapCtrl',
+          controllerAs: 'boletap'
+        })
         .otherwise({
             redirectTo: '/'
         });

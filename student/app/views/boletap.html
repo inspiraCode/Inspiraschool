@@ -2,9 +2,11 @@
 <input type="button" class="btn btn-info pull-right hidden-print" value="Imprimir" ng-click="print();">
 <br class="hidden-print">
 <br class="hidden-print">
-<div class="content-fluid well" style="color:black;width:700px;">
+
+<div class="table-responsive">
+	<div class="content-fluid well" style="color:black;width:700px;">
     <div class="col-xs-3">
-        <img src="../images/logo.png" style="width:130px;" />
+        <img src="images/logo.png" style="width:130px;" />
     </div>
     <div class="col-xs-5 text-center">
         <br>
@@ -25,28 +27,35 @@
                 <th class="text-center">Matricula</th>
                 <th>Nombre Alumno</th>
                 <th class="text-center">{{baseEntity[0].grade}}</th>
-                <th class="text-center">{{baseEntity[0].period}}</th>
+                <th class="text-center" colspan="2">{{baseEntity[0].period}}</th>
+                
             </tr>
         </thead>
         <tbody>
             <tr>
                 <th class="text-center" style="width:90px;">{{baseEntity[0].enroll_number}}</th>
                 <th>{{baseEntity[0].student_name}}</th>
-                <th class="text-center" style="width:110px;">Calificacion</th>
-                <th class="text-center" style="width:110px;">Extraordinario</th>
+                <th class="text-center" style="width:70px;">P1</th>
+                <th class="text-center" style="width:70px;">P2</th>
+                <th class="text-center" style="width:70px;">Prom.</th>
             </tr>
             <tr ng-repeat="matter in baseEntity">
                 <td></td>
                 <td>{{matter.metter_name}}</td>
                 <td class="text-center">{{matter.partial_one}}</td>
                 <td class="text-center">{{matter.special_one}}</td>
+                <td class="text-center">{{matter.special_one}}</td>
             </tr>
             <tr>
                 <td></td>
                 <td class="text-right">Promedio:</td>
                 <td class="text-center">{{getAverage()}}</td>
-                <td></td>
+                <td class="text-center">{{getAverage()}}</td>
+                <td class="text-center"><h5 style="margin:0;font-weight: bold;">{{getAverage()}}</h5></td>
             </tr>
         </tbody>
     </table>
 </div>
+</div>
+
+

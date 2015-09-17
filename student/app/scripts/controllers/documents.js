@@ -7,11 +7,9 @@
  * # DocumentsCtrl
  * Controller of the studentApp
  */
-angular.module('studentApp').controller('DocumentsCtrl', function($scope, documentService, boletaService, $timeout, $activityIndicator) {
+angular.module('studentApp').controller('DocumentsCtrl', function($scope, documentService, $timeout, $activityIndicator) {
     $activityIndicator.stopAnimating();
     alertify.closeAll();
-
-    // boletaService.loadEntity().then(function(data) {
 
     $scope.documentBoxes = [];
     $scope.items = documentService.getAll();
@@ -31,5 +29,5 @@ angular.module('studentApp').controller('DocumentsCtrl', function($scope, docume
         }
     };
     $scope.addBox();
-    // });
+
 });
