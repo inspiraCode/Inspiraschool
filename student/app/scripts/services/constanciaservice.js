@@ -2,22 +2,20 @@
 
 /**
  * @ngdoc service
- * @name studentApp.boletaService
+ * @name studentApp.constanciaService
  * @description
- * # boletaService
+ * # constanciaService
  * Service in the studentApp.
  */
-angular.module('studentApp').service('boletaService', function(crudFactory) {
+angular.module('studentApp').service('constanciaService', function(crudFactory) {
     var crudInstance = new crudFactory({
         //Entity Name = WebService/API to call:
-        entityName: "boleta",
+        entityName: "constancia",
 
         //Entity Definition = For validate entity, for create new object instances, 
         entityDefinition: {
             systemFields: {
-                id: 'catalog',
-                HRef: 'string',
-                Name: 'string'
+                id: 'catalog'
             },
 
             calculatedFields: {},

@@ -8,7 +8,7 @@
  * Controller of the studentApp
  */
 angular.module('studentApp').controller('BoletaCtrl', function($scope, $routeParams, $window, $activityIndicator, boletaService) {
-    $activityIndicator.stopAnimating();
+    $activityIndicator.startAnimating();
     alertify.closeAll();
 
     $scope.print = function() {
@@ -16,9 +16,12 @@ angular.module('studentApp').controller('BoletaCtrl', function($scope, $routePar
         $window.print();
     };
 
-    $scope.baseEntity = [];
-    boletaService.loadEntity().then(function(data) {
+    $scope.baseEntity = null;
+    boletaService.loadEntities(true).then(function(data) {
         $scope.baseEntity = data;
+        $activityIndicator.stopAnimating();
+    }, function(data) {
+        $activityIndicator.stopAnimating();
     });
     $scope.getAverage = function() {
         var matters = $scope.baseEntity;

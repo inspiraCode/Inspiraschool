@@ -1,10 +1,11 @@
-<br class="hidden-print">
+<div ng-show="baseEntity"><br class="hidden-print">
 <input type="button" class="btn btn-info pull-right hidden-print" value="Imprimir" ng-click="print();">
 <br class="hidden-print">
 <br class="hidden-print">
 <div class="content-fluid well" style="color:black;width:700px;">
+    <img src="images/sello.jpg" class="visible-print-block" style="width:130px;position:absolute;top: 537px;left: 347px;z-index: 1;">
     <div class="col-xs-3">
-        <img src="../images/logo.png" style="width:130px;" />
+        <img src="images/logo.png" style="width:130px;" />
     </div>
     <div class="col-xs-5 text-center">
         <br>
@@ -19,7 +20,7 @@
         <p class="text-right" style="font-size:11px;">{{baseEntity[0].report_date | date:'longDate'}}</p>
         <p class="text-right" style="font-size:11px;">{{baseEntity[0].report_date | date:'shortTime'}}</p>
     </div>
-    <table class="table" style="font-size:11px;">
+    <table class="table" style="font-size:11px;position:relative;z-index: 2;">
         <thead>
             <tr>
                 <th class="text-center">Matricula</th>
@@ -43,10 +44,12 @@
             </tr>
             <tr>
                 <td></td>
-                <td class="text-right">Promedio:</td>
-                <td class="text-center">{{getAverage()}}</td>
+                <td class="text-right" style="background-color: transparent !important;">Promedio:</td>
+                <td class="text-center" style="background-color: transparent !important;">{{getAverage() | number:1}}</td>
                 <td></td>
             </tr>
         </tbody>
     </table>
+    <div style="height:60px;"></div>
+</div>
 </div>

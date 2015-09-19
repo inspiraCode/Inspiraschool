@@ -91,6 +91,51 @@
 		}
 
 		/*
+		 * Detalles del usuario para armar constancia
+		 *
+		 */
+		private function constancia() {
+			// Validate token
+			$jwt = $this->getJWT();
+			if($jwt!=""){
+				try{
+					$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+					error_log(print_r('decoded token', TRUE));
+				}catch(Exception $e){
+					// The token could not be decoded.
+					// this is likely because the signature was not able to be verified.
+					error_log(print_r('Token signature not valid', TRUE));
+					$this->response('UNAUTHORIZED', 401);
+				}
+				// If succeed, query the database for available enrollments
+				$query="select" 
+					." student.student_name, student.lastname as student_lastname, student.enroll_number, "
+					."	now() as report_date, cat_group.period, cat_group.grade, cat_grade.name_career "
+					." from student  "
+					."	inner join cat_group on student.id_group = cat_group.id_group "
+					."  inner join cat_grade on cat_group.id_cat_grade = cat_grade.id_cat_grade "
+					." where student.enroll_number = ".$token->data->userName;
+
+				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+				$rows = array();
+				// Obtener los datos de mysql y llenarlos en objeto de php
+				while($row = $r->fetch_assoc()){
+					$rows[]=$row;
+				}
+
+				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
+				$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$rows, 'Token'=>$jwt];
+				// Token renewal
+				$response = $this->json($response_array);
+				$this->response($response, 200);
+			}else{
+				// No token found in the header.
+				error_log(print_r('Token not found in request', TRUE));
+				$this->response('UNAUTHORIZED', 401);	
+			}
+		}
+
+		/*
 		 * Lista de calificaciones para armar boleta
 		 *
 		 */
@@ -108,7 +153,7 @@
 					$this->response('UNAUTHORIZED', 401);
 				}
 				// If succeed, query the database for available enrollments
-				// TODO: Obtener calificaciones de los usuarios
+				// Obtener calificaciones de los usuarios
 				$query="select" 
 					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
 					."		student.enroll_number, student.student_name, "

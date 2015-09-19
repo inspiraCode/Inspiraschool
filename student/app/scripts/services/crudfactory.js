@@ -321,7 +321,7 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
 
             // Simple POST request example (passing data) :
             $http(req).success(function(data) {
-                var backendResponse = data;
+                var backendResponse = _adapter(data);
                 if (backendResponse.ErrorThrown) {
                     deferred.reject(data);
                 } else {
@@ -330,8 +330,8 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
                 }
             }).error(function(data) {
                 // something went wrong
-                alertify.alert(data).set('modal', true);
-                deferred.reject(response);
+                alertify.alert('Ha ocurrido un error al intentar traer datos.').set('modal', true);
+                deferred.reject(data);
             });
             return deferred.promise;
         };
@@ -340,34 +340,44 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
         var _loadCatalogsExecuted = false;
 
         var _loadEntities = function(bForce) {
+            var deferred = $q.defer();
+
             if (bForce) _loadEntitiesExecuted = false;
             if (_loadEntitiesExecuted) {
-                return $q(function(resolve, reject) {
-                    resolve();
-                });
+                deferred.resolve();
             }
             _arrAllRecords = [];
 
-            return $http.get(appConfig.API_URL + _entityName)
-                .success(function(data) {
+            var req = {
+                method: 'GET',
+                url: appConfig.API_URL + _entityName,
+                headers: {
+                    // REMOVE CONTENT TYPE DUE TO CORS Acceptance.
+                    'Content-Type': undefined
+                }
+            };
+            
+            $http(req).success(function(data) {
                     var backendResponse = data;
                     if (backendResponse.ErrorThrown) {
                         console.debug(response);
-                        return $q.reject(data);
+                        deferred.reject(data);
                     } else {
                         _arrAllRecords = backendResponse.Result;
                         for (var i = 0; i < _arrAllRecords.length; i++) {
-                            _adaptFromServer(_arrAllRecords[i]);
+                            _adapter(_arrAllRecords[i]);
                         };
                         _loadEntitiesExecuted = true;
-                        return data;
+                        deferred.resolve(_arrAllRecords);
                     }
                 })
                 .error(function(data) {
                     // something went wrong
                     console.debug(data);
-                    return $q.reject(data);
+                    deferred.reject(data);
                 });
+
+                return deferred.promise;
         };
 
         var _loadCatalogs = function(bForce) {
