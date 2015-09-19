@@ -108,7 +108,6 @@
 					$this->response('UNAUTHORIZED', 401);
 				}
 				// If succeed, query the database for available enrollments
-				// TODO: Obtener calificaciones de los usuarios
 				$query="select" 
 					." student.student_name, student.lastname as student_lastname, student.enroll_number, "
 					."	now() as report_date, cat_group.period, cat_group.grade, cat_grade.name_career "
@@ -154,7 +153,7 @@
 					$this->response('UNAUTHORIZED', 401);
 				}
 				// If succeed, query the database for available enrollments
-				// TODO: Obtener calificaciones de los usuarios
+				// Obtener calificaciones de los usuarios
 				$query="select" 
 					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
 					."		student.enroll_number, student.student_name, "
