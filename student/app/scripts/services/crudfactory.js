@@ -330,8 +330,8 @@ angular.module('studentApp').factory('crudFactory', function($http, $q, appConfi
                 }
             }).error(function(data) {
                 // something went wrong
-                alertify.alert(data).set('modal', true);
-                deferred.reject(response);
+                alertify.alert('Ha ocurrido un error al intentar traer datos.').set('modal', true);
+                deferred.reject(data);
             });
             return deferred.promise;
         };

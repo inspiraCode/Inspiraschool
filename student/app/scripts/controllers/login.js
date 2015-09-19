@@ -10,10 +10,13 @@
 angular.module('studentApp').controller('LoginCtrl', function($scope, appConfig, LoginService, $http, store, jwtHelper, $activityIndicator) {
     $activityIndicator.stopAnimating();
     alertify.closeAll();
+    $scope.isSubmitDisabled = false;
 
     $scope.loginData = LoginService.data;
 
     $scope.getLogin = function() {
+        $scope.isSubmitDisabled = true;
+        $activityIndicator.startAnimating();
         var req = {
             method: 'POST',
             url: appConfig.API_URL + 'login',
@@ -34,9 +37,13 @@ angular.module('studentApp').controller('LoginCtrl', function($scope, appConfig,
             } else {
                 $scope.error = 'Usuario incorrecto';
             }
+            $activityIndicator.stopAnimating();
+            $scope.isSubmitDisabled = false;
         }).
         error(function() {
             $scope.error = 'Usuario o contraseña incorrectos';
+            $activityIndicator.stopAnimating();
+            $scope.isSubmitDisabled = false;
         });
     };
 });

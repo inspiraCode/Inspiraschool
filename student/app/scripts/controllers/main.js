@@ -10,6 +10,7 @@
 angular.module('studentApp').controller('MainCtrl', function($scope, $location, $activityIndicator, $timeout, LoginService, store) {
     $activityIndicator.stopAnimating();
     alertify.closeAll();
+    
 
     // $scope.activePath = $location.url();
     $scope.go = function(path) {
@@ -37,4 +38,8 @@ angular.module('studentApp').controller('MainCtrl', function($scope, $location, 
         store.remove('jwt');
         $scope.go('/login');
     };
+
+    $timeout(function(){
+        angular.element('.DelayElement').show();
+    }, 500);
 });
