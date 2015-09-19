@@ -58,11 +58,6 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
             Name: 'Constancia',
             HRef: '',
             IMGHref: 'images/logo.png'
-        }, {
-            id: 2,
-            Name: 'Boletap',
-            HRef: '',
-            IMGHref: 'images/logo.png'
         }
 
     ]);

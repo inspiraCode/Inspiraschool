@@ -17,7 +17,7 @@ angular.module('studentApp').controller('BoletaCtrl', function($scope, $routePar
     };
 
     $scope.baseEntity = [];
-    boletaService.loadEntity().then(function(data) {
+    boletaService.loadEntities(true).then(function(data) {
         $scope.baseEntity = data;
     });
     $scope.getAverage = function() {

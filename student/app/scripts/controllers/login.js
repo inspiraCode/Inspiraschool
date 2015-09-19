@@ -16,7 +16,7 @@ angular.module('studentApp').controller('LoginCtrl', function($scope, appConfig,
     $scope.getLogin = function() {
         var req = {
             method: 'POST',
-            url: appConfig.API_URL + '/login',
+            url: appConfig.API_URL + 'login',
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -32,6 +32,7 @@ angular.module('studentApp').service('boletaService', function(crudFactory) {
         catalogs: [],
 
         adapter: function(theEntity) {
+            theEntity.report_date = new Date(theEntity.report_date);
             return theEntity;
         },
 
