@@ -10,7 +10,7 @@
     </div>
     <br />
     <br />
-    <div style="text-align:right;">CD. JUAREZ CHIH. A {{'15 DE AGOSTO DEL 2015'}}<br />ASUNTO: CONSTANCIA DE ESTUDIOS</div>
+    <div style="text-align:right;">CD. JUAREZ CHIH. A {{baseEntity.report_date| date:'mediumDate'}}<br />ASUNTO: CONSTANCIA DE ESTUDIOS</div>
     <br />
     <div style="text-align:left;">A QUIEN CORRESPONDA.-
         <br />PRESENTE:
@@ -18,7 +18,7 @@
     <br />
     <br />
     <div>
-        El que suscribe, Lic. Oscar Mauricio Luevano García, Director de esta Institución por medio de la presente hago de su conocimiento que el C. REYES NUÑEZ LUIS CARLOS número de matrícula 34062 curso actualmente el SEXTO TETRAMESTRE de la carrera de LICENCIATURA EN ADMINISTRACION DE EMPRESAS turno mixto del ciclo MAYO-AGOSTO 2015, teniendo un promedio general en los seis Tetramestres de 9.1.
+        El que suscribe, Lic. Oscar Mauricio Luevano García, Director de esta Institución por medio de la presente hago de su conocimiento que el <b>C. {{baseEntity.student_name}}</b> número de matrícula <b>{{baseEntity.enroll_number}}</b> cursa actualmente la carrera de <b>{{baseEntity.name_carreer}}</b> turno mixto del ciclo <b>{{baseEntity.period}} {{baseEntity.report_date | date:'yyyy'}}</b>.
     </div>
     <br />
     <div>A petición de el interesado se extiende la presente para fines y uso legales que a el <br>convenga.</div>
