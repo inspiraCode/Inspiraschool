@@ -50,14 +50,19 @@ angular.module('studentApp', [
             controllerAs: 'constancia'
         })
         .when('/boletap', {
-          templateUrl: 'views/boletap.html',
-          controller: 'BoletapCtrl',
-          controllerAs: 'boletap'
+            templateUrl: 'views/boletap.html',
+            controller: 'BoletapCtrl',
+            controllerAs: 'boletap'
         })
         .when('/constanciaCONSU_EUA', {
-          templateUrl: 'views/constanciaconsu_eua.html',
-          controller: 'ConstanciaconsuEuaCtrl',
-          controllerAs: 'constanciaCONSUEUA'
+            templateUrl: 'views/constanciaconsu_eua.html',
+            controller: 'ConstanciaconsuEuaCtrl',
+            controllerAs: 'constanciaCONSUEUA'
+        })
+        .when('/constanciaIMSS', {
+            templateUrl: 'views/constanciaimss.html',
+            controller: 'ConstanciaimssCtrl',
+            controllerAs: 'constanciaIMSS'
         })
         .otherwise({
             redirectTo: '/'

@@ -17,7 +17,8 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
             systemFields: {
                 id: 'catalog',
                 HRef: 'string',
-                Name: 'string'
+                Title: 'string',
+                View: 'string'
             },
 
             calculatedFields: {},
@@ -33,7 +34,7 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
 
         adapter: function(theEntity) {
             theEntity.currentUser = $rootScope.loggedUser;
-            theEntity.HRef = '#/' + theEntity.Name.toLowerCase();
+            theEntity.HRef = '#/' + theEntity.View;
 
             return theEntity;
         },
@@ -50,14 +51,22 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
     });
     crudInstance.setAll([{
             id: 0,
-            Name: 'Boleta',
+            Title: 'Boleta',
             HRef: '',
-            IMGHref: 'images/calendar.png'
+            IMGHref: 'images/calendar.png',
+            View: 'boleta'
         }, {
             id: 1,
-            Name: 'Constancia',
+            Title: 'Constancia',
             HRef: '',
-            IMGHref: 'images/logo.png'
+            IMGHref: 'images/logo.png',
+            View: 'constancia'
+        }, {
+            id: 2,
+            Title: 'Constancia IMSS',
+            HRef: '',
+            IMGHref: 'images/logo.png',
+            View: 'constanciaIMSS'
         }
 
     ]);
