@@ -17,8 +17,8 @@ angular.module('studentApp').controller('ConstanciaCtrl', function($scope, $rout
     };
 
     $scope.baseEntity = null;
-    constanciaService.loadEntity(true).then(function(data) {
-        $scope.baseEntity = data;
+    constanciaService.loadEntities(true).then(function(data) {
+        $scope.baseEntity = data[0];
         $activityIndicator.stopAnimating();
     }, function(data) {
         $activityIndicator.stopAnimating();
