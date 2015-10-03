@@ -73,6 +73,12 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constanciaCONSU_EUA'
+        }, {
+            id: 4,
+            Title: 'Migración y Naturalización',
+            HRef: '',
+            IMGHref: 'images/logo.png',
+            View: 'constanciaDMN'
         }
 
     ]);
