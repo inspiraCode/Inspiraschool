@@ -124,7 +124,7 @@
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
 				while($row = $r->fetch_assoc()){
-					$rows[]=$row;
+					$rows[]=array_map('utf8_encode', $row);
 				}
 
 				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
@@ -177,7 +177,7 @@
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
 				while($row = $r->fetch_assoc()){
-					$rows[]=$row;
+					$rows[]=array_map('utf8_encode', $row);
 				}
 
 				$jwt = $this->tokenize($token->data->userId, $token->data->userName);
