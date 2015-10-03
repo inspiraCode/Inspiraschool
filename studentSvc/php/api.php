@@ -11,9 +11,11 @@
 		const DB_USER = "root";
 		const DB_PASSWORD = "";
 		const DB = "enrollment";
+		const DB_AUTH = "inspiraschool_realm";
 
 		private $db = NULL;
 		private $conn = NULL;
+		private $conn_auth = NULL;
 		public function __construct(){
 			parent::__construct();
 			$this->dbConnect();
@@ -53,7 +55,7 @@
 		}
 
 		private function ping(){
-			$this->response('Student API is alive: v1.0!', 200);
+			$this->response('Student API is alive: v2.0!', 200);
 		}
 
 		private function login(){
@@ -67,8 +69,10 @@
 
 			if(!empty($user_name) and !empty($password)){
 				// Validate username and password in mysql database
-				$query="SELECT idsys_user FROM sys_user WHERE user_password = password('".$password."') AND user_name = '".$user_name."' LIMIT 1";
-				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
+				$this->conn_auth = new mysqli(self::DB_SERVER, self::DB_USER, self::DB_PASSWORD, self::DB_AUTH);
+
+				$query="SELECT idsys_user FROM sys_user WHERE user_password = sha1('".$password."') AND user_name = '".$user_name."' LIMIT 1";
+				$r = $this->conn_auth->query($query) or die($this->conn_auth->error.__LINE__);
 
 				if($r->num_rows > 0) {
 					$row = $r->fetch_assoc();
@@ -110,7 +114,7 @@
 				// If succeed, query the database for available enrollments
 				$query="select" 
 					." student.student_name, student.lastname as student_lastname, student.enroll_number, "
-					."	now() as report_date, cat_group.period, cat_group.grade, cat_grade.name_career "
+					."	now() as report_date, cat_group.period, cat_group.grade, cat_grade.name_carreer "
 					." from student  "
 					."	inner join cat_group on student.id_group = cat_group.id_group "
 					."  inner join cat_grade on cat_group.id_cat_grade = cat_grade.id_cat_grade "
