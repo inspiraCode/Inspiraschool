@@ -67,6 +67,12 @@ angular.module('studentApp').service('documentService', function(crudFactory, $r
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constanciaIMSS'
+        }, {
+            id: 3,
+            Title: 'Constancia Consulado EUA',
+            HRef: '',
+            IMGHref: 'images/logo.png',
+            View: 'constanciaCONSU_EUA'
         }
 
     ]);
