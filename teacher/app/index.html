@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CUPN Teacher</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/ngActivityIndicator/css/ngActivityIndicator.css" />
+    <link rel="stylesheet" href="bower_components/alertify-js/build/css/alertify.css" />
+    <link rel="stylesheet" href="bower_components/alertify-js/build/css/themes/default.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/zebraDatePickerBootstrap.css">
+    <link rel="stylesheet" href="styles/linkBox.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+</head>
+
+<body ng-app="teacherApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+                    <span class="sr-only">Activar Navegación</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo">
+                    <a href="https://centrouniversitariopasodelnorte.com"><img style="min-width: 90px;" src="images/logo.png" border="0" alt="logo"></a>
+                </div>
+                <div class="navbar-head navbar-brand visible-sm-block" style="width:130px;"></div>
+                <a class="navbar-brand pull-left" href="#/" style="padding-left:20px;">Maestro</a>
+                <div class="navbar-head navbar-brand" ng-activity-indicator style="padding-top: 8px;"></div>
+            </div>
+            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-show="loggedUser.userId > 0" ng-class="{ active: activePath=='/'}">
+                        <a class="DelayElement" style="display:none;" ng-click="go('/');hideMenuOpened();" href="">Inicio</a>
+                    </li>
+                    <li ng-show="loggedUser.userId > 0" ng-class="{ active: activePath=='/documents'}">
+                        <a class="DelayElement" style="display:none;" ng-click="go('/documents');hideMenuOpened();" href="">Documentos</a>
+                    </li>
+                    <li ng-hide="loggedUser.userId > 0" ng-class="{ active: activePath=='/login' }">
+                        <a class="DelayElement" style="display:none;" ng-click="go('/login');hideMenuOpened();" href="">Login</a>
+                    </li>
+                    <li ng-show="loggedUser.userId > 0" class="dropdown">
+                        <a style="display:none;" href="" class="dropdown-toggle DelayElement" data-toggle="dropdown" role="button" aria-expanded="false">{{loggedUser.userName}} <span
+              class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <!-- <li><a ng-href="#/signup">New User</a></li> -->
+                            <li><a href="" ng-click="logOut();hideMenuOpened();">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div ng-view=""></div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+        </div>
+    </div>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+    <script>
+    ! function(A, n, g, u, l, a, r) {
+        A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+                (A[l].q = A[l].q || []).push(arguments)
+            }, A[l].l = +new Date, a = n.createElement(g),
+            r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+    </script>
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+    <script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+    <script src="bower_components/ngActivityIndicator/ngActivityIndicator.js"></script>
+    <script src="bower_components/alertify-js/build/alertify.js"></script>
+    <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
+    <script src="bower_components/ngFx/dist/ngFx.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/documents.js"></script>
+    <script src="scripts/services/documentservice.js"></script>
+    <script src="scripts/services/validatorservice.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/services/loginservice.js"></script>
+    <script src="scripts/services/crudfactory.js"></script>
+    <script src="scripts/services/appconfig.js"></script>
+    <script src="scripts/directives/linkbox.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

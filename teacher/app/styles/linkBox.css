@@ -1,0 +1,45 @@
+.LinkBox {
+    display: block;
+    min-width: 80px;
+    max-width: 100px;
+    height: 90px;
+    background-color: white;
+    border: solid 5px #7FBE76;
+    border-radius: 20px;
+    padding: 5px;
+    margin: auto;
+    font-size: 10px;
+    text-decoration: none;
+}
+
+.BoxContainer span {
+    text-decoration: none;
+}
+
+.BoxContainer span:hover {
+    border-color: #5EFF47 !important;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: none;
+    /*color: gray;*/
+}
+
+.BoxContainer {
+    padding: 5px;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

@@ -1,0 +1,32 @@
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="container" style="max-width:325px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ingrese sus Credenciales</h3>
+                    </div>
+                    
+
+                    <div class="panel-body">
+                        <div ng-show="error" class="alert alert-danger">{{error}}</div>
+                        <form role="form" ng-submit="getLogin()">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Usuario" name="username" autofocus ng-model="user.username">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" ng-model="user.password">
+                                </div>
+                                <input type="submit" value="Ingresar" class="btn btn-success" ng-disabled="isSubmitDisabled" />
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
