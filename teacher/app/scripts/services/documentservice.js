@@ -51,31 +51,31 @@ angular.module('teacherApp').service('documentService', function(crudFactory, $r
     });
     crudInstance.setAll([{
             id: 0,
-            Title: 'Boleta',
+            Title: 'Grupo 1A',
             HRef: '',
             IMGHref: 'images/calendar.png',
             View: 'boleta'
         }, {
             id: 1,
-            Title: 'Constancia',
+            Title: 'Grupo 2A',
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constancia'
         }, {
             id: 2,
-            Title: 'Constancia IMSS',
+            Title: 'Grupo 3A',
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constanciaIMSS'
         }, {
             id: 3,
-            Title: 'Constancia Consulado EUA',
+            Title: 'Grupo 4A',
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constanciaCONSU_EUA'
         }, {
             id: 4,
-            Title: 'Migración y Naturalización',
+            Title: 'Grupo 5A',
             HRef: '',
             IMGHref: 'images/logo.png',
             View: 'constanciaDMN'

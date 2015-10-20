@@ -22,7 +22,7 @@
     <!-- endbuild -->
 </head>
 
-<body ng-app="teacherApp">
+<body ng-app="teacherApp" ng-controller="MainCtrl">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -40,7 +40,7 @@
                     <a href="https://centrouniversitariopasodelnorte.com"><img style="min-width: 90px;" src="images/logo.png" border="0" alt="logo"></a>
                 </div>
                 <div class="navbar-head navbar-brand visible-sm-block" style="width:130px;"></div>
-                <a class="navbar-brand pull-left" href="#/" style="padding-left:20px;">Maestro</a>
+                <a class="navbar-brand pull-left" href="#/" style="padding-left:20px;">Profesor</a>
                 <div class="navbar-head navbar-brand" ng-activity-indicator style="padding-top: 8px;"></div>
             </div>
             <div class="collapse navbar-collapse" id="js-navbar-collapse">
@@ -49,7 +49,7 @@
                         <a class="DelayElement" style="display:none;" ng-click="go('/');hideMenuOpened();" href="">Inicio</a>
                     </li>
                     <li ng-show="loggedUser.userId > 0" ng-class="{ active: activePath=='/documents'}">
-                        <a class="DelayElement" style="display:none;" ng-click="go('/documents');hideMenuOpened();" href="">Documentos</a>
+                        <a class="DelayElement" style="display:none;" ng-click="go('/documents');hideMenuOpened();" href="">Grupos</a>
                     </li>
                     <li ng-hide="loggedUser.userId > 0" ng-class="{ active: activePath=='/login' }">
                         <a class="DelayElement" style="display:none;" ng-click="go('/login');hideMenuOpened();" href="">Login</a>
@@ -69,9 +69,12 @@
     <div class="container">
         <div ng-view=""></div>
     </div>
-    <div class="footer">
+    <div class="footer hidden-print clearfix">
+        <br>
+        <br>
+        <br>
         <div class="container">
-            <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+            <p><span class="glyphicon glyphicon-copyright-mark"></span> Inspiracode 2015. Todos los derechos reservados.</p>
         </div>
     </div>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -115,6 +118,8 @@
     <script src="scripts/services/crudfactory.js"></script>
     <script src="scripts/services/appconfig.js"></script>
     <script src="scripts/directives/linkbox.js"></script>
+    <script src="scripts/controllers/notes.js"></script>
+    <script src="scripts/services/noteservice.js"></script>
     <!-- endbuild -->
 </body>
 

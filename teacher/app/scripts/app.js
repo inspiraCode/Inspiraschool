@@ -39,6 +39,11 @@ angular.module('teacherApp', [
             controller: 'LoginCtrl',
             controllerAs: 'login'
         })
+        .when('/notes', {
+          templateUrl: 'views/notes.html',
+          controller: 'NotesCtrl',
+          controllerAs: 'notes'
+        })
         .otherwise({
             redirectTo: '/'
         });

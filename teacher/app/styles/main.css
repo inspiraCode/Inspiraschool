@@ -167,3 +167,31 @@
             -o-transition: all 0.5s ease;
             transition: all 0.5s ease;
         }
+        
+        .notes {
+            width: 700px;
+        }
+        
+        .notes * {
+            color: #333 !important;
+        }
+        
+        .notes th,
+        td {
+            font-size: 12px !important;
+            text-align: center;
+        }
+        
+        .notes p {
+            font-size: 12px !important;
+        }
+        
+        .notes input {
+            background-color: white;
+            font-size: 12px;
+            text-align: center;
+        }
+        
+        .notes label {
+            font-weight: bold;
+        }
