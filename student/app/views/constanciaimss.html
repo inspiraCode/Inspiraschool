@@ -1,8 +1,9 @@
 <div ng-show="baseEntity"><br class="hidden-print">
+<br class="hidden-print">
 <input type="button" class="btn btn-info pull-right hidden-print" value="Imprimir" ng-click="print();">
 <br class="hidden-print">
 <br class="hidden-print">
-<div class="content-fluid well Constancia" style="color:black;width:700px;">
+<div class="content-fluid well Constancia" style="color:black;width:700px;background-color: #fff;">
     <br />
     <br />
     <div style="margin-top: 0;text-align:center;position:relative;"><img src="images/logoCircular.png" style="width:130px;position:absolute;left: -9px;top: -49px;">CENTRO UNIVERSITARIO PASO DEL NORTE
@@ -18,7 +19,7 @@
     <br />
     <br />
     <div>
-        El que suscribe, Lic. Oscar Mauricio Luevano García, Director de esta Institución por medio de la presente hago de su conocimiento que el <b>C. {{baseEntity.student_name}}</b> número de matrícula <b>{{baseEntity.enroll_number}}</b> cursa actualmente la carrera de <b>{{baseEntity.name_carreer}}</b> turno mixto del ciclo <b>{{baseEntity.period}} {{baseEntity.report_date | date:'yyyy'}}</b>.
+        <p>El que suscribe, Lic. Oscar Mauricio Luevano García, Director de esta Institución por medio de la presente hago de su conocimiento que el <b>C. {{baseEntity.student_name}}</b> número de matrícula <b>{{baseEntity.enroll_number}}</b> cursa actualmente la carrera de <b>{{baseEntity.name_carreer}}</b> turno mixto del ciclo <b>{{baseEntity.period}} {{baseEntity.report_date | date:'yyyy'}}</b>.</p>
     </div>
     <br />
     <div>A petición de el interesado se extiende la presente para fines y uso legales que a el <br>convenga.</div>
@@ -30,13 +31,13 @@
     <br />
     <br />
     <br />
-    <div style="text-align:center;">
+    <div style="text-align:center;position:relative;"><img src="images/firma.jpg" style="width:130px;position:absolute;left: 262px;top: 31px;"><span style="width:220px;border-bottom: solid black 2px;position:absolute;left:216px;top:110px;"></span><img src="images/sello.jpg" style="width:130px;position:absolute;left: 482px;top: 21px;">
         Atentamente.
         <br />
         <br />
         <br />
         <br />
-        <br /> ______________________________
+        <br /> 
         <br />Lic. Oscar Mauricio Luevano García
         <br />
     </div>
