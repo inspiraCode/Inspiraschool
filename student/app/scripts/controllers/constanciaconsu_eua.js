@@ -19,6 +19,7 @@ angular.module('studentApp').controller('ConstanciaconsuEuaCtrl', function($scop
     $scope.baseEntity = null;
     constanciaService.loadEntities(true).then(function(data) {
         $scope.baseEntity = data[0];
+        $scope.baseEntity.period = 'SEPTIEMBRE-DICIEMBRE';
         $activityIndicator.stopAnimating();
     }, function(data) {
         $activityIndicator.stopAnimating();

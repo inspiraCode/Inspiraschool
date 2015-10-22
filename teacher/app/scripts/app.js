@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc overview
- * @name studentApp
+ * @name teacherApp
  * @description
- * # studentApp
+ * # teacherApp
  *
  * Main module of the application.
  */
-angular.module('studentApp', [
+angular.module('teacherApp', [
     'ngAnimate',
     'ngRoute',
     'ngSanitize',
@@ -39,35 +39,10 @@ angular.module('studentApp', [
             controller: 'LoginCtrl',
             controllerAs: 'login'
         })
-        .when('/boleta', {
-            templateUrl: 'views/boleta.html',
-            controller: 'BoletaCtrl',
-            controllerAs: 'boleta'
-        })
-        .when('/constancia', {
-            templateUrl: 'views/constancia.html',
-            controller: 'ConstanciaCtrl',
-            controllerAs: 'constancia'
-        })
-        .when('/boletap', {
-            templateUrl: 'views/boletap.html',
-            controller: 'BoletapCtrl',
-            controllerAs: 'boletap'
-        })
-        .when('/constanciaCONSU_EUA', {
-            templateUrl: 'views/constanciaconsu_eua.html',
-            controller: 'ConstanciaconsuEuaCtrl',
-            controllerAs: 'constanciaCONSUEUA'
-        })
-        .when('/constanciaIMSS', {
-            templateUrl: 'views/constanciaimss.html',
-            controller: 'ConstanciaimssCtrl',
-            controllerAs: 'constanciaIMSS'
-        })
-        .when('/constanciaDMN', {
-          templateUrl: 'views/constanciadmn.html',
-          controller: 'ConstanciadmnCtrl',
-          controllerAs: 'constanciaDMN'
+        .when('/notes', {
+          templateUrl: 'views/notes.html',
+          controller: 'NotesCtrl',
+          controllerAs: 'notes'
         })
         .otherwise({
             redirectTo: '/'

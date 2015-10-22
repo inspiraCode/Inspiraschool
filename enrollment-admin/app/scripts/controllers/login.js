@@ -27,7 +27,7 @@ angular
 
       var req = {
         method:'POST',
-        url: 'http://localhost:8080/services/login',
+        url: 'http://localhost:9090/services/login',
         headers: {
           'Content-Type': 'application/json'
         },

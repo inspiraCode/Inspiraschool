@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name studentApp.controller:ConstanciaimssCtrl
+ * @name studentApp.controller:ConstanciadmnCtrl
  * @description
- * # ConstanciaimssCtrl
+ * # ConstanciadmnCtrl
  * Controller of the studentApp
  */
-angular.module('studentApp').controller('ConstanciaimssCtrl', function($scope, $window, $activityIndicator, constanciaService) {
+angular.module('studentApp').controller('ConstanciadmnCtrl', function($scope, $routeParams, $window, $activityIndicator, constanciaService) {
     $activityIndicator.startAnimating();
     alertify.closeAll();
 
