@@ -1,14 +1,14 @@
 .LinkBox {
     display: block;
     min-width: 80px;
-    max-width: 100px;
+    max-width: 200px;
     height: 90px;
     background-color: white;
     border: solid 5px #7FBE76;
     border-radius: 20px;
     padding: 5px;
     margin: auto;
-    font-size: 10px;
+    font-size: 12px;
     text-decoration: none;
 }
 

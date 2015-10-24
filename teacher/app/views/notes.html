@@ -1,13 +1,13 @@
-<div class="container well notes">
+<div class="container well notes" ng-show="theNotes">
     <div class="row">
         <div class="col-xs-6">
             <h3 style="margin-top:0;">Calificaciones</h3>
         </div>
         <div class="col-xs-4 col-xs-offset-2 text-left">
             <label>Materia</label>
-            <p class="form-control-static">Etica y Valores II</p>
-            <label>Grado</label>
-            <p class="form-control-static">2A DOMINGOS</p>
+            <p class="form-control-static">{{courseSelected.MetterName}}</p>
+            <label>Grupo</label>
+            <p class="form-control-static">{{courseSelected.Grade}} {{courseSelected.DayTrip}}</p>
         </div>
     </div>
     <br />
@@ -15,14 +15,14 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th></th>
+                <th style="width:50px;"></th>
                 <th style="width:70px;">Matricula</th>
-                <th style="width:285px;">Alumno</th>
-                <th style="width:50px;">P. 1</th>
-                <th style="width:50px;">P. 2</th>
-                <th style="width:50px;">Prom.</th>
-                <th style="width:50px;">E. 1</th>
-                <th style="width:50px;">E. 2</th>
+                <th>Alumno</th>
+                <th style="width:70px;">P. 1</th>
+                <th style="width:70px;">P. 2</th>
+                <th style="width:70px;">Prom.</th>
+                <!-- <th style="width:50px;">E. 1</th>
+                <th style="width:50px;">E. 2</th> -->
             </tr>
         </thead>
         <tbody>
@@ -31,21 +31,21 @@
                 <td>{{note.enroll_number}}</td>
                 <td class="text-left">{{note.student_name}}</td>
                 <td style="padding:1px;">
-                    <input type="text" class="form-control" ng-model="note.partial_one" tabindex="1" />
+                    <input type="text" class="form-control" ng-model="note.p1" tabindex="1" />
                 </td>
                 <td style="padding:1px;">
-                    <input type="text" class="form-control" ng-model="note.partial_two" tabindex="2" />
+                    <input type="text" class="form-control" ng-model="note.p2" tabindex="2" />
                 </td>
-                <td>{{(note.partial_one + note.partial_two) / 2 | number:1}}</td>
-                <td style="padding:1px;">
+                <td>{{(note.p1 + note.p2) / 2 | number:1}}</td>
+                <!-- <td style="padding:1px;">
                     <input type="text" class="form-control" ng-model="note.extraordinary_one" tabindex="3" />
                 </td>
                 <td style="padding:1px;">
                     <input type="text" class="form-control" ng-model="note.extraordinary_two" tabindex="4" />
-                </td>
+                </td> -->
             </tr>
         </tbody>
     </table>
 </div>
-<input type="button" class="btn btn-success pull-right hidden-print" value="Imprimir" ng-click="print();">
-<input type="button" class="btn btn-success pull-right hidden-print" value="Guardar" style="margin-right:10px;" ng-click="save();">
+<input type="button" ng-show="theNotes" class="btn btn-success pull-right hidden-print" value="Imprimir" ng-click="print();">
+<input type="button" class="btn btn-success pull-right hidden-print" value="Guardar" style="margin-right:10px;display:none;" ng-click="save();">

@@ -7,33 +7,25 @@
  * # noteService
  * Service in the teacherApp.
  */
-angular.module('teacherApp').service('noteService', function(crudFactory) {
+angular.module('teacherApp').service('noteService', function(crudFactory, $q, $http, appConfig) {
     var crudInstance = new crudFactory({
         //Entity Name = WebService/API to call:
-        entityName: "note",
+        entityName: "alumnos_calificacion",
 
         //Entity Definition = For validate entity, for create new object instances, 
         entityDefinition: {
             systemFields: {
-                id: 'catalog',
-                enroll_number: 'string',
-                student_name: 'string',
-                partial_one: 'number',
-                partial_two: 'number',
-                extraordinary_one: 'number',
-                extraordinary_two: 'number'
+                id: 'catalog'
             },
 
-            calculatedFields: {
-                averageNote: 'number'
-            },
+            calculatedFields: {},
 
             optionalFields: {},
 
             requiredFields: {}
         },
 
-        parentField: '',
+        parentField: 'id_metter_course',
 
         catalogs: [],
 
@@ -51,57 +43,33 @@ angular.module('teacherApp').service('noteService', function(crudFactory) {
 
         dependencies: []
     });
-    crudInstance.setAll([{
-            id: 1,
-            enroll_number: '2103926',
-            student_name: 'ADAME VILLANUEVA RAYMUNDA',
-            partial_one: 8,
-            partial_two: 9,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        }, {
-            id: 2,
-            enroll_number: '2103941',
-            student_name: 'AGUILAR VEGA FIDENCIA',
-            partial_one: 8,
-            partial_two: 9,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        }, {
-            id: 3,
-            enroll_number: '2103950',
-            student_name: 'ALAVEZ SANTIAGO MARTHA LIZBET',
-            partial_one: 10,
-            partial_two: 10,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        }, {
-            id: 4,
-            enroll_number: '2103989',
-            student_name: 'AYALA MENDOZA RUTH BERENICE',
-            partial_one: 8,
-            partial_two: 8,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        }, {
-            id: 5,
-            enroll_number: '2103994',
-            student_name: 'CALDERON DELGADO BERNARDO',
-            partial_one: 8,
-            partial_two: 9,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        }, {
-            id: 6,
-            enroll_number: '1515077',
-            student_name: 'CARRILLO PIEDRA PATRICIA',
-            partial_one: 9,
-            partial_two: 10,
-            extraordinary_one: 0,
-            extraordinary_two: 0
-        },
 
-    ]);
+    crudInstance.pullNotesPerCourse = function(parentKey) {
+        var result = [];
+        var deferred = $q.defer();
 
+        $http.get(appConfig.API_URL + crudInstance.entityName + '?course_id=' + parentKey)
+            .then(
+                /*success*/
+                function(response) {
+                    var backendResponse = response.data;
+                    if (backendResponse.ErrorThrown) {
+                        alertify.alert(backendResponse.ResponseDescription).set('modal', true);
+                        deferred.reject(response);
+                    } else {
+                        for (var i = 0; i < backendResponse.Result.length; i++) {
+                            backendResponse.Result[i];
+                        }
+                        deferred.resolve(backendResponse.Result);
+                    }
+                },
+                /*error*/
+                function(response) {
+                    alertify.alert('An error has occurred.').set('modal', true);
+                    deferred.reject(response);
+                });
+
+        return deferred.promise;
+    }
     return crudInstance;
 });
