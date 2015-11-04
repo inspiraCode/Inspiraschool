@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the teacherApp
  */
-angular.module('teacherApp').controller('MainCtrl', function($scope, $location, $activityIndicator, $timeout, LoginService, store) {
+angular.module('teacherApp').controller('MainCtrl', function($scope, $location, $activityIndicator, $timeout, LoginService, store, courseService) {
     $activityIndicator.stopAnimating();
     alertify.closeAll();
     
@@ -35,6 +35,7 @@ angular.module('teacherApp').controller('MainCtrl', function($scope, $location, 
 
     $scope.logOut = function() {
         LoginService.update('', '');
+        courseService.clear();
         store.remove('jwt');
         $scope.go('/login');
     };

@@ -7,12 +7,32 @@
  * # DocumentsCtrl
  * Controller of the teacherApp
  */
-angular.module('teacherApp').controller('DocumentsCtrl', function($scope, documentService, $timeout, $activityIndicator) {
-    $activityIndicator.stopAnimating();
+angular.module('teacherApp').controller('DocumentsCtrl', function($scope, $timeout, $activityIndicator, courseService) {
+    $activityIndicator.startAnimating();
     alertify.closeAll();
 
     $scope.documentBoxes = [];
-    $scope.items = documentService.getAll();
+
+    courseService.loadEntities().then(function(data) {
+        var boxes = [];
+        var allEntities = courseService.getAll();
+        for (var i = 0; i < allEntities.length; i++) {
+            var current = allEntities[i];
+            boxes.push({
+                id: current.id_metter_course,
+                Title: current.grade + '<br>' + current.metter_name + '<br>' + current.day_trip,
+                HRef: '#/notes',
+                IMGHref: '',
+                View: '',
+                Grade: current.grade,
+                MetterName: current.metter_name,
+                DayTrip: current.day_trip
+            });
+        };
+        $scope.items = boxes;
+        $scope.addBox();
+        $activityIndicator.stopAnimating();
+    });
 
     //Animation:
     $scope.addBox = function(index) {
@@ -28,6 +48,8 @@ angular.module('teacherApp').controller('DocumentsCtrl', function($scope, docume
             return;
         }
     };
-    $scope.addBox();
 
+    $scope.selectCourse = function(course) {
+        courseService.setSelected(course);
+    };
 });

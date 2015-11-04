@@ -345,6 +345,7 @@ angular.module('teacherApp').factory('crudFactory', function($http, $q, appConfi
             if (bForce) _loadEntitiesExecuted = false;
             if (_loadEntitiesExecuted) {
                 deferred.resolve();
+                return deferred.promise;
             }
             _arrAllRecords = [];
 
@@ -465,6 +466,11 @@ angular.module('teacherApp').factory('crudFactory', function($http, $q, appConfi
             return deferred.promise;
         };
 
+        var _clear = function() {
+            _loadEntitiesExecuted = false;
+            _loadCatalogsExecuted = false;
+        };
+
         // Public API here
         var oAPI = {
             //Local scripts
@@ -476,6 +482,7 @@ angular.module('teacherApp').factory('crudFactory', function($http, $q, appConfi
             getAll: _getAll,
             setAll: _setAll,
             catalogs: _catalogs,
+            clear: _clear,
 
             //Server transactions:
             save: _save,
