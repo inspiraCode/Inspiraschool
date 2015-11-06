@@ -209,6 +209,67 @@
 			}
 		}
 
+		private function calificar(){
+			if($this->get_request_method() != "POST"){
+				$this->response($this->get_request_method().' NOT ALLOWED',406);
+			}
+
+			// Validate token
+			$jwt = $this->getJWT();
+			if($jwt!=""){
+				if(self::SECURED){
+					try{
+						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+						error_log(print_r('decoded token', TRUE));
+					}catch(Exception $e){
+						// The token could not be decoded.
+						// this is likely because the signature was not able to be verified.
+						error_log(print_r('Token signature not valid', TRUE));
+						$this->response('UNAUTHORIZED', 401);
+					}
+				}
+				$form = json_decode(file_get_contents('php://input'), TRUE);
+				$column_names = array('id_student', 'id_group_assignment', 'id_score_type', 'score', 'comments');
+				$keys = array_keys($form);
+				$columns = '';
+				$values = '';
+				
+				foreach($column_names as $desired_key){
+					if(!in_array($desired_key, $keys)){
+						$$desired_key = '';
+					}else{
+						$$desired_key = $form[$desired_key];
+					}
+					$columns = $columns.$desired_key.',';
+					$values = $values."'".$$desired_key."',";
+				}
+				$insertSentence = "INSERT INTO ctrl_score(".trim($columns,',').") VALUES(".trim($values,',').")";
+				$insertSentence = utf8_decode($insertSentence);
+				//error_log(print_r($insertSentence, TRUE));
+				if(!empty($form)){
+					$result = $this->conn->query($insertSentence) or die($this->conn->error.__LINE__);
+					//$form['folio'] = $this->conn->insert_id;
+					//error_log(print_r($form, TRUE));
+					//$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $form);
+					if(self::SECURED){
+						// Token renewal
+						$jwt = $this->tokenize($token->data->userId, $token->data->userName);
+						$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$form, 'Token'=>$jwt];
+					} else {
+						$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$form, 'Token'=>'NOT SECURED INTERFACE'];
+					}
+					$this->response($this->json($success),200);
+				}else{
+					// EMPTY REQUEST, EMPTY RESPONSE
+					$this->response('',204);	
+				}
+			}else{
+				// No token found in the header.
+				error_log(print_r('Token not found in request', TRUE));
+				$this->response('UNAUTHORIZED', 401);
+			}
+		}
+
 		private function tokenize($user_id, $user_name){
 			error_log(print_r('Tokenize for '.$user_id.': '.$user_name, TRUE));
 			// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/
