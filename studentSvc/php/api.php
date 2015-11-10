@@ -115,10 +115,10 @@
 						$this->response('UNAUTHORIZED', 401);
 					}
 
-					$enrroll_number = $token->data->userName;
+					$enroll_number = $token->data->userName;
 				} else {
-					// BLANCO FLORES PAOLA
-					$enrroll_number = '19341';
+					// Dato de prueba (matrícula de BLANCO FLORES PAOLA)
+					$enroll_number = '19341';
 				}
 				// If succeed, query the database for available enrollments
 				$query="select" 
@@ -129,7 +129,7 @@
 					."  INNER JOIN cross_group_assignment xga ON xg.id_group_assignment = xga.id "
 					."	inner join cat_group on xga.id_group = cat_group.id_group "
 					."  inner join cat_career on cat_group.id_career = cat_career.id_career "
-					." where student.enroll_number = ".$enrroll_number;
+					." where student.enroll_number = ".$enroll_number;
 
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
@@ -161,7 +161,7 @@
 		private function boleta() {
 			// Validate token
 			$jwt = $this->getJWT();
-			if($jwt!=""){
+			if($jwt!="" || !self::SECURED){
 				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
@@ -172,6 +172,10 @@
 						error_log(print_r('Token signature not valid', TRUE));
 						$this->response('UNAUTHORIZED', 401);
 					}
+					$enroll_number = $token->data->userName;
+				} else {
+					// Dato de prueba (matrícula de BLANCO FLORES PAOLA)
+					$enroll_number = '19341';
 				}
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
@@ -187,7 +191,7 @@
 					."		AND note.id_student = student.Id_student  "
 					."		AND note.id_group = cat_group.id_group "
 					." WHERE cat_metter.assignment_name NOT LIKE '% TESIS' "
-					." AND student.enroll_number = ".$token->data->userName
+					." AND student.enroll_number = ".$enroll_number
 					." AND score_type = 4"
 					." ORDER BY cat_metter.assignment_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);

@@ -106,7 +106,7 @@
 		private function materias() {
 			// Validate token
 			$jwt = $this->getJWT();
-			if($jwt!=""){
+			if($jwt!="" || !self::SECURED){
 				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
@@ -162,7 +162,7 @@
 		private function alumnos() {
 			// Validate token
 			$jwt = $this->getJWT();
-			if($jwt!=""){
+			if($jwt!="" || !self::SECURED){
 				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
@@ -216,7 +216,7 @@
 
 			// Validate token
 			$jwt = $this->getJWT();
-			if($jwt!=""){
+			if($jwt!="" || !self::SECURED){
 				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
