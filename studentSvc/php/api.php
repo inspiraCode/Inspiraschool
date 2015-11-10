@@ -174,26 +174,27 @@
 					}
 					$enroll_number = $token->data->userName;
 				} else {
-					// Dato de prueba (matrícula de BLANCO FLORES PAOLA)
-					$enroll_number = '19341';
+					// Dato de prueba (matrícula de PONCIANO CRUZ DIANA)
+					$enroll_number = '2104021';
 				}
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
+				// FIXME: Filter by period, based on user selection.
+				// FIXME: Show also "boleta de preparatoria"
 				$query="SELECT" 
 					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
 					."		student.enroll_number, student.student_name, "
-					."		student.lastname as student_lastname, cat_metter.assignment_name as metter_name, note.score as partial_one "
-					." FROM student student  "
-					."	INNER JOIN cat_group on student.id_group = cat_group.id_group "
-					."	INNER JOIN cross_group_assignment metter_course on metter_course.id_group = cat_group.id_group "
-					."	INNER JOIN cat_assignment cat_metter on cat_metter.id_metter = metter_course.id_metter "
-					."	LEFT JOIN note on note.id_metter_course = metter_course.id_metter_course  "
-					."		AND note.id_student = student.Id_student  "
-					."		AND note.id_group = cat_group.id_group "
-					." WHERE cat_metter.assignment_name NOT LIKE '% TESIS' "
+					."		student.lastname as student_lastname, cat_assignment.assignment_name as metter_name, note.score as partial_one "
+					." FROM cat_student student  "
+					."  INNER JOIN cross_student_group_assignment xsga ON student.id_student = xsga.id_student"
+					."  INNER JOIN cross_group_assignment xga ON xsga.id_group_assignment = xga.id"
+					."	INNER JOIN cat_group on xga.id_group = cat_group.id_group"
+					."	INNER JOIN cat_assignment on xga.id_assignment = cat_assignment.id_assignment"
+					."	LEFT JOIN ctrl_score note on xga.id = note.id_group_assignment"
+					."		AND note.id_student = student.Id_student AND note.id_score_type = 5"
+					." WHERE cat_assignment.assignment_name NOT LIKE '% TESIS' "
 					." AND student.enroll_number = ".$enroll_number
-					." AND score_type = 4"
-					." ORDER BY cat_metter.assignment_name";
+					." ORDER BY cat_assignment.assignment_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php

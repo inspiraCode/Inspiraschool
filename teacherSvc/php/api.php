@@ -130,7 +130,7 @@
 				." on metter_course.id_metter = cat_metter.id_metter"
 				." inner join cat_teacher"
 				." on metter_course.id_teacher = cat_teacher.id_teacher"
-				." where cat_teacher.user_name = '".$token->data->userName."' and cat_group.period = 'SEPTIEMBRE-DICIEMBRE'";
+				." where cat_teacher.user_name = '".$token->data->userName."' and cat_group.period = '".$this->calcularPeriodo()."'";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -153,6 +153,14 @@
 				error_log(print_r('Token not found in request', TRUE));
 				$this->response('UNAUTHORIZED', 401);	
 			}
+		}
+
+		private function calcularPeriodo() {
+			// Conocer fecha actual
+			// de ENERO A ABRIL
+			// de MAYO A AGOSTO
+			// de SEPTIEMBRE A DICIEMBRE
+			return "SEPTIEMBRE-DICIEMBRE";
 		}
 
 		/*
