@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `school_control` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
-USE `school_control`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: school_control
@@ -18,16 +16,16 @@ USE `school_control`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cat_assigment`
+-- Table structure for table `cat_assignment`
 --
 
-DROP TABLE IF EXISTS `cat_assigment`;
+DROP TABLE IF EXISTS `cat_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cat_assigment` (
-  `id_assigment` int(11) NOT NULL AUTO_INCREMENT,
-  `assigment_name` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_assigment`)
+CREATE TABLE `cat_assignment` (
+  `id_assignment` int(11) NOT NULL AUTO_INCREMENT,
+  `assignment_name` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_assignment`)
 ) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -150,7 +148,7 @@ CREATE TABLE `cat_student` (
   KEY `fk_student_status_idx` (`status`),
   CONSTRAINT `fk_student_cat_company1` FOREIGN KEY (`id_company`) REFERENCES `cat_company` (`id_company`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_student_status` FOREIGN KEY (`status`) REFERENCES `cat_status` (`id_status`)
-) ENGINE=InnoDB AUTO_INCREMENT=1581 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1615 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -174,22 +172,22 @@ CREATE TABLE `cat_teacher` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `cross_group_assigment`
+-- Table structure for table `cross_group_assignment`
 --
 
-DROP TABLE IF EXISTS `cross_group_assigment`;
+DROP TABLE IF EXISTS `cross_group_assignment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cross_group_assigment` (
+CREATE TABLE `cross_group_assignment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_assigment` int(11) NOT NULL,
+  `id_assignment` int(11) NOT NULL,
   `id_group` int(11) NOT NULL,
   `id_teacher` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`id_group`,`id_assigment`,`id_teacher`),
-  UNIQUE KEY `ux_assigment_group` (`id_assigment`,`id_group`),
-  KEY `fk_group_assigment_cat_teachers1_idx` (`id_teacher`),
-  KEY `fk_group_assigment_groups1_idx` (`id_group`),
-  CONSTRAINT `fk_assignment` FOREIGN KEY (`id_assigment`) REFERENCES `cat_assigment` (`id_assigment`) ON DELETE CASCADE ON UPDATE CASCADE,
+  PRIMARY KEY (`id`,`id_group`,`id_assignment`,`id_teacher`),
+  UNIQUE KEY `ux_assignment_group` (`id_assignment`,`id_group`),
+  KEY `fk_group_assignment_cat_teachers1_idx` (`id_teacher`),
+  KEY `fk_group_assignment_groups1_idx` (`id_group`),
+  CONSTRAINT `fk_assignment` FOREIGN KEY (`id_assignment`) REFERENCES `cat_assignment` (`id_assignment`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_group` FOREIGN KEY (`id_group`) REFERENCES `cat_group` (`id_group`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_teacher` FOREIGN KEY (`id_teacher`) REFERENCES `cat_teacher` (`id_teacher`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -206,8 +204,8 @@ CREATE TABLE `cross_student_group_assignment` (
   `id_student` int(11) NOT NULL,
   `id_group_assignment` int(11) NOT NULL,
   PRIMARY KEY (`id_student`,`id_group_assignment`),
-  KEY `fk_group_assigment_idx` (`id_group_assignment`),
-  CONSTRAINT `fk_group_assigment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assigment` (`id`),
+  KEY `fk_group_assignment_idx` (`id_group_assignment`),
+  CONSTRAINT `fk_group_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
   CONSTRAINT `fk_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -245,14 +243,14 @@ DROP TABLE IF EXISTS `ctrl_score`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ctrl_score` (
   `id_student` int(11) NOT NULL,
-  `id_group_assigment` int(11) NOT NULL,
+  `id_group_assignment` int(11) NOT NULL,
   `id_score_type` int(11) NOT NULL DEFAULT '5',
   `score` int(11) NOT NULL DEFAULT '0',
   `comments` varchar(250) COLLATE latin1_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_student`,`id_group_assigment`,`id_score_type`),
-  KEY `fk_note_metter_course1_idx` (`id_group_assigment`),
+  PRIMARY KEY (`id_student`,`id_group_assignment`,`id_score_type`),
+  KEY `fk_note_metter_course1_idx` (`id_group_assignment`),
   KEY `fk_score_type_idx` (`id_score_type`),
-  CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assigment`) REFERENCES `cross_group_assigment` (`id`),
+  CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
   CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_score_type` FOREIGN KEY (`id_score_type`) REFERENCES `cat_score_type` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
@@ -267,4 +265,4 @@ CREATE TABLE `ctrl_score` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-06 13:36:32
+-- Dump completed on 2015-11-10 10:25:48

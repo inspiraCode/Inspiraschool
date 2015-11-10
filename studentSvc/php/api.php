@@ -12,7 +12,8 @@
 		const DB_PASSWORD = "";
 		const DB = "school_control";
 		const DB_AUTH = "inspiraschool_realm";
-		const SECURED = true;
+		//const SECURED = true;
+		const SECURED = false;
 
 		private $db = NULL;
 		private $conn = NULL;
@@ -102,8 +103,8 @@
 		private function constancia() {
 			// Validate token
 			$jwt = $this->getJWT();
-			if($jwt!=""){
-				if(self::SECURED){
+			if($jwt!="" || !self::SECURED){
+				if(self::SECURED) {
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
 						error_log(print_r('decoded token', TRUE));
@@ -113,15 +114,22 @@
 						error_log(print_r('Token signature not valid', TRUE));
 						$this->response('UNAUTHORIZED', 401);
 					}
+
+					$enrroll_number = $token->data->userName;
+				} else {
+					// BLANCO FLORES PAOLA
+					$enrroll_number = '19341';
 				}
 				// If succeed, query the database for available enrollments
 				$query="select" 
 					." student.student_name, student.lastname as student_lastname, student.enroll_number, "
-					."	now() as report_date, cat_group.period, cat_group.grade, cat_grade.name_carreer "
+					."	now() as report_date, cat_group.period, cat_group.grade, cat_career.name_career AS name_carreer "
 					." from cat_student student  "
-					."	inner join cat_group on student.id_group = cat_group.id_group "
+					."  INNER JOIN cross_student_group_assignment xg ON student.id_student = xg.id_student "
+					."  INNER JOIN cross_group_assignment xga ON xg.id_group_assignment = xga.id "
+					."	inner join cat_group on xga.id_group = cat_group.id_group "
 					."  inner join cat_career on cat_group.id_career = cat_career.id_career "
-					." where student.enroll_number = ".$token->data->userName;
+					." where student.enroll_number = ".$enrroll_number;
 
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
