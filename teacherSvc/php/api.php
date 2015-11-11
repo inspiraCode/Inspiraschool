@@ -12,7 +12,7 @@
 		const DB_PASSWORD = "";
 		const DB = "school_control";
 		const DB_AUTH = "inspiraschool_realm";
-		const SECURED = true;
+		const SECURED = false;
 
 		private $db = NULL;
 		private $conn = NULL;
@@ -107,6 +107,7 @@
 			// Validate token
 			$jwt = $this->getJWT();
 			if($jwt!="" || !self::SECURED){
+				date_default_timezone_set('America/Chihuahua');
 				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
@@ -117,20 +118,22 @@
 						error_log(print_r('Token signature not valid', TRUE));
 						$this->response('UNAUTHORIZED', 401);
 					}
+					$user_name = $token->data->userName;
+				} else {
+					$user_name = 'meliton.gonzalez';
 				}
 				
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
 				$query="select "
-				." metter_course.id_metter_course, cat_group.grade, cat_group.day_trip, cat_metter.metter_name, cat_teacher.name, cat_group.period, cat_group.year_of_course"
-				." from metter_course "
-				." inner join cat_group "
-				." on metter_course.id_group = cat_group.id_group"
-				." inner join cat_metter"
-				." on metter_course.id_metter = cat_metter.id_metter"
-				." inner join cat_teacher"
-				." on metter_course.id_teacher = cat_teacher.id_teacher"
-				." where cat_teacher.user_name = '".$token->data->userName."' and cat_group.period = '".$this->calcularPeriodo()."'";
+				." id, grade, day_trip, assignment_name, name, period, year_of_course"
+				." FROM cross_group_assignment xga "
+				." INNER JOIN cat_group ON xga.id_group = cat_group.id_group"
+				." INNER JOIN cat_assignment ON xga.id_assignment = cat_assignment.id_assignment"
+				." INNER JOIN cat_teacher ON xga.id_teacher = cat_teacher.id_teacher"
+				." WHERE cat_teacher.user_name = '".$user_name."'"
+				." and cat_group.period = '".$this->calcularPeriodo()."'"
+				." and cat_group.year_of_course = '".date('Y')."'";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -157,14 +160,33 @@
 
 		private function calcularPeriodo() {
 			// Conocer fecha actual
-			// de ENERO A ABRIL
-			// de MAYO A AGOSTO
-			// de SEPTIEMBRE A DICIEMBRE
-			return "SEPTIEMBRE-DICIEMBRE";
+			$cur_month = date('n');
+			$result = "";
+			switch ($cur_month) {
+				// de ENERO A ABRIL
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					$result = "ENERO-ABRIL";
+					break;
+				// de MAYO A AGOSTO
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+					$result = "MAYO-AGOSTO";
+					break;
+				// de SEPTIEMBRE A DICIEMBRE
+				default:
+					$result = "SEPTIEMBRE-DICIEMBRE";	
+			}
+			return $result;
 		}
 
 		/*
 		 * Lista de alumnos para capturar calificaciones
+		 * //server/tearcherService/alumnos?course_id=357
 		 *
 		 */
 		private function alumnos() {
@@ -184,16 +206,16 @@
 				}
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
-				$query=" select "
-				." student.id_student , metter_course.id_group , metter_course.id_metter_course , student.student_name, student.enroll_number, student.status, "
-				." note.p1, note.p2 "
-				." from student "
-				." inner join metter_course "
-				." on student.id_group = metter_course.id_group "
-				." left join note "
- 				." on note.id_metter_course = metter_course.id_metter_course "
-				." where metter_course.id_metter_course =  ".$_REQUEST['course_id']
-				." order by student.student_name ";
+				$query=" SELECT xga.id, cat_student.id_student, cat_student.student_name, cat_student.lastname, cat_student.enroll_number,"
+				." (SELECT partial_one FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS partial_one,"
+    			." (SELECT partial_two FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS partial_two,"
+    			." (SELECT final FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS final,"
+			    ." (SELECT comments FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS comments"
+				." FROM cross_group_assignment xga"
+					." INNER JOIN cross_student_group_assignment xsga ON xga.id = xsga.id_group_assignment"
+					." INNER JOIN cat_student ON xsga.id_student = cat_student.id_student"
+				." WHERE id = ".$_REQUEST['course_id']
+				." ORDER BY lastname, student_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -237,7 +259,7 @@
 					}
 				}
 				$form = json_decode(file_get_contents('php://input'), TRUE);
-				$column_names = array('id_student', 'id_group_assignment', 'id_score_type', 'score', 'comments');
+				$column_names = array('id_student', 'id_group_assignment', 'partial_one', 'partial_two', 'final', 'comments');
 				$keys = array_keys($form);
 				$columns = '';
 				$values = '';

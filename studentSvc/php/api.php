@@ -180,18 +180,18 @@
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
 				// FIXME: Filter by period, based on user selection.
-				// FIXME: Show also "boleta de preparatoria"
+				// FIXME: Show also "boleta de preparatoria" with partials.
 				$query="SELECT" 
 					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
 					."		student.enroll_number, student.student_name, "
-					."		student.lastname as student_lastname, cat_assignment.assignment_name as metter_name, note.score as partial_one "
+					."		student.lastname as student_lastname, cat_assignment.assignment_name as metter_name, note.final as partial_one"
 					." FROM cat_student student  "
 					."  INNER JOIN cross_student_group_assignment xsga ON student.id_student = xsga.id_student"
 					."  INNER JOIN cross_group_assignment xga ON xsga.id_group_assignment = xga.id"
 					."	INNER JOIN cat_group on xga.id_group = cat_group.id_group"
 					."	INNER JOIN cat_assignment on xga.id_assignment = cat_assignment.id_assignment"
 					."	LEFT JOIN ctrl_score note on xga.id = note.id_group_assignment"
-					."		AND note.id_student = student.Id_student AND note.id_score_type = 5"
+					."		AND note.id_student = student.Id_student"
 					." WHERE cat_assignment.assignment_name NOT LIKE '% TESIS' "
 					." AND student.enroll_number = ".$enroll_number
 					." ORDER BY cat_assignment.assignment_name";

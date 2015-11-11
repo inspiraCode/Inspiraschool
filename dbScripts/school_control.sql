@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `school_control` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
+USE `school_control`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: school_control
@@ -92,21 +94,6 @@ CREATE TABLE `cat_payment_concept` (
   `price` decimal(2,0) DEFAULT NULL,
   PRIMARY KEY (`id_payment_concept`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `cat_score_type`
---
-
-DROP TABLE IF EXISTS `cat_score_type`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cat_score_type` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `score_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `score_name_UNIQUE` (`score_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -244,15 +231,21 @@ DROP TABLE IF EXISTS `ctrl_score`;
 CREATE TABLE `ctrl_score` (
   `id_student` int(11) NOT NULL,
   `id_group_assignment` int(11) NOT NULL,
-  `id_score_type` int(11) NOT NULL DEFAULT '5',
-  `score` int(11) NOT NULL DEFAULT '0',
   `comments` varchar(250) COLLATE latin1_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_student`,`id_group_assignment`,`id_score_type`),
+  `partial_one` int(11) DEFAULT NULL,
+  `partial_two` int(11) DEFAULT NULL,
+  `partial_three` int(11) DEFAULT NULL,
+  `partial_four` int(11) DEFAULT NULL,
+  `partial_five` int(11) DEFAULT NULL,
+  `partial_six` int(11) DEFAULT NULL,
+  `extraordinary` int(11) DEFAULT NULL,
+  `extraordinary_two` int(11) DEFAULT NULL,
+  `special` int(11) DEFAULT NULL,
+  `final` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_student`,`id_group_assignment`),
   KEY `fk_note_metter_course1_idx` (`id_group_assignment`),
-  KEY `fk_score_type_idx` (`id_score_type`),
   CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
-  CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_score_type` FOREIGN KEY (`id_score_type`) REFERENCES `cat_score_type` (`id`)
+  CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -265,4 +258,4 @@ CREATE TABLE `ctrl_score` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-10 13:33:31
+-- Dump completed on 2015-11-11 10:48:33
