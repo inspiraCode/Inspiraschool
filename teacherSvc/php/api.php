@@ -292,7 +292,8 @@
 					} else {
 						$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$form, 'Token'=>'NOT SECURED INTERFACE'];
 					}
-					$this->response($this->json($success),200);
+					$response = $this->json($response_array);
+					$this->response($response,200);
 				}else{
 					// EMPTY REQUEST, EMPTY RESPONSE
 					$this->response('',204);	
