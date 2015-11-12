@@ -275,8 +275,12 @@
 				}
 				$insertSentence = "INSERT INTO ctrl_score(".trim($columns,',').") VALUES(".trim($values,',').")";
 				$insertSentence = utf8_decode($insertSentence);
+
+				$deleteSentence = "DELETE FROM ctrl_score WHERE id_student=".$form['id_student']." AND id_group_assignment=".$form['id_group_assignment'];
+
 				//error_log(print_r($insertSentence, TRUE));
 				if(!empty($form)){
+					$result = $this->conn->query($deleteSentence);
 					$result = $this->conn->query($insertSentence) or die($this->conn->error.__LINE__);
 					//$form['folio'] = $this->conn->insert_id;
 					//error_log(print_r($form, TRUE));
