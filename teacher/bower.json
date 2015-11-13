@@ -2,12 +2,12 @@
   "name": "teacher",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "^1.3.0",
+    "angular": "~1.4.7",
     "bootstrap": "^3.2.0",
     "angular-animate": "~1.4.7",
-    "angular-route": "^1.3.0",
-    "angular-sanitize": "^1.3.0",
-    "angular-touch": "^1.3.0",
+    "angular-route": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-touch": "~1.4.7",
     "a0-angular-storage": "~0.0.12",
     "angular-jwt": "~0.0.9",
     "ngActivityIndicator": "~0.1.10",
@@ -29,6 +29,7 @@
     }
   },
   "resolutions": {
-    "angular": "^1.3.0"
+    "angular": "~1.4.7",
+    "angular-animate": "~1.4.7"
   }
 }

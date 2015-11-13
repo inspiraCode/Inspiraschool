@@ -2,19 +2,20 @@
 
 /**
  * @ngdoc service
- * @name teacherApp.courseService
+ * @name teacherApp.calificarService
  * @description
- * # courseService
+ * # calificarService
  * Service in the teacherApp.
  */
-angular.module('teacherApp').service('courseService', function(crudFactory) {
+angular.module('teacherApp').service('calificarService', function(crudFactory) {
     var crudInstance = new crudFactory({
         //Entity Name = WebService/API to call:
-        entityName: "materias",
+        entityName: "calificar",
 
+        //Entity Definition = For validate entity, for create new object instances, 
         entityDefinition: {
             systemFields: {
-                id: 'catalog',
+                id: 'catalog'
             },
 
             calculatedFields: {},
@@ -24,7 +25,7 @@ angular.module('teacherApp').service('courseService', function(crudFactory) {
             requiredFields: {}
         },
 
-        parentField: 'user_name',
+        parentField: '',
 
         catalogs: [],
 
@@ -42,10 +43,6 @@ angular.module('teacherApp').service('courseService', function(crudFactory) {
 
         dependencies: []
     });
-
-    crudInstance.setSelected = function(theEntity) {
-        crudInstance.selectedEntity = theEntity;
-    };
 
     return crudInstance;
 });
