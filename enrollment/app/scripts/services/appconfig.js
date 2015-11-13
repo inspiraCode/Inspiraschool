@@ -9,5 +9,5 @@
  */
 angular.module('enrollmentApp').constant('appConfig', {
     //API_URL:'http://apps.capsonic.com/IQS_Backend/api/' 	//PRODUCTION
-    API_URL: 'http://localhost:8080/services/' //DEVELOPMENT
+    API_URL: 'http://localhost:9090/services/' //DEVELOPMENT
 });

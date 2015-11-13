@@ -12,7 +12,6 @@
 		const DB_PASSWORD = "";
 		const DB = "school_control";
 		const DB_AUTH = "inspiraschool_realm";
-		//const SECURED = true;
 		const SECURED = false;
 
 		private $db = NULL;
@@ -57,7 +56,11 @@
 		}
 
 		private function ping(){
-			$this->response('Student API is alive: v2.0!', 200);
+			$sSecured = 'Secured';
+			if(!self::SECURED){
+				$sSecured = 'Not Secured';
+			}
+			$this->response('Teachers API is alive: v1.0 '.$sSecured, 200);
 		}
 
 		private function login(){
@@ -97,14 +100,15 @@
 		}
 
 		/*
-		 * Detalles del usuario para armar constancia
+		 * Lista de materias por maestro.
 		 *
 		 */
-		private function constancia() {
+		private function materias() {
 			// Validate token
 			$jwt = $this->getJWT();
 			if($jwt!="" || !self::SECURED){
-				if(self::SECURED) {
+				date_default_timezone_set('America/Chihuahua');
+				if(self::SECURED){
 					try{
 						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
 						error_log(print_r('decoded token', TRUE));
@@ -114,23 +118,22 @@
 						error_log(print_r('Token signature not valid', TRUE));
 						$this->response('UNAUTHORIZED', 401);
 					}
-
-					$enroll_number = $token->data->userName;
+					$user_name = $token->data->userName;
 				} else {
-					// Dato de prueba (matrícula de BLANCO FLORES PAOLA)
-					$enroll_number = '19341';
+					$user_name = 'meliton.gonzalez';
 				}
+				
 				// If succeed, query the database for available enrollments
-				$query="select" 
-					." student.student_name, student.lastname as student_lastname, student.enroll_number, "
-					."	now() as report_date, cat_group.period, cat_group.grade, cat_career.name_career AS name_carreer "
-					." from cat_student student  "
-					."  INNER JOIN cross_student_group_assignment xg ON student.id_student = xg.id_student "
-					."  INNER JOIN cross_group_assignment xga ON xg.id_group_assignment = xga.id "
-					."	inner join cat_group on xga.id_group = cat_group.id_group "
-					."  inner join cat_career on cat_group.id_career = cat_career.id_career "
-					." where student.enroll_number = ".$enroll_number;
-
+				// Obtener calificaciones de los usuarios
+				$query="select "
+				." id, grade, day_trip, assignment_name, name, period, year_of_course"
+				." FROM cross_group_assignment xga "
+				." INNER JOIN cat_group ON xga.id_group = cat_group.id_group"
+				." INNER JOIN cat_assignment ON xga.id_assignment = cat_assignment.id_assignment"
+				." INNER JOIN cat_teacher ON xga.id_teacher = cat_teacher.id_teacher"
+				." WHERE cat_teacher.user_name = '".$user_name."'"
+				." and cat_group.period = '".$this->calcularPeriodo()."'"
+				." and cat_group.year_of_course = '".date('Y')."'";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -144,6 +147,7 @@
 				} else {
 					$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$rows, 'Token'=>'NOT SECURED INTERFACE'];
 				}
+				
 				// Token renewal
 				$response = $this->json($response_array);
 				$this->response($response, 200);
@@ -152,13 +156,40 @@
 				error_log(print_r('Token not found in request', TRUE));
 				$this->response('UNAUTHORIZED', 401);	
 			}
+		}
+
+		private function calcularPeriodo() {
+			// Conocer fecha actual
+			$cur_month = date('n');
+			$result = "";
+			switch ($cur_month) {
+				// de ENERO A ABRIL
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					$result = "ENERO-ABRIL";
+					break;
+				// de MAYO A AGOSTO
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+					$result = "MAYO-AGOSTO";
+					break;
+				// de SEPTIEMBRE A DICIEMBRE
+				default:
+					$result = "SEPTIEMBRE-DICIEMBRE";	
+			}
+			return $result;
 		}
 
 		/*
-		 * Lista de calificaciones para armar boleta
+		 * Lista de alumnos para capturar calificaciones
+		 * //server/tearcherService/alumnos?course_id=357
 		 *
 		 */
-		private function boleta() {
+		private function alumnos() {
 			// Validate token
 			$jwt = $this->getJWT();
 			if($jwt!="" || !self::SECURED){
@@ -172,29 +203,19 @@
 						error_log(print_r('Token signature not valid', TRUE));
 						$this->response('UNAUTHORIZED', 401);
 					}
-					$enroll_number = $token->data->userName;
-				} else {
-					// Dato de prueba (matrícula de PONCIANO CRUZ DIANA)
-					$enroll_number = '2104021';
 				}
 				// If succeed, query the database for available enrollments
 				// Obtener calificaciones de los usuarios
-				// FIXME: Filter by period, based on user selection.
-				// FIXME: Show also "boleta de preparatoria" with partials.
-				$query="SELECT" 
-					." student.Id_student as id, now() as report_date, cat_group.period, cat_group.grade, "
-					."		student.enroll_number, student.student_name, "
-					."		student.lastname as student_lastname, cat_assignment.assignment_name as metter_name, note.final as partial_one"
-					." FROM cat_student student  "
-					."  INNER JOIN cross_student_group_assignment xsga ON student.id_student = xsga.id_student"
-					."  INNER JOIN cross_group_assignment xga ON xsga.id_group_assignment = xga.id"
-					."	INNER JOIN cat_group on xga.id_group = cat_group.id_group"
-					."	INNER JOIN cat_assignment on xga.id_assignment = cat_assignment.id_assignment"
-					."	LEFT JOIN ctrl_score note on xga.id = note.id_group_assignment"
-					."		AND note.id_student = student.Id_student"
-					." WHERE cat_assignment.assignment_name NOT LIKE '% TESIS' "
-					." AND student.enroll_number = ".$enroll_number
-					." ORDER BY cat_assignment.assignment_name";
+				$query=" SELECT xga.id, cat_student.id_student, cat_student.student_name, cat_student.lastname, cat_student.enroll_number,"
+				." (SELECT partial_one FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS partial_one,"
+    			." (SELECT partial_two FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS partial_two,"
+    			." (SELECT final FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS final,"
+			    ." (SELECT comments FROM ctrl_score WHERE ctrl_score.id_student = cat_student.id_student AND ctrl_score.id_group_assignment = xga.id) AS comments"
+				." FROM cross_group_assignment xga"
+					." INNER JOIN cross_student_group_assignment xsga ON xga.id = xsga.id_group_assignment"
+					." INNER JOIN cat_student ON xsga.id_student = cat_student.id_student"
+				." WHERE id = ".$_REQUEST['course_id']
+				." ORDER BY lastname, student_name";
 				$r = $this->conn->query($query) or die($this->conn->error.__LINE__);
 				$rows = array();
 				// Obtener los datos de mysql y llenarlos en objeto de php
@@ -217,7 +238,73 @@
 				$this->response('UNAUTHORIZED', 401);	
 			}
 		}
-		
+
+		private function calificar(){
+			if($this->get_request_method() != "POST"){
+				$this->response($this->get_request_method().' NOT ALLOWED',406);
+			}
+
+			// Validate token
+			$jwt = $this->getJWT();
+			if($jwt!="" || !self::SECURED){
+				if(self::SECURED){
+					try{
+						$token = JWT::decode($jwt, $this->jwt_key, array('HS512'));
+						error_log(print_r('decoded token', TRUE));
+					}catch(Exception $e){
+						// The token could not be decoded.
+						// this is likely because the signature was not able to be verified.
+						error_log(print_r('Token signature not valid', TRUE));
+						$this->response('UNAUTHORIZED', 401);
+					}
+				}
+				$form = json_decode(file_get_contents('php://input'), TRUE);
+				$column_names = array('id_student', 'id_group_assignment', 'partial_one', 'partial_two', 'final', 'comments');
+				$keys = array_keys($form);
+				$columns = '';
+				$values = '';
+				
+				foreach($column_names as $desired_key){
+					if(!in_array($desired_key, $keys)){
+						$$desired_key = '';
+					}else{
+						$$desired_key = $form[$desired_key];
+					}
+					$columns = $columns.$desired_key.',';
+					$values = $values."'".$$desired_key."',";
+				}
+				$insertSentence = "INSERT INTO ctrl_score(".trim($columns,',').") VALUES(".trim($values,',').")";
+				$insertSentence = utf8_decode($insertSentence);
+
+				$deleteSentence = "DELETE FROM ctrl_score WHERE id_student=".$form['id_student']." AND id_group_assignment=".$form['id_group_assignment'];
+
+				//error_log(print_r($insertSentence, TRUE));
+				if(!empty($form)){
+					$result = $this->conn->query($deleteSentence);
+					$result = $this->conn->query($insertSentence) or die($this->conn->error.__LINE__);
+					//$form['folio'] = $this->conn->insert_id;
+					//error_log(print_r($form, TRUE));
+					//$success = array('status' => "Success", "msg" => "Enrollment form created.", "data" => $form);
+					if(self::SECURED){
+						// Token renewal
+						$jwt = $this->tokenize($token->data->userId, $token->data->userName);
+						$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$form, 'Token'=>$jwt];
+					} else {
+						$response_array = ['ErrorThrown'=>false, 'ResponseDescription'=>'Success','Result'=>$form, 'Token'=>'NOT SECURED INTERFACE'];
+					}
+					$response = $this->json($response_array);
+					$this->response($response,200);
+				}else{
+					// EMPTY REQUEST, EMPTY RESPONSE
+					$this->response('',204);	
+				}
+			}else{
+				// No token found in the header.
+				error_log(print_r('Token not found in request', TRUE));
+				$this->response('UNAUTHORIZED', 401);
+			}
+		}
+
 		private function tokenize($user_id, $user_name){
 			error_log(print_r('Tokenize for '.$user_id.': '.$user_name, TRUE));
 			// If user validation succeed, tokenize as in http://www.sitepoint.com/php-authorization-jwt-json-web-tokens/

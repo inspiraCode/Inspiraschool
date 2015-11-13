@@ -1,200 +1,261 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+CREATE DATABASE  IF NOT EXISTS `school_control` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
+USE `school_control`;
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: school_control
+-- ------------------------------------------------------
+-- Server version	5.6.26
 
-CREATE SCHEMA IF NOT EXISTS `enrollment` DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci ;
-USE `enrollment` ;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- -----------------------------------------------------
--- Table `enrollment`.`enrollment`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`enrollment` (
-  `id_enrollment` INT(11) NOT NULL AUTO_INCREMENT,
-  `enrollment_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shift` VARCHAR(1) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `course` VARCHAR(2) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `course_plan` VARCHAR(4) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `first_name` VARCHAR(50) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `last_name` VARCHAR(50) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `gender` VARCHAR(1) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NOT NULL,
-  `birth_place` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `birth_date` DATETIME NULL DEFAULT NULL,
-  `address_1` VARCHAR(80) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `address_2` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `city` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `state` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `zip` VARCHAR(10) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `phone_home` VARCHAR(20) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `phone_mobile` VARCHAR(20) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `person_unique_id` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `from_school` VARCHAR(45) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  `email` VARCHAR(80) CHARACTER SET 'latin1' COLLATE 'latin1_spanish_ci' NULL DEFAULT NULL,
-  PRIMARY KEY (`id_enrollment`),
-  UNIQUE INDEX `NAME` (`first_name` ASC, `last_name` ASC),
-  UNIQUE INDEX `idenrollment_UNIQUE` (`id_enrollment` ASC))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = latin1
-COLLATE = latin1_spanish_ci
-COMMENT = 'student enrollment form';
+--
+-- Table structure for table `cat_assignment`
+--
 
+DROP TABLE IF EXISTS `cat_assignment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_assignment` (
+  `id_assignment` int(11) NOT NULL AUTO_INCREMENT,
+  `assignment_name` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_assignment`)
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `enrollment`.`group`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`group` (
-  `id_group` INT NOT NULL AUTO_INCREMENT,
-  `grade` VARCHAR(45) NULL,
-  `period` VARCHAR(45) NULL,
-  `mode` VARCHAR(45) NULL,
-  `day_trip` VARCHAR(45) NULL,
-  `year_of_course` VARCHAR(45) NULL,
-  PRIMARY KEY (`id_group`))
-ENGINE = InnoDB;
+--
+-- Table structure for table `cat_career`
+--
 
+DROP TABLE IF EXISTS `cat_career`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_career` (
+  `id_career` int(11) NOT NULL AUTO_INCREMENT,
+  `name_career` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `code` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_career`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- -----------------------------------------------------
--- Table `enrollment`.`student`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`student` (
-  `Id_student` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `lastname` VARCHAR(45) NULL,
-  `birthdate` VARCHAR(45) NULL,
-  `addres` VARCHAR(45) NULL,
-  `sex` VARCHAR(45) NULL,
-  `id_group` INT NULL,
-  `enrollment_id` VARCHAR(45) NULL,
-  `enrollment_date` DATE NULL,
-  `grade_SIE` VARCHAR(45) NULL,
-  `groups_id_group` INT NOT NULL,
+--
+-- Table structure for table `cat_company`
+--
+
+DROP TABLE IF EXISTS `cat_company`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_company` (
+  `id_company` int(11) NOT NULL,
+  `company_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_company`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cat_group`
+--
+
+DROP TABLE IF EXISTS `cat_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_group` (
+  `id_group` int(11) NOT NULL AUTO_INCREMENT,
+  `grade` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `period` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `mode` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `day_trip` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `year_of_course` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `id_career` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_group`),
+  KEY `fk_id_career_idx` (`id_career`),
+  CONSTRAINT `fk_id_career` FOREIGN KEY (`id_career`) REFERENCES `cat_career` (`id_career`)
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cat_payment_concept`
+--
+
+DROP TABLE IF EXISTS `cat_payment_concept`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_payment_concept` (
+  `id_payment_concept` int(11) NOT NULL AUTO_INCREMENT,
+  `concept` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `price` decimal(2,0) DEFAULT NULL,
+  PRIMARY KEY (`id_payment_concept`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cat_status`
+--
+
+DROP TABLE IF EXISTS `cat_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_status` (
+  `id_status` int(11) NOT NULL AUTO_INCREMENT,
+  `status_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `cat_student`
+--
+
+DROP TABLE IF EXISTS `cat_student`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_student` (
+  `Id_student` int(11) NOT NULL AUTO_INCREMENT,
+  `student_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `lastname` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `birthdate` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `address` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `gender` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `enroll_number` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `enrollment_date` date DEFAULT NULL,
+  `id_company` int(11) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  `clock_id` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`Id_student`),
-  INDEX `fk_students_groups1_idx` (`groups_id_group` ASC),
-  CONSTRAINT `fk_students_groups1`
-    FOREIGN KEY (`groups_id_group`)
-    REFERENCES `enrollment`.`group` (`id_group`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  UNIQUE KEY `enroll_number_UNIQUE` (`enroll_number`),
+  KEY `fk_student_cat_company1_idx` (`id_company`),
+  KEY `fk_student_status_idx` (`status`),
+  CONSTRAINT `fk_student_cat_company1` FOREIGN KEY (`id_company`) REFERENCES `cat_company` (`id_company`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_student_status` FOREIGN KEY (`status`) REFERENCES `cat_status` (`id_status`)
+) ENGINE=InnoDB AUTO_INCREMENT=1615 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `cat_teacher`
+--
 
--- -----------------------------------------------------
--- Table `enrollment`.`cat_teacher`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`cat_teacher` (
-  `id_teacher` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  `lastname` VARCHAR(45) NULL,
-  `addres` VARCHAR(45) NULL,
-  `phone` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  PRIMARY KEY (`id_teacher`))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `cat_teacher`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cat_teacher` (
+  `id_teacher` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `lastname` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `addres` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `phone` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `email` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `user_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_teacher`),
+  UNIQUE KEY `user_name_UNIQUE` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `cross_group_assignment`
+--
 
--- -----------------------------------------------------
--- Table `enrollment`.`metter_course`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`metter_course` (
-  `id_metter_course` INT NOT NULL AUTO_INCREMENT,
-  `id_metter` INT NULL,
-  `id_group` INT NULL,
-  `id_teacher` INT NULL,
-  `cat_teachers_id_teacher` INT NOT NULL,
-  `groups_id_group` INT NOT NULL,
-  PRIMARY KEY (`id_metter_course`),
-  INDEX `fk_metter_curse_cat_teachers1_idx` (`cat_teachers_id_teacher` ASC),
-  INDEX `fk_metter_course_groups1_idx` (`groups_id_group` ASC),
-  CONSTRAINT `fk_metter_curse_cat_teachers1`
-    FOREIGN KEY (`cat_teachers_id_teacher`)
-    REFERENCES `enrollment`.`cat_teacher` (`id_teacher`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_metter_course_groups1`
-    FOREIGN KEY (`groups_id_group`)
-    REFERENCES `enrollment`.`group` (`id_group`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `cross_group_assignment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cross_group_assignment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_assignment` int(11) NOT NULL,
+  `id_group` int(11) NOT NULL,
+  `id_teacher` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`id_group`,`id_assignment`,`id_teacher`),
+  UNIQUE KEY `ux_assignment_group` (`id_assignment`,`id_group`),
+  KEY `fk_group_assignment_cat_teachers1_idx` (`id_teacher`),
+  KEY `fk_group_assignment_groups1_idx` (`id_group`),
+  CONSTRAINT `fk_assignment` FOREIGN KEY (`id_assignment`) REFERENCES `cat_assignment` (`id_assignment`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_group` FOREIGN KEY (`id_group`) REFERENCES `cat_group` (`id_group`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_teacher` FOREIGN KEY (`id_teacher`) REFERENCES `cat_teacher` (`id_teacher`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=383 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `cross_student_group_assignment`
+--
 
--- -----------------------------------------------------
--- Table `enrollment`.`note`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`note` (
-  `id_student` INT NULL,
-  `id_group` INT NULL,
-  `id_metter` INT NULL,
-  `p1` INT NULL,
-  `p2` INT NULL,
-  `average` INT NULL,
-  `special1` INT NULL,
-  `special2` INT NULL,
-  `groups_id_group` INT NOT NULL,
-  `students_Id_student` INT NOT NULL,
-  `metter_course_id_metter_course` INT NOT NULL,
-  PRIMARY KEY (`id_student`, `id_group`, `id_metter`),
-  INDEX `fk_notes_groups1_idx` (`groups_id_group` ASC),
-  INDEX `fk_notes_students1_idx` (`students_Id_student` ASC),
-  INDEX `fk_note_metter_course1_idx` (`metter_course_id_metter_course` ASC),
-  CONSTRAINT `fk_notes_groups1`
-    FOREIGN KEY (`groups_id_group`)
-    REFERENCES `enrollment`.`group` (`id_group`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_notes_students1`
-    FOREIGN KEY (`students_Id_student`)
-    REFERENCES `enrollment`.`student` (`Id_student`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_note_metter_course1`
-    FOREIGN KEY (`metter_course_id_metter_course`)
-    REFERENCES `enrollment`.`metter_course` (`id_metter_course`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS `cross_student_group_assignment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cross_student_group_assignment` (
+  `id_student` int(11) NOT NULL,
+  `id_group_assignment` int(11) NOT NULL,
+  PRIMARY KEY (`id_student`,`id_group_assignment`),
+  KEY `fk_group_assignment_idx` (`id_group_assignment`),
+  CONSTRAINT `fk_group_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
+  CONSTRAINT `fk_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `ctrl_charge`
+--
 
--- -----------------------------------------------------
--- Table `enrollment`.`cat_payment_concept`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`cat_payment_concept` (
-  `id_payment_concept` INT NOT NULL AUTO_INCREMENT,
-  `concept` VARCHAR(45) NULL,
-  `price` DECIMAL(2) NULL,
-  PRIMARY KEY (`id_payment_concept`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `enrollment`.`charge`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `enrollment`.`charge` (
-  `id_charge` INT NOT NULL AUTO_INCREMENT,
-  `id_student` INT NULL,
-  `id_concept` INT NULL,
-  `price` DECIMAL(2) NULL,
-  `quantity` INT NULL,
-  `total` DECIMAL(2) NULL,
-  `charge_date` DATETIME NULL,
-  `id_employee` INT NULL,
-  `students_Id_student` INT NOT NULL,
-  `cat_payment_concept_id_payment_concept` INT NOT NULL,
+DROP TABLE IF EXISTS `ctrl_charge`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ctrl_charge` (
+  `id_charge` int(11) NOT NULL AUTO_INCREMENT,
+  `id_student` int(11) NOT NULL,
+  `id_concept` int(11) NOT NULL,
+  `price` decimal(2,0) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `total` decimal(2,0) DEFAULT NULL,
+  `charge_date` datetime DEFAULT NULL,
+  `id_employee` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_charge`),
-  INDEX `fk_charges_students1_idx` (`students_Id_student` ASC),
-  INDEX `fk_charges_cat_payment_concept1_idx` (`cat_payment_concept_id_payment_concept` ASC),
-  CONSTRAINT `fk_charges_students1`
-    FOREIGN KEY (`students_Id_student`)
-    REFERENCES `enrollment`.`student` (`Id_student`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_charges_cat_payment_concept1`
-    FOREIGN KEY (`cat_payment_concept_id_payment_concept`)
-    REFERENCES `enrollment`.`cat_payment_concept` (`id_payment_concept`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+  KEY `fk_charges_students1_idx` (`id_student`),
+  KEY `fk_charges_cat_payment_concept1_idx` (`id_concept`),
+  CONSTRAINT `fk_charges_cat_payment_concept1` FOREIGN KEY (`id_concept`) REFERENCES `cat_payment_concept` (`id_payment_concept`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_charges_students1` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `ctrl_score`
+--
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+DROP TABLE IF EXISTS `ctrl_score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ctrl_score` (
+  `id_student` int(11) NOT NULL,
+  `id_group_assignment` int(11) NOT NULL,
+  `comments` varchar(250) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `partial_one` int(11) DEFAULT NULL,
+  `partial_two` int(11) DEFAULT NULL,
+  `partial_three` int(11) DEFAULT NULL,
+  `partial_four` int(11) DEFAULT NULL,
+  `partial_five` int(11) DEFAULT NULL,
+  `partial_six` int(11) DEFAULT NULL,
+  `extraordinary` int(11) DEFAULT NULL,
+  `extraordinary_two` int(11) DEFAULT NULL,
+  `special` int(11) DEFAULT NULL,
+  `final` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_student`,`id_group_assignment`),
+  KEY `fk_note_metter_course1_idx` (`id_group_assignment`),
+  CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
+  CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-11-11 10:48:33

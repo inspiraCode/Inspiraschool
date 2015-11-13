@@ -32,7 +32,7 @@ module.exports = function(config) {
       'bower_components/a0-angular-storage/dist/angular-storage.js',
       'bower_components/angular-jwt/dist/angular-jwt.js',
       'bower_components/ngActivityIndicator/ngActivityIndicator.js',
-      'bower_components/alertify-js/build/alertify.js',
+      'bower_components/alertify-js/build/alertify.min.js',
       'bower_components/gsap/src/uncompressed/TweenMax.js',
       'bower_components/ngFx/dist/ngFx.js',
       'bower_components/angular-mocks/angular-mocks.js',
