@@ -19,13 +19,13 @@ angular.module('teacherApp').controller('DocumentsCtrl', function($scope, $timeo
         for (var i = 0; i < allEntities.length; i++) {
             var current = allEntities[i];
             boxes.push({
-                id: current.id_metter_course,
-                Title: current.grade + '<br>' + current.metter_name + '<br>' + current.day_trip,
+                id: current.id,
+                Title: current.grade + '<br>' + current.assignment_name + '<br>' + current.day_trip,
                 HRef: '#/notes',
                 IMGHref: '',
                 View: '',
                 Grade: current.grade,
-                MetterName: current.metter_name,
+                MetterName: current.assignment_name,
                 DayTrip: current.day_trip
             });
         };

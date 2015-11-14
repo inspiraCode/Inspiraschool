@@ -16,7 +16,8 @@ angular.module('teacherApp', [
     'angular-jwt',
     'angular-storage',
     'ngActivityIndicator',
-    'ngFx'
+    'ngFx',
+    'inspiracode.crudFactory'
 ]).config(function($routeProvider, $activityIndicatorProvider, jwtInterceptorProvider, $httpProvider) {
     $routeProvider
         .when('/', {
@@ -40,9 +41,9 @@ angular.module('teacherApp', [
             controllerAs: 'login'
         })
         .when('/notes', {
-          templateUrl: 'views/notes.html',
-          controller: 'NotesCtrl',
-          controllerAs: 'notes'
+            templateUrl: 'views/notes.html',
+            controller: 'NotesCtrl',
+            controllerAs: 'notes'
         })
         .otherwise({
             redirectTo: '/'

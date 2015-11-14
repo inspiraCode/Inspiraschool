@@ -7,10 +7,10 @@
  * # noteService
  * Service in the teacherApp.
  */
-angular.module('teacherApp').service('noteService', function(crudFactory, $q, $http, appConfig) {
+angular.module('teacherApp').service('noteService', function(crudFactory) {
     var crudInstance = new crudFactory({
         //Entity Name = WebService/API to call:
-        entityName: "alumnos_calificacion",
+        entityName: "alumnos",
 
         //Entity Definition = For validate entity, for create new object instances, 
         entityDefinition: {
@@ -25,7 +25,7 @@ angular.module('teacherApp').service('noteService', function(crudFactory, $q, $h
             requiredFields: {}
         },
 
-        parentField: 'id_metter_course',
+        parentField: 'course_id',
 
         catalogs: [],
 
@@ -33,8 +33,12 @@ angular.module('teacherApp').service('noteService', function(crudFactory, $q, $h
             return theEntity;
         },
 
-        adaptFromServer: function(theEntity) {
-            //theEntity.QuoteDue = moment(theEntity.QuoteDue, moment.ISO_8601).format('MM/DD/YYYY');
+        adapterIn: function(theEntity) {
+            theEntity.partial_one = Number(theEntity.partial_one);
+            theEntity.partial_two = Number(theEntity.partial_two);
+            theEntity['final'] = Number(theEntity['final']);
+            theEntity.id = Number(theEntity.id);
+            theEntity.id_student = Number(theEntity.id_student);
         },
 
         adaptToServer: function(theEntity) {
@@ -44,32 +48,5 @@ angular.module('teacherApp').service('noteService', function(crudFactory, $q, $h
         dependencies: []
     });
 
-    crudInstance.pullNotesPerCourse = function(parentKey) {
-        var result = [];
-        var deferred = $q.defer();
-
-        $http.get(appConfig.API_URL + crudInstance.entityName + '?course_id=' + parentKey)
-            .then(
-                /*success*/
-                function(response) {
-                    var backendResponse = response.data;
-                    if (backendResponse.ErrorThrown) {
-                        alertify.alert(backendResponse.ResponseDescription).set('modal', true);
-                        deferred.reject(response);
-                    } else {
-                        for (var i = 0; i < backendResponse.Result.length; i++) {
-                            backendResponse.Result[i];
-                        }
-                        deferred.resolve(backendResponse.Result);
-                    }
-                },
-                /*error*/
-                function(response) {
-                    alertify.alert('An error has occurred.').set('modal', true);
-                    deferred.reject(response);
-                });
-
-        return deferred.promise;
-    }
     return crudInstance;
 });

@@ -26,17 +26,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="note in theNotes">
+            <tr ng-repeat="note in theNotes" ng-class="{success: note.done}">
                 <td>{{$index + 1}}</td>
                 <td>{{note.enroll_number}}</td>
                 <td class="text-left">{{note.student_name}}</td>
                 <td style="padding:1px;">
-                    <input type="text" class="form-control" ng-model="note.p1" tabindex="1" />
+                    <input type="text" class="form-control" ng-model="note.partial_one" tabindex="1" />
                 </td>
                 <td style="padding:1px;">
-                    <input type="text" class="form-control" ng-model="note.p2" tabindex="2" />
+                    <input type="text" class="form-control" ng-model="note.partial_two" tabindex="2" />
                 </td>
-                <td>{{(note.p1 + note.p2) / 2 | number:1}}</td>
+                <td>{{getFinal(note) | number:1}}</td>
                 <!-- <td style="padding:1px;">
                     <input type="text" class="form-control" ng-model="note.extraordinary_one" tabindex="3" />
                 </td>
@@ -48,4 +48,21 @@
     </table>
 </div>
 <input type="button" ng-show="theNotes" class="btn btn-success pull-right hidden-print" value="Imprimir" ng-click="print();">
-<input type="button" class="btn btn-success pull-right hidden-print" value="Guardar" style="margin-right:10px;display:none;" ng-click="save();">
+<input type="button" ng-show="theNotes" class="btn btn-success pull-right hidden-print" value="Guardar" style="margin-right:10px;" ng-click="saveAll();">
+<div class="modal fade" id="modalProgreso" style="color:black;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Guardando...</h4>
+            </div>
+            <div class="modal-body">
+                Por favor espere.
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" ng-style="{width:saveProgress + '%'}">
+                        {{saveProgress | number:0}} %
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
