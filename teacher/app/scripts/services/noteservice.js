@@ -33,8 +33,12 @@ angular.module('teacherApp').service('noteService', function(crudFactory) {
             return theEntity;
         },
 
-        adaptFromServer: function(theEntity) {
-            //theEntity.QuoteDue = moment(theEntity.QuoteDue, moment.ISO_8601).format('MM/DD/YYYY');
+        adapterIn: function(theEntity) {
+            theEntity.partial_one = Number(theEntity.partial_one);
+            theEntity.partial_two = Number(theEntity.partial_two);
+            theEntity['final'] = Number(theEntity['final']);
+            theEntity.id = Number(theEntity.id);
+            theEntity.id_student = Number(theEntity.id_student);
         },
 
         adaptToServer: function(theEntity) {
