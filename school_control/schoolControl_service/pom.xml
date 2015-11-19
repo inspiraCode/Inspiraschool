@@ -6,4 +6,11 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>schoolControl_service</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dto</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

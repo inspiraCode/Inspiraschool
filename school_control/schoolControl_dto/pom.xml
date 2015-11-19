@@ -6,4 +6,37 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>schoolControl_dto</artifactId>
+  
+  <properties>
+  	<hibernate.version>5.0.1.Final</hibernate.version>
+  	<hibernate.search.version>5.5.0.CR1</hibernate.search.version>
+  	<mysql.version>5.1.36</mysql.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-entitymanager</artifactId>
+		<version>4.3.6.Final</version>
+	</dependency>
+  	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-core</artifactId>
+	    <version>3.6.4.Final</version>
+	</dependency>
+	
+	<!-- SEARCH ENGINE -->
+	<dependency>
+		<groupId>org.hibernate</groupId>
+		<artifactId>hibernate-search-orm</artifactId>
+		<version>${hibernate.search.version}</version>
+	</dependency>
+	
+	<!-- MYSQL Driver -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>${mysql.version}</version>
+	</dependency>
+  </dependencies>
 </project>
