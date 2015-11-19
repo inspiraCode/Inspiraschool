@@ -1,8 +1,11 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
+import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 
 public class Student implements BaseDTO {
   private int id;
@@ -16,6 +19,7 @@ public class Student implements BaseDTO {
   private Company company;
   private Status status;
   private String clockId;
+  private Set<GroupAssignment> groups = new HashSet<GroupAssignment>();
 
   public int getId() {
     return id;
@@ -103,6 +107,14 @@ public class Student implements BaseDTO {
 
   public void setClockId(String clockId) {
     this.clockId = clockId;
+  }
+
+  public Set<GroupAssignment> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(Set<GroupAssignment> groups) {
+    this.groups = groups;
   }
 
 }
