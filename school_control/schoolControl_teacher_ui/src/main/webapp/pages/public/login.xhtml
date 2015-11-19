@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+<ui:composition template="/templates/default/main.xhtml">
+    <ui:define name="title">Inspiraschool - Ingreso Maestros</ui:define>
+    <ui:define name="content-header">
+        <!--<h:outputStylesheet name="css/estilo.css" /> -->
+    </ui:define>
+    <ui:define name="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Ingrese sus Credenciales</h3>
+                    </div>
+                    <div class="panel-body">
+                        <h:form class="login-form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <h:inputText styleClass="form-control" pt:placeholder="Usuario" id="userName" value="#{loginBean.userName}" requiredMessage="#{i18n_login['login.username.required']}"></h:inputText>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Contraseña" name="password" type="password" ng-model="user.password">
+                                    <h:inputSecret id="password" styleClass="form-control" pt:placeholder="Contraseña" value="#{loginBean.password}" name="inTxtPasswordNm"></h:inputSecret>
+                                </div>
+                                <h:commandButton id="btnLoginId" value="Ingresar" action="#{loginBean.login}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
+                            </fieldset>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+</ui:composition>
+
+</html>

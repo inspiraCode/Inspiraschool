@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+ 
+    <h:head>
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />	
+            <meta name="viewport" content="width=device-width, initial-scale=1"	/>
+
+            <link rel="shortcut icon" href="#{resource['favico/favicon.png']}"/>
+            <link rel="icon" href="#{resource['favico/favicon.png']}"/>
+            <link rel="apple-touch-icon" href="#{resource['favico/favicon.png']}"/>
+
+            <!--[if IE]>
+                <link rel="shortcut icon" href="http://centrouniversitariopasodelnorte.com/wp-content/themes/cupn/images/favicon.ico">
+            <![endif]-->
+
+            <meta name="msapplication-TileColor" content="#da532c"/>
+            <meta name="theme-color" content="#ffffff"/>
+ 
+            <title><ui:insert name="title">CUPN - Maestros</ui:insert></title>
+            <!-- Custom Theme JavaScript -->
+            <!-- JQUERY CORE -->
+            <script src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>
+            <!-- JQUERY UI -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" />
+
+            <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"/>
+
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous"/>
+
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+
+            <!-- FONT AWESOME -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+
+            <!-- SITE CSS -->
+            <h:outputStylesheet name="css/cupn.css" />
+            <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+            <!--[if lt IE 9]>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+            <![endif]-->
+            <link rel="stylesheet" href="http://css-spinners.com/css/spinner/throbber.css" type="text/css"/>
+        </f:facet>
+                
+        <f:facet name="last">
+          <!--custome script for all page-->
+        </f:facet>
+        <ui:insert name="content-header"/>
+    </h:head>
+ 
+    <h:body>
+      <f:view locale="#{localeBean.locale}">
+      <div id="wrapper">
+        <ui:include src="header.xhtml" />
+        <ui:include src="content.xhtml" />
+        <ui:include src="footer.xhtml" />
+      </div>
+      <div id="nonAjaxLoad" 
+        style="left: 0px; top:0px;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                z-index: 1000;
+                background-color: black;
+                opacity: 0.5;
+                text-align: center;
+                display: none;">
+        <div id="loadingWrapper" style="position: fixed; top: 30%; left: 50%;">
+         <div class="throbber-loader"></div><br/>
+         <h1><small>Cargando ...</h:outputText></small></h1>
+        </div>
+      </div>
+      <script>
+      	var showLoading = true;
+    		$(document).ajaxStop(function(){
+    		    $('#nonAjaxLoad').slideUp()
+    		});
+
+    		$(window).bind('beforeunload', function(){
+    		    if(showLoading) {
+    			    $('#nonAjaxLoad').show(); 
+    			}
+    			showLoading = true;
+    		});
+      </script>
+      </f:view>
+    </h:body>
+</html>
