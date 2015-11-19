@@ -6,4 +6,77 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>schoolControl_dao_hibernate</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dao</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dto</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-webmvc</artifactId>
+  		<version>4.2.1.RELEASE</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.springframework</groupId>
+  		<artifactId>spring-orm</artifactId>
+  		<version>4.2.1.RELEASE</version>
+  	</dependency>
+  	
+  	<!-- REQUIREMENTS FOR HIBERNATE INTEGRATION WITH SPRING -->
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>20030825.184428</version>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>commons-pool</groupId>
+				<artifactId>commons-pool</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>xerces</groupId>
+				<artifactId>xerces</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>xerces</groupId>
+				<artifactId>xercesImpl</artifactId>
+			</exclusion>
+			<exclusion>
+				<groupId>xml-apis</groupId>
+				<artifactId>xml-apis</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>javassist</groupId>
+		<artifactId>javassist</artifactId>
+		<version>3.12.1.GA</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-pool</groupId>
+		<artifactId>commons-pool</artifactId>
+		<version>20030825.183949</version>
+		<exclusions>
+			<exclusion>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
+	<dependency>
+		<groupId>commons-collections</groupId>
+		<artifactId>commons-collections</artifactId>
+		<version>20040616</version>
+	</dependency>
+  </dependencies>
 </project>
