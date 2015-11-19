@@ -6,4 +6,26 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>schoolControl_spring_service</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dto</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_service</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dao</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.inspiracode.inspiraschool</groupId>
+  		<artifactId>schoolControl_dao_hibernate</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
