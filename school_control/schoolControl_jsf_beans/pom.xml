@@ -6,4 +6,60 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>schoolControl_jsf_beans</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>3.0-alpha-1</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.faces</groupId>
+  		<artifactId>jsf-impl</artifactId>
+  		<version>2.2.12</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.sun.faces</groupId>
+  		<artifactId>jsf-api</artifactId>
+  		<version>2.2.12</version>
+  	</dependency>
+  	
+  	<!-- JASPER REPORTS -->
+	<dependency>
+		<groupId>net.sf.jasperreports</groupId>
+		<artifactId>jasperreports</artifactId>
+		<version>6.1.1</version>
+	</dependency>
+	
+	<!-- PRIMEFACES -->
+	<dependency>
+		<groupId>org.primefaces</groupId>
+		<artifactId>primefaces</artifactId>
+		<version>5.2</version>
+	</dependency>
+	<dependency>
+		<groupId>com.inspiracode.inspiraschool</groupId>
+		<artifactId>schoolControl_dto</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.inspiracode.inspiraschool</groupId>
+		<artifactId>schoolControl_spring_security</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+	<dependency>
+		<groupId>com.inspiracode.inspiraschool</groupId>
+		<artifactId>schoolControl_service</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</dependency>
+  </dependencies>
+  
+  <url>http://maven.apache.org</url>
+  <repositories>
+	<repository>
+		<id>prime-repo</id>
+		<name>PrimeFaces Maven Repository</name>
+		<url>http://repository.primefaces.org</url>
+		<layout>default</layout>
+	</repository>
+  </repositories>
 </project>
