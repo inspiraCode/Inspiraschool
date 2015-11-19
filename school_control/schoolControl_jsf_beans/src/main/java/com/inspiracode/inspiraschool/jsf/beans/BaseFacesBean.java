@@ -167,4 +167,12 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	publishMessage(FacesMessage.SEVERITY_INFO, message, null);
     }
 
+    public BaseService<T> getService() {
+        return service;
+    }
+
+    public void setService(BaseService<T> service) {
+        this.service = service;
+    }
+
 }
