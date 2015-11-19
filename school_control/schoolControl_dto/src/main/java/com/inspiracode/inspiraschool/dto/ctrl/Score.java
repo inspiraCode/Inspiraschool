@@ -1,4 +1,4 @@
-package com.inspiracode.inspiraschool.dto.crtl;
+package com.inspiracode.inspiraschool.dto.ctrl;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.dto.cat.Student;
