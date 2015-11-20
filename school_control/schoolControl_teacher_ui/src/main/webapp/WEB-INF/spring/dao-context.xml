@@ -10,8 +10,13 @@
     <bean id="teacherDAO" class="com.inspiracode.inspiraschool.dao.hibernate.cat.TeacherDAOHibernate" />
     
     <!-- CONTROL -->
-    
+    <bean id="groupAssignmentDAO" class="com.inspiracode.inspiraschool.dao.hibernate.cat.GroupAssignmentDAOHibernate" />
+   
     <!-- CROSS -->
-    
+  	<bean id="scoreDAO" class="com.inspiracode.inspiraschool.dao.hibernate.cat.ScoreDAOHibernate" />
+  	  
     <!-- SYS -->
+    <bean id="roleDAO" class="com.inspiracode.inspiraschool.dao.hibernate.cat.RoleDAOHibernate" />
+    <bean id="userDAO" class="com.inspiracode.inspiraschool.dao.hibernate.cat.UserDAOHibernate" />
+    
 </beans>
