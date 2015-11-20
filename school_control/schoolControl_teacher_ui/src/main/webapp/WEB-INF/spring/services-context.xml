@@ -11,7 +11,7 @@
 		<property name="assignmentDAO" ref="assignmentDAO" />
 	</bean>
 	<bean id="careerService"
-		class="com.inspiracode.inspiraschool.spring.service.cat.CarrerSpringService">
+		class="com.inspiracode.inspiraschool.spring.service.cat.CareerSpringService">
 		<property name="careerDAO" ref="careerDAO" />
 	</bean>
 	<bean id="companyService"
@@ -55,7 +55,7 @@
 	<!-- SYSTEM -->
 
 	<bean id="roleService"
-		class="com.inspiracode.inspiraschool.spring.service.sys.roleSpringService">
+		class="com.inspiracode.inspiraschool.spring.service.sys.RoleSpringService">
 		<property name="roleDAO" ref="roleDAO" />
 	</bean>
 	<bean id="userService"

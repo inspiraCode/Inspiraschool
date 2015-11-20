@@ -13,7 +13,6 @@
   	<module>schoolControl_dto</module>
   	<module>schoolControl_jsf_beans</module>
   	<module>schoolControl_spring_security</module>
-  	<module>schoolControl_sprig_service</module>
   	<module>schoolControl_web_ui</module>
   	<module>schoolControl_spring_service</module>
   	<module>schoolControl_teacher_ui</module>

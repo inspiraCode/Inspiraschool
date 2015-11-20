@@ -32,7 +32,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	
 	<!-- LOGIN PASSWORD ENCRYPTION -->
     <!-- String encryptor for passwords -->
-    <b:bean id="encoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder" />
+    <b:bean id="encoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" />
     
     <!-- Set UserDetailsService class as the authentication Manager for Spring Security -->
 	<authentication-manager alias="authenticationManager">
