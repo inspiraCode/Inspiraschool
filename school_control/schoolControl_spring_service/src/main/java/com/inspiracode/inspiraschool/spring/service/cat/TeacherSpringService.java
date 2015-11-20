@@ -11,15 +11,20 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class TeacherSpringService extends BaseSpringService<Teacher> implements TeacherService {
-  private TeacherDAO teacherDAO;
+    private TeacherDAO teacherDAO;
 
-  public TeacherDAO getTeacherDAO() {
-    return teacherDAO;
-  }
+    public TeacherDAO getTeacherDAO() {
+	return teacherDAO;
+    }
 
-  @Required
-  public void setTeacherDAO(TeacherDAO teacherDAO) {
-    super.setDaoFactory((BaseDAO<Teacher>) teacherDAO);
-    this.teacherDAO = teacherDAO;
-  }
+    @Required
+    public void setTeacherDAO(TeacherDAO teacherDAO) {
+	super.setDaoFactory((BaseDAO<Teacher>) teacherDAO);
+	this.teacherDAO = teacherDAO;
+    }
+
+    @Override
+    public Teacher getTeacherByUserName(String userName) {
+	return teacherDAO.getTeacherByUserName(userName);
+    }
 }
