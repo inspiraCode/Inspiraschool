@@ -144,7 +144,7 @@
         
         .greenBG {
             width: 100%;
-            background: url(../images/greenbg.jpg)center no-repeat #6fa467 fixed;
+            background: url("#{resource['img/greenbg.jpg']}")center no-repeat #6fa467 fixed;
             padding: 60px 0;
             text-align: center;
             color: #fff;

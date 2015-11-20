@@ -33,7 +33,7 @@ public class InspiraschoolUserDetails implements UserDetails {
     }
 
     public boolean isAccountNonExpired() {
-	return false;
+	return true;
     }
 
     public boolean isAccountNonLocked() {

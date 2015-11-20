@@ -37,9 +37,9 @@ public class User implements BaseDTO {
   private boolean enable;
 
   @Column(name = "fail_login")
-  private int failLogIn;
+  private int failLogIn = 0;
 
-  @Column(name = "firt_name")
+  @Column(name = "first_name")
   private String firtName;
 
   @Column(name = "last_name")

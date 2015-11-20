@@ -15,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-@ManagedBean
+@ManagedBean(name="loginMgmtBean")
 @RequestScoped
 public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1309808454704952868L;
@@ -36,9 +36,13 @@ public class LoginBean implements Serializable {
     public String login() {
 	try {
 	    Authentication request = new UsernamePasswordAuthenticationToken(this.getUserName(), this.getPassword());
+	    
 	    Authentication result = authenticationManager.authenticate(request);
 	    SecurityContextHolder.getContext().setAuthentication(result);
 	} catch (AuthenticationException e) {
+	    publishError("Usuario o contraseña incorrectos");
+	    return "incorrect";
+	} catch (Exception e) {
 	    logger.error(e.getMessage(), e);
 	    publishError("Error al ingresar al sistema");
 	    publishError(e.getLocalizedMessage());
@@ -46,6 +50,11 @@ public class LoginBean implements Serializable {
 	}
 
 	return "correct";
+    }
+    
+    public String logout() {
+	SecurityContextHolder.clearContext();
+	return "loggedout";
     }
 
     public String getUserName() {
@@ -71,7 +80,7 @@ public class LoginBean implements Serializable {
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 	this.authenticationManager = authenticationManager;
     }
-    
+
     private void publishMessage(FacesMessage.Severity severity, String message, String details) {
 	FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, details));
     }

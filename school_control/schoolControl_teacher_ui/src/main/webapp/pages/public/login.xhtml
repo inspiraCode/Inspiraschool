@@ -4,7 +4,8 @@
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/default/main.xhtml">
     <ui:define name="title">Inspiraschool - Ingreso Maestros</ui:define>
     <ui:define name="content-header">
@@ -18,17 +19,17 @@
                         <h3 class="panel-title">Ingrese sus Credenciales</h3>
                     </div>
 
-
+                    <p:messages id="msg" />
                     <div class="panel-body">
                         <h:form class="login-form">
                             <fieldset>
                                 <div class="form-group">
-                                    <h:inputText styleClass="form-control" pt:placeholder="Usuario" id="userName" value="#{loginBean.userName}"></h:inputText>
+                                    <h:inputText styleClass="form-control" pt:placeholder="Usuario" id="userName" value="#{loginMgmtBean.userName}"></h:inputText>
                                 </div>
                                 <div class="form-group">
-                                    <h:inputSecret id="password" styleClass="form-control" pt:placeholder="Contraseña" value="#{loginBean.password}" name="inTxtPasswordNm"></h:inputSecret>
+                                    <h:inputSecret id="password" styleClass="form-control" pt:placeholder="Contraseña" value="#{loginMgmtBean.password}" name="inTxtPasswordNm"></h:inputSecret>
                                 </div>
-                                <h:commandButton id="btnLoginId" value="Ingresar" action="#{loginBean.login}" styleClass="btn btn-success"></h:commandButton>
+                                <h:commandButton id="btnLoginId" value="Ingresar" action="#{loginMgmtBean.login}" styleClass="btn btn-success"></h:commandButton>
                             </fieldset>
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </h:form>

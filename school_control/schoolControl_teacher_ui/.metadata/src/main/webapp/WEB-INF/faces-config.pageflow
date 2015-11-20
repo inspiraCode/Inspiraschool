@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14480582993760" configfile="/schoolControl_teacher_ui/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="pages/public/login.xhtml" x="98" y="372" id="pf14480584770351" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14480584770362 pf14480584770363" inlinks="pf14480584770362" path="/pages/public/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/secure/index.xhtml" x="444" y="180" id="pf14480584770364" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14480584770363" path="/pages/secure/index.xhtml"/>
+  <links id="pf14480584770362" target="pf14480584770351" source="pf14480584770351" outcome="incorrect" fromaction="#{loginMgmtBean.login}"/>
+  <links id="pf14480584770363" target="pf14480584770364" source="pf14480584770351" outcome="correct" fromaction="#{loginMgmtBean.login}"/>
+</pageflow:Pageflow>
