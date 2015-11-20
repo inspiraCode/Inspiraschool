@@ -1,8 +1,14 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
+@Entity
+@Table(name = "cat_group", catalog = "school_control")
 public class Group implements BaseDTO {
+  private static final long serialVersionUID = -2797889685826034468L;
   private int id;
   private String grade;
   private String period;
