@@ -22,7 +22,7 @@
                 <div class="navbar-head navbar-brand visible-sm-block" style="width:130px;"></div>
                 <a class="navbar-brand pull-left" href="#/" style="padding-left:20px;">Profesor(a)</a>
             </div>
-            <div class="collapse navbar-collapse" id="js-navbar-collapse">
+            <h:panelGroup layout="block" styleClass="collapse navbar-collapse" id="js-navbar-collapse" rendered="#{not empty request.remoteUser}">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a class="DelayElement" href="/Maestros/pages/secure/index.xhtml">Inicio</a>
@@ -38,7 +38,7 @@
                         </ul>
                     </li>
                 </ul>
-            </div>
+            </h:panelGroup>
         </div>
     </div>
     <h:form id="logoutForm" style="display:none;">
