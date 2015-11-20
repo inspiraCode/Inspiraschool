@@ -4,7 +4,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
@@ -14,17 +23,45 @@ import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 @Table(name = "cat_student", catalog = "school_control")
 public class Student implements BaseDTO {
   private static final long serialVersionUID = 4190807603337861001L;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "Id_student")
   private int id;
+
+  @Column(name = "student_name")
   private String name;
+
+  @Column(name = "lastname")
   private String lastName;
+
+  @Column(name = "birthdate")
   private Date birthDate;
+
+  @Column(name = "address")
   private String address;
+
+  @Column(name = "gender")
   private String gender;
+
+  @Column(name = "enroll_number")
   private String enrollNumber;
+
+  @Column(name = "enrollment_date")
   private Date enrollmentDate;
+
+  @Column(name = "id_company")
   private Company company;
+
+  @Column(name = "status")
   private Status status;
+
+  @Column(name = "clock_id")
   private String clockId;
+
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinTable(name = "cross_student_group_assignment", catalog = "school_control", joinColumns = {
+      @JoinColumn(name = "id_student") }, inverseJoinColumns = { @JoinColumn(name = "id_group_assignment") })
   private Set<GroupAssignment> groups = new HashSet<GroupAssignment>();
 
   public int getId() {

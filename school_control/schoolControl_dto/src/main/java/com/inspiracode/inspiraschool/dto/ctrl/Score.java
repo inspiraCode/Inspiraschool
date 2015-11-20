@@ -1,6 +1,13 @@
 package com.inspiracode.inspiraschool.dto.ctrl;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
@@ -11,19 +18,51 @@ import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 @Table(name = "ctrl_score", catalog = "school_control")
 public class Score implements BaseDTO {
   private static final long serialVersionUID = 2571963413301891188L;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_score")
   private int id;
+
+  @JoinColumn(name = "id_student")
+  @ManyToOne(fetch = FetchType.LAZY)
   private Student student;
+
+  @JoinColumn(name = "id_group_assignment")
+  @ManyToOne(fetch = FetchType.LAZY)
   private GroupAssignment groupAssignment;
-  private String coment;
+
+  @Column(name = "comments")
+  private String comment;
+
+  @Column(name = "partial_one")
   private int parcialOne;
+
+  @Column(name = "partial_two")
   private int parcialTwo;
+
+  @Column(name = "partial_three")
   private int parcialThree;
+
+  @Column(name = "partial_four")
   private int parcialFour;
+
+  @Column(name = "partial_five")
   private int parcialFive;
+
+  @Column(name = "partial_six")
   private int parcialSix;
+
+  @Column(name = "extraordinary")
   private int extraOrdinary;
+
+  @Column(name = "extraordinary_two")
   private int extraOrdinaryTwo;
+
+  @Column(name = "special")
   private int special;
+
+  @Column(name = "final")
   private int finalScore;
 
   public int getId() {
@@ -50,12 +89,12 @@ public class Score implements BaseDTO {
     this.groupAssignment = groupAssignment;
   }
 
-  public String getComent() {
-    return coment;
+  public String getComment() {
+    return comment;
   }
 
-  public void setComent(String coment) {
-    this.coment = coment;
+  public void setComment(String comment) {
+    this.comment = comment;
   }
 
   public int getParcialOne() {
