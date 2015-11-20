@@ -1,10 +1,16 @@
 package com.inspiracode.inspiraschool.dto.ctrl;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 
+@Entity
+@Table(name = "ctrl_score", catalog = "school_control")
 public class Score implements BaseDTO {
+  private static final long serialVersionUID = 2571963413301891188L;
   private int id;
   private Student student;
   private GroupAssignment groupAssignment;

@@ -4,10 +4,16 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 
+@Entity
+@Table(name = "cat_student", catalog = "school_control")
 public class Student implements BaseDTO {
+  private static final long serialVersionUID = 4190807603337861001L;
   private int id;
   private String name;
   private String lastName;

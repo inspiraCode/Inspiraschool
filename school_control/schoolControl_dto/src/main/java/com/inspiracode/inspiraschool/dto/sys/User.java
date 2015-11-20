@@ -3,9 +3,15 @@ package com.inspiracode.inspiraschool.dto.sys;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
+@Entity
+@Table(name = "sys_user", catalog = "inspiraschool_realm")
 public class User implements BaseDTO {
+  private static final long serialVersionUID = 4317027668709306802L;
   private int id;
   private String userName;
   private String pass;
@@ -14,7 +20,7 @@ public class User implements BaseDTO {
   private String firtName;
   private String lastName;
   private String email;
-  private Set<Role> roles = new HashSet<Role>(); 
+  private Set<Role> roles = new HashSet<Role>();
 
   public int getId() {
     return id;
