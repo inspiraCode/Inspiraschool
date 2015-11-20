@@ -26,15 +26,15 @@ public class GroupAssignment implements BaseDTO {
   private int id;
 
   @JoinColumn(name = "id_assignment")
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Assignment assignment;
 
   @JoinColumn(name = "id_group")
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Group group;
 
   @JoinColumn(name = "id_teacher")
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   private Teacher teacher;
 
   public int getId() {

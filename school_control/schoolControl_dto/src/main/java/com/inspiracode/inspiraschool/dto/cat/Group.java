@@ -38,7 +38,7 @@ public class Group implements BaseDTO {
   private int year;
 
   @JoinColumn(name = "id_career")
-  @ManyToOne(fetch=FetchType.LAZY)
+  @ManyToOne(fetch=FetchType.EAGER)
   private Career career;
 
   public int getId() {
