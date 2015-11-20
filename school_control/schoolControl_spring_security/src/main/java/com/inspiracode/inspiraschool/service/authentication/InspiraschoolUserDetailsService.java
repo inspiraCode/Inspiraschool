@@ -26,12 +26,7 @@ public class InspiraschoolUserDetailsService implements UserDetailsService {
     private UserDAO userDAO;
 
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-	User user = null;
-	/*try {
-	    user = userDAO.getByName(userName);
-	} catch (ItemByNameException e) {
-	    logger.error(e.getMessage(), e);
-	}*/
+	User user = userDAO.getByName(userName);
 	if (user != null) {
 	    logger.info(String.format("ScsproUserDetailsService.loadUserByUsername() = %s", user));
 	    List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
