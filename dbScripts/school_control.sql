@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `school_control` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
 USE `school_control`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
--- Host: localhost    Database: school_control
+-- Host: 127.0.0.1    Database: school_control
 -- ------------------------------------------------------
--- Server version	5.6.17
+-- Server version	5.6.26
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -73,7 +73,7 @@ CREATE TABLE `cat_group` (
   `period` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `mode` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `day_trip` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `year_of_course` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `year_of_course` int(11) DEFAULT NULL,
   `id_career` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_group`),
   KEY `fk_id_career_idx` (`id_career`),
@@ -121,7 +121,7 @@ CREATE TABLE `cat_student` (
   `Id_student` int(11) NOT NULL AUTO_INCREMENT,
   `student_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `lastname` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `birthdate` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `birthdate` date DEFAULT NULL,
   `address` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `gender` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `enroll_number` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -248,7 +248,7 @@ CREATE TABLE `ctrl_score` (
   KEY `fk_note_metter_course1_idx` (`id_group_assignment`),
   CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
   CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6265 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6442 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -260,4 +260,4 @@ CREATE TABLE `ctrl_score` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-20 22:24:49
+-- Dump completed on 2015-11-21  3:57:52
