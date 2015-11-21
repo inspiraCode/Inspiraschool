@@ -1,6 +1,5 @@
 package com.inspiracode.inspiraschool.jsf.beans.ctrl;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -12,14 +11,14 @@ import org.apache.log4j.Logger;
 
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
-import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
+import com.inspiracode.inspiraschool.jsf.beans.BaseFacesReporteableBean;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cross.GroupAssignmentService;
 import com.inspiracode.inspiraschool.service.ctrl.ScoreService;
 
 @ManagedBean
 @SessionScoped
-public class ScoreBean extends BaseFacesBean<Score> {
+public class ScoreBean extends BaseFacesReporteableBean<Score> {
     private static final long serialVersionUID = 1965513980898329854L;
     private static final Logger logger = Logger.getLogger(ScoreBean.class.getName());
 

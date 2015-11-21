@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
@@ -33,8 +32,8 @@ public class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T
 	super(type);
     }
     
-    public String pdfReport(List<? extends BaseDTO> reportList, String reportName, ResourceBundle msg) throws JRException, IOException {
-	initializeReport(reportList, reportName, msg);
+    public String pdfReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
+	initializeReport(reportList, reportName);
 	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".pdf");
 	ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -43,8 +42,8 @@ public class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T
 	return "";
     }
 
-    public String xlsReport(List<? extends BaseDTO> reportList, String reportName, ResourceBundle msg) throws JRException, IOException {
-	initializeReport(reportList, reportName, msg);
+    public String xlsReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
+	initializeReport(reportList, reportName);
 	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".xlsx");
 	ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -96,7 +95,7 @@ public class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T
 	return true;
     }
     
-    private void initializeReport(List<? extends BaseDTO> reportList, String reportName, ResourceBundle msg) throws JRException {
+    private void initializeReport(List<? extends BaseDTO> reportList, String reportName) throws JRException {
 	JRBeanCollectionDataSource connectionDS = new JRBeanCollectionDataSource(reportList);
 
 	if (!compileReport(reportName))

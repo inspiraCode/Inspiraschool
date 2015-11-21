@@ -59,7 +59,7 @@
                 </h:column>
             </h:dataTable>
         </div>
-        <h:commandButton class="btn btn-success pull-right hidden-print" value="Imprimir" action="#{scoreBean.pdfByGroup}"/>
+        <h:commandButton class="btn btn-success pull-right hidden-print" value="Imprimir" action="#{scoreBean.pdfReport(scoreBean.scoresByGroup(groupAssignmentBean.selectedItem.id), 'calificaciones')}"/>
         <h:commandButton class="btn btn-success pull-right hidden-print" value="Guardar" action="#{scoreBean.calificar}"/>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </h:form>
