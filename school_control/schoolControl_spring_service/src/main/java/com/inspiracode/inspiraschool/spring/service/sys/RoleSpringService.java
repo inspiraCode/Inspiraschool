@@ -11,15 +11,16 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class RoleSpringService extends BaseSpringService<Role> implements RoleService {
-  private RoleDAO roleDAO;
+    private static final long serialVersionUID = 7769185504600710699L;
+    private RoleDAO roleDAO;
 
-  public RoleDAO getRoleDAO() {
-    return roleDAO;
-  }
+    public RoleDAO getRoleDAO() {
+	return roleDAO;
+    }
 
-  @Required
-  public void setRoleDAO(RoleDAO roleDAO) {
-    super.setDaoFactory((BaseDAO<Role>) roleDAO);
-    this.roleDAO = roleDAO;
-  }
+    @Required
+    public void setRoleDAO(RoleDAO roleDAO) {
+	super.setDaoFactory((BaseDAO<Role>) roleDAO);
+	this.roleDAO = roleDAO;
+    }
 }

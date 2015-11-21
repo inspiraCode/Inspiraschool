@@ -11,16 +11,17 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class AssignmentSpringService extends BaseSpringService<Assignment> implements AssignmentService {
-  private AssignmentDAO assignmentDAO;
+    private static final long serialVersionUID = -7687943828742680210L;
+    private AssignmentDAO assignmentDAO;
 
-  public AssignmentDAO getAssignmentDAO() {
-    return assignmentDAO;
-  }
+    public AssignmentDAO getAssignmentDAO() {
+	return assignmentDAO;
+    }
 
-  @Required
-  public void setAssignmentDAO(AssignmentDAO assignmentDAO) {
-    super.setDaoFactory((BaseDAO<Assignment>) assignmentDAO);
-    this.assignmentDAO = assignmentDAO;
-  }
+    @Required
+    public void setAssignmentDAO(AssignmentDAO assignmentDAO) {
+	super.setDaoFactory((BaseDAO<Assignment>) assignmentDAO);
+	this.assignmentDAO = assignmentDAO;
+    }
 
 }

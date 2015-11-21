@@ -11,15 +11,16 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class ScoreSpringService extends BaseSpringService<Score> implements ScoreService {
-  private ScoreDAO scoreDAO;
+    private static final long serialVersionUID = -6892127825578438605L;
+    private ScoreDAO scoreDAO;
 
-  public ScoreDAO getScoreDAO() {
-    return scoreDAO;
-  }
+    public ScoreDAO getScoreDAO() {
+	return scoreDAO;
+    }
 
-  @Required
-  public void setScoreDAO(ScoreDAO scoreDAO) {
-    super.setDaoFactory((BaseDAO<Score>) scoreDAO);
-    this.scoreDAO = scoreDAO;
-  }
+    @Required
+    public void setScoreDAO(ScoreDAO scoreDAO) {
+	super.setDaoFactory((BaseDAO<Score>) scoreDAO);
+	this.scoreDAO = scoreDAO;
+    }
 }

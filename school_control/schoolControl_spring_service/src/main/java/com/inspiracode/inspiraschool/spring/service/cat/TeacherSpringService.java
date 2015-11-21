@@ -11,6 +11,7 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class TeacherSpringService extends BaseSpringService<Teacher> implements TeacherService {
+    private static final long serialVersionUID = -758994607857949208L;
     private TeacherDAO teacherDAO;
 
     public TeacherDAO getTeacherDAO() {

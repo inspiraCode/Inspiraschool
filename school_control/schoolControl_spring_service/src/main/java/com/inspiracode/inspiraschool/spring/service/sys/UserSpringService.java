@@ -11,16 +11,17 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class UserSpringService extends BaseSpringService<User> implements UserService {
-  private UserDAO userDAO;
+    private static final long serialVersionUID = 4223862244912886057L;
+    private UserDAO userDAO;
 
-  public UserDAO getUserDAO() {
-    return userDAO;
-  }
+    public UserDAO getUserDAO() {
+	return userDAO;
+    }
 
-  @Required
-  public void setUserDAO(UserDAO userDAO) {
-    super.setDaoFactory((BaseDAO<User>) userDAO);
-    this.userDAO = userDAO;
-  }
+    @Required
+    public void setUserDAO(UserDAO userDAO) {
+	super.setDaoFactory((BaseDAO<User>) userDAO);
+	this.userDAO = userDAO;
+    }
 
 }

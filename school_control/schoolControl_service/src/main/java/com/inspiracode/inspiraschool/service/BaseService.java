@@ -1,10 +1,11 @@
 package com.inspiracode.inspiraschool.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
-public interface BaseService<T extends BaseDTO> {
+public interface BaseService<T extends BaseDTO> extends Serializable {
     T get(int id);
 
     List<T> getAll();

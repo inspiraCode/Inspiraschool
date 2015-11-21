@@ -9,6 +9,7 @@ import com.inspiracode.inspiraschool.service.cat.StudentService;
 import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 public class StudentSpringService extends BaseSpringService<Student> implements StudentService {
+    private static final long serialVersionUID = -3461391344550006086L;
     private StudentDAO studentDAO;
 
     public StudentDAO getStudentDAO() {

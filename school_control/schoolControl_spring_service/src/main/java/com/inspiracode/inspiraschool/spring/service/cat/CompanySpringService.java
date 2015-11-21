@@ -11,6 +11,7 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class CompanySpringService extends BaseSpringService<Company> implements CompanyService {
+    private static final long serialVersionUID = 134966159479749819L;
     private CompanyDAO companyDAO;
 
     public CompanyDAO getCompanyDAO() {

@@ -13,6 +13,7 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class GroupAssignmentSpringService extends BaseSpringService<GroupAssignment> implements GroupAssignmentService {
+    private static final long serialVersionUID = 1830251563405206438L;
     private GroupAssignmentDAO groupAssignmentDAO;
 
     @Override

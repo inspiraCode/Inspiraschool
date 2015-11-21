@@ -6,6 +6,7 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 
 public abstract class BaseHibernateIndexableService<T extends BaseDTO> extends BaseSpringService<T> {
+    private static final long serialVersionUID = -6022737879509473640L;
     private BaseHibernateDAO<T> daoFactory;
 
     public void indexEntity(T object) {

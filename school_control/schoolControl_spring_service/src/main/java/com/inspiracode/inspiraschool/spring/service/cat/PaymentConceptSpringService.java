@@ -9,6 +9,7 @@ import com.inspiracode.inspiraschool.service.cat.PaymentConceptService;
 import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 public class PaymentConceptSpringService extends BaseSpringService<PaymentConcept> implements PaymentConceptService {
+    private static final long serialVersionUID = -6848037505394767449L;
     private PaymentConceptDAO paymentConceptDAO;
 
     public PaymentConceptDAO getPaymentConceptDAO() {

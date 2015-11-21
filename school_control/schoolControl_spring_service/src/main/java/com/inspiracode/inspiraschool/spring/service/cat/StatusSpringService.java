@@ -9,6 +9,7 @@ import com.inspiracode.inspiraschool.service.cat.StatusService;
 import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 public class StatusSpringService extends BaseSpringService<Status> implements StatusService {
+    private static final long serialVersionUID = -7386514818291126789L;
     private StatusDAO statusDAO;
 
     public StatusDAO getStatusDAO() {

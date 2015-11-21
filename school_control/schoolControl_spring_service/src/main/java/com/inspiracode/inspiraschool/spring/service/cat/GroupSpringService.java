@@ -11,15 +11,16 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 
 @Transactional(readOnly = true)
 public class GroupSpringService extends BaseSpringService<Group> implements GroupService {
-  private GroupDAO groupDAO;
+    private static final long serialVersionUID = -981742973428484529L;
+    private GroupDAO groupDAO;
 
-  public GroupDAO getGroupDAO() {
-    return groupDAO;
-  }
+    public GroupDAO getGroupDAO() {
+	return groupDAO;
+    }
 
-  @Required
-  public void setGroupDAO(GroupDAO groupDAO) {
-    super.setDaoFactory((BaseDAO<Group>) groupDAO);
-    this.groupDAO = groupDAO;
-  }
+    @Required
+    public void setGroupDAO(GroupDAO groupDAO) {
+	super.setDaoFactory((BaseDAO<Group>) groupDAO);
+	this.groupDAO = groupDAO;
+    }
 }
