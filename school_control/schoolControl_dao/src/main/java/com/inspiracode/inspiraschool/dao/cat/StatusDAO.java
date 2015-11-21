@@ -1,8 +1,8 @@
 package com.inspiracode.inspiraschool.dao.cat;
 
 import com.inspiracode.inspiraschool.dao.BaseDAO;
-import com.inspiracode.inspiraschool.dto.cat.Status;
+import com.inspiracode.inspiraschool.dto.cat.StudentStatus;
 
-public interface StatusDAO extends BaseDAO<Status> {
+public interface StatusDAO extends BaseDAO<StudentStatus> {
 
 }

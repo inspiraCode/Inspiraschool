@@ -11,7 +11,7 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 @Entity
 @Table(name = "cat_status", catalog = "school_control")
-public class Status implements BaseDTO {
+public class StudentStatus implements BaseDTO {
   private static final long serialVersionUID = 7842157759555265165L;
 
   @Id

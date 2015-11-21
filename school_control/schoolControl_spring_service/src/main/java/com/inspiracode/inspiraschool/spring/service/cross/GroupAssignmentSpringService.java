@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.inspiracode.inspiraschool.dao.BaseDAO;
 import com.inspiracode.inspiraschool.dao.cross.GroupAssignmentDAO;
+import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 import com.inspiracode.inspiraschool.service.cross.GroupAssignmentService;
 import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
@@ -20,6 +21,11 @@ public class GroupAssignmentSpringService extends BaseSpringService<GroupAssignm
     public List<GroupAssignment> getGroupsByTeacher(int teacherId) {
 	return groupAssignmentDAO.getGroupsByTeacher(teacherId);
     }
+    
+    @Override
+    public List<Student> getStudentsByGroupId(int groupId) {
+	return groupAssignmentDAO.getStudentsByGroupId(groupId);
+    }
 
     public GroupAssignmentDAO getGroupAssignmentDAO() {
 	return groupAssignmentDAO;
@@ -30,4 +36,6 @@ public class GroupAssignmentSpringService extends BaseSpringService<GroupAssignm
 	super.setDaoFactory((BaseDAO<GroupAssignment>) groupAssignmentDAO);
 	this.groupAssignmentDAO = groupAssignmentDAO;
     }
+
+    
 }

@@ -59,6 +59,13 @@ public class GroupAssignmentBean extends BaseFacesBean<GroupAssignment> {
 	Teacher loggedTeacher = teacherService.getTeacherByUserName(userName);
 	return groupAssignmentService.getGroupsByTeacher(loggedTeacher.getId());
     }
+    
+    public String groupSelected(GroupAssignment item){
+	logger.debug("item selected, forwarding to [calificar]");
+	logger.debug(item);
+	setSelectedItem(item);
+	return "calificar";
+    }
 
     public GroupAssignmentService getGroupAssignmentService() {
 	return groupAssignmentService;

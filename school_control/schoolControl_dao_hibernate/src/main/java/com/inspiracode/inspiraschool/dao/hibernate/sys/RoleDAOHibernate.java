@@ -5,7 +5,9 @@ import com.inspiracode.inspiraschool.dao.sys.RoleDAO;
 import com.inspiracode.inspiraschool.dto.sys.Role;
 
 public class RoleDAOHibernate extends BaseHibernateDAO<Role> implements RoleDAO {
-  public RoleDAOHibernate() {
-    super(Role.class);
-  }
+    private static final long serialVersionUID = 1L;
+
+    public RoleDAOHibernate() {
+	super(Role.class);
+    }
 }

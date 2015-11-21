@@ -1,10 +1,11 @@
 package com.inspiracode.inspiraschool.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
-public interface BaseDAO<T extends BaseDTO> {
+public interface BaseDAO<T extends BaseDTO> extends Serializable {
     /**
      * Retrieve an instance of Dominable object by it's ID.
      * @param id

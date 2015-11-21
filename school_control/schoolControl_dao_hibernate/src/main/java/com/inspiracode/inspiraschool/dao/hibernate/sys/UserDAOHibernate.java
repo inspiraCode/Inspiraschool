@@ -7,6 +7,8 @@ import com.inspiracode.inspiraschool.dao.sys.UserDAO;
 import com.inspiracode.inspiraschool.dto.sys.User;
 
 public class UserDAOHibernate extends BaseHibernateDAO<User> implements UserDAO {
+    private static final long serialVersionUID = 1L;
+
     public UserDAOHibernate() {
 	super(User.class);
     }
@@ -17,7 +19,7 @@ public class UserDAOHibernate extends BaseHibernateDAO<User> implements UserDAO 
 	List<User> users = (List<User>) getHibernateTemplate().find(QUERY_BY_USER_NAME, name);
 	if (users.isEmpty())
 	    return null;
-	
+
 	return users.get(0);
     }
 }

@@ -1,11 +1,29 @@
 package com.inspiracode.inspiraschool.dao.hibernate.ctrl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.inspiracode.inspiraschool.dao.ctrl.ScoreDAO;
 import com.inspiracode.inspiraschool.dao.hibernate.BaseHibernateDAO;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
 
 public class ScoreDAOHibernate extends BaseHibernateDAO<Score> implements ScoreDAO {
-  public ScoreDAOHibernate() {
-    super(Score.class);
-  }
+    private static final long serialVersionUID = 1L;
+
+    public ScoreDAOHibernate() {
+	super(Score.class);
+    }
+
+    @Override
+    public List<Score> scoresByGroup(int groupId) {
+	//List<Score> result = (List<Score>) getHibernateTemplate().find(QUERY_SCORES_BY_GROUP, groupId);
+	List<Score> temp = getAll();
+	List<Score> result = new ArrayList<Score>();
+	for (Score score : temp) {
+	    if (score.getGroupAssignment().getId() == groupId) {
+		result.add(score);
+	    }
+	}
+	return result;
+    }
 }

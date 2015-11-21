@@ -5,7 +5,9 @@ import com.inspiracode.inspiraschool.dao.hibernate.BaseHibernateDAO;
 import com.inspiracode.inspiraschool.dto.cat.Group;
 
 public class GroupDAOHibernate extends BaseHibernateDAO<Group> implements GroupDAO {
-  public GroupDAOHibernate (){
-    super (Group.class);
-  }
+    private static final long serialVersionUID = 1L;
+
+    public GroupDAOHibernate() {
+	super(Group.class);
+    }
 }

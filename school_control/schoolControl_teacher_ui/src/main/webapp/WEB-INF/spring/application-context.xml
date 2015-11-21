@@ -27,7 +27,7 @@
  			<list>
  				<value>com.inspiracode.inspiraschool.dto.cat</value>
  				<value>com.inspiracode.inspiraschool.dto.cross</value>
- 				<value>com.inspiracode.inspiraschool.dto.crtl</value>
+ 				<value>com.inspiracode.inspiraschool.dto.ctrl</value>
  				<value>com.inspiracode.inspiraschool.dto.sys</value>
  			</list>
  		</property>

@@ -7,6 +7,8 @@ import com.inspiracode.inspiraschool.dao.hibernate.BaseHibernateDAO;
 import com.inspiracode.inspiraschool.dto.cat.Teacher;
 
 public class TeacherDAOHibernate extends BaseHibernateDAO<Teacher> implements TeacherDAO {
+    private static final long serialVersionUID = 1L;
+
     public TeacherDAOHibernate() {
 	super(Teacher.class);
     }

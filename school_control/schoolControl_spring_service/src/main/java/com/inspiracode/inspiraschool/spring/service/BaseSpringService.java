@@ -9,9 +9,10 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public abstract class BaseSpringService<T extends BaseDTO> implements BaseService<T> {
-    private static final long serialVersionUID = 8233295589379763604L;
+    private static final long serialVersionUID = 1L;
     private BaseDAO<T> daoFactory;
     
+    public BaseSpringService(){}
     
     public T get(int id) {
 	return (T) daoFactory.get(id);

@@ -14,6 +14,7 @@
         <br/>
         <br/>
         <div class="row">
+            <h:form id="groupButtons">
             <ui:repeat var="item" value="#{groupAssignmentBean.groupsByLoggedTeacher}" rendered="#{not empty groupAssignmentBean.groupsByLoggedTeacher}">
                 <div class="col-md-3 col-sm-6">
                     <div class="service-item">
@@ -29,10 +30,12 @@
                             <b>Grupo: </b>#{item.group.grade} #{item.group.dayTrip}<br/>
                             #{item.group.period} #{item.group.year}
                         </p>
-                        <a class="btn btn-light" href="calificar.xhtml?id=#{item.id}">Calificar</a>
+                        <h:commandButton class="btn btn-light" value="Calificar" action="#{groupAssignmentBean.groupSelected(item)}"/>
                     </div>
                 </div>
             </ui:repeat>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </h:form>
         </div>
     </ui:define>
 </ui:composition>

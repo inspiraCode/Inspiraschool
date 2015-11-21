@@ -5,7 +5,9 @@ import com.inspiracode.inspiraschool.dao.hibernate.BaseHibernateDAO;
 import com.inspiracode.inspiraschool.dto.cat.Career;
 
 public class CareerDAOHibernate extends BaseHibernateDAO<Career> implements CareerDAO {
-  public CareerDAOHibernate() {
-    super(Career.class);
-  }
+    private static final long serialVersionUID = 1L;
+
+    public CareerDAOHibernate() {
+	super(Career.class);
+    }
 }

@@ -15,6 +15,7 @@ import com.inspiracode.inspiraschool.dao.BaseDAO;
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 public abstract class BaseHibernateDAO<T extends BaseDTO> extends HibernateDaoSupport implements BaseDAO<T> {
+    private static final long serialVersionUID = 1L;
     private Class<T> type;
 
     public BaseHibernateDAO(Class<T> type) {
