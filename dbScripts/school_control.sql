@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `school_control` /*!40100 DEFAULT CHARACTER SET latin1 COLLATE latin1_spanish_ci */;
 USE `school_control`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
--- Host: 127.0.0.1    Database: school_control
+-- Host: localhost    Database: school_control
 -- ------------------------------------------------------
--- Server version	5.6.26
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -149,7 +149,7 @@ CREATE TABLE `cat_teacher` (
   `id_teacher` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `lastname` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
-  `addres` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
+  `address` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `phone` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `email` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
   `user_name` varchar(45) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -229,6 +229,7 @@ DROP TABLE IF EXISTS `ctrl_score`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ctrl_score` (
+  `id_score` int(11) NOT NULL AUTO_INCREMENT,
   `id_student` int(11) NOT NULL,
   `id_group_assignment` int(11) NOT NULL,
   `comments` varchar(250) COLLATE latin1_spanish_ci DEFAULT NULL,
@@ -242,11 +243,12 @@ CREATE TABLE `ctrl_score` (
   `extraordinary_two` int(11) DEFAULT NULL,
   `special` int(11) DEFAULT NULL,
   `final` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_student`,`id_group_assignment`),
+  PRIMARY KEY (`id_score`),
+  UNIQUE KEY `ux_student_group` (`id_student`,`id_group_assignment`),
   KEY `fk_note_metter_course1_idx` (`id_group_assignment`),
   CONSTRAINT `fk_score_assignment` FOREIGN KEY (`id_group_assignment`) REFERENCES `cross_group_assignment` (`id`),
   CONSTRAINT `fk_score_student` FOREIGN KEY (`id_student`) REFERENCES `cat_student` (`Id_student`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6265 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -258,4 +260,4 @@ CREATE TABLE `ctrl_score` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-11-11 10:48:33
+-- Dump completed on 2015-11-20 22:24:49

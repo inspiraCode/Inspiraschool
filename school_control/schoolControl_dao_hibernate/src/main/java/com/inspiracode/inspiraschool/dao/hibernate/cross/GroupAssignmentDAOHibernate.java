@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.dao.hibernate.cross;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.inspiracode.inspiraschool.dao.cross.GroupAssignmentDAO;
@@ -18,7 +19,7 @@ public class GroupAssignmentDAOHibernate extends BaseHibernateDAO<GroupAssignmen
     @SuppressWarnings("unchecked")
     @Override
     public List<GroupAssignment> getGroupsByTeacher(int teacherId) {
-	List<GroupAssignment> result = (List<GroupAssignment>) getHibernateTemplate().find(QUERY_BY_TEACHER_ID, teacherId);
+	List<GroupAssignment> result = (List<GroupAssignment>) getHibernateTemplate().find(QUERY_BY_TEACHER_ID, teacherId, periodoActual());
 	return result;
     }
 
@@ -29,6 +30,30 @@ public class GroupAssignmentDAOHibernate extends BaseHibernateDAO<GroupAssignmen
 	for (Student gStudent : tempGroup.getStudents()) {
 	    result.add(gStudent);
 	}
+	return result;
+    }
+
+    private String periodoActual() {
+	String result = "";
+	// Conocer fecha actual
+	int mesActual = Calendar.getInstance().get(Calendar.MONTH);
+	switch (mesActual) {
+	case 0:
+	case 1:
+	case 2:
+	case 3:
+	    result = "ENERO-ABRIL";
+	    break;
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	    result = "MAYO-AGOSTO";
+	    break;
+	default:
+	    result = "SEPTIEMBRE-DICIEMBRE";
+	}
+
 	return result;
     }
 
