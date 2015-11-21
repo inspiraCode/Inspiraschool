@@ -27,7 +27,7 @@ public class Score implements BaseDTO {
     private int id;
 
     @JoinColumn(name = "id_student")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Student student;
 
     @JoinColumn(name = "id_group_assignment")

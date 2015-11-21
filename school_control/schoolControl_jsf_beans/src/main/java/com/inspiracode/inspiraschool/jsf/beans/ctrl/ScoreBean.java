@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.ctrl;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -8,7 +9,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
@@ -29,51 +29,85 @@ public class ScoreBean extends BaseFacesBean<Score> {
     @ManagedProperty("#{groupAssignmentService}")
     private GroupAssignmentService groupService;
 
+    private int rowIndex = 1;
+    private int loadedGroup = 0;
+
     public ScoreBean() {
 	super(Score.class);
     }
 
     public List<Score> scoresByGroup(int idGroupAssignment) {
-	List<Score> result = new ArrayList<Score>();
-	// Cargar calificaciones existentes
-	List<Score> existingScores = scoreService.scoresByGroup(idGroupAssignment);
-	logger.debug(existingScores.size() + " existing scores in db.");
-	if (existingScores != null && !existingScores.isEmpty()) {
-	    for (Score score : existingScores) {
-		Student studentInScore = scoreService.studentInScore(score.getId());
-		Log.debug("Setting score student: " + studentInScore.getName());
-		score.setStudent(studentInScore);
-		result.add(score);
+	rowIndex = 1;
+	List<Score> result = getUnsavedItems();
+	if (idGroupAssignment != loadedGroup) {
+	    result.clear();
+	    // Cargar calificaciones existentes
+	    List<Score> existingScores = scoreService.scoresByGroup(idGroupAssignment);
+	    logger.debug(existingScores.size() + " existing scores in db.");
+	    if (existingScores != null && !existingScores.isEmpty()) {
+		result.addAll(existingScores);
 	    }
-	}
-	// Cargar materias asignadas sin calificar
-	List<Student> studentsInGroup = groupService.getStudentsByGroupId(idGroupAssignment);
-	logger.debug(studentsInGroup.size() + " students in group in db.");
-	for (Student student : studentsInGroup) {
-	    boolean found = false;
-	    for (Score score : result) {
+	    // Cargar materias asignadas sin calificar
+	    List<Student> studentsInGroup = groupService.getStudentsByGroupId(idGroupAssignment);
+	    logger.debug(studentsInGroup.size() + " students in group in db.");
+	    for (Student student : studentsInGroup) {
+		boolean found = false;
+		for (Score score : result) {
+		    if (score.getId() == 0)
+			continue;
+		    if (score.getStudent().getId() == student.getId()) {
+			found = true;
+			break;
+		    }
+		}
 
-		Student studentInScore = scoreService.studentInScore(score.getId());
-		if (studentInScore.getId() == student.getId()) {
-		    found = true;
-		    break;
+		if (!found) {
+		    Score newScore = new Score();
+		    newScore.setStudent(student);
+		    newScore.setGroupAssignment(groupService.get(idGroupAssignment));
+		    result.add(newScore);
 		}
 	    }
 
-	    if (!found) {
-		logger.debug("Adding student to group as no score was found:" + student.getName());
-		Score newScore = new Score();
-		newScore.setStudent(student);
-		newScore.setGroupAssignment(groupService.get(idGroupAssignment));
-		newScore.setParcialOne(0);
-		newScore.setParcialTwo(0);
-
-		result.add(newScore);
-	    }
+	    logger.debug(result.size() + " items to display in list");
+	    result.sort(new Comparator<Score>() {
+		@Override
+		public int compare(Score o1, Score o2) {
+		    return o1.getStudent().getName().compareTo(o2.getStudent().getName());
+		}
+	    });
+	    loadedGroup = idGroupAssignment;
 	}
-
-	logger.debug(result.size() + " items to display in list");
 	return result;
+
+    }
+
+    public String calificar() {
+	for (Score score : getUnsavedItems()) {
+	    if ((score.getParcialOne() == null || score.getParcialOne() == 0) && (score.getParcialTwo() == null || score.getParcialTwo() == 0))
+		continue;
+
+	    if (score.getParcialOne() != null) {
+		if (score.getParcialOne() > 100 || (score.getParcialOne() < 50 && score.getParcialOne() > 0)) {
+		    publishWarning("Revise la calificación del parcial 1 para " + score.getStudent().getName());
+		    return "";
+		}
+	    }
+
+	    if (score.getParcialTwo() != null) {
+		if ((score.getParcialTwo() < 50 && score.getParcialTwo() > 0) || score.getParcialTwo() > 100) {
+		    publishWarning("Revise la calificación del parcial 2 para " + score.getStudent().getName());
+		    return "";
+		}
+	    }
+
+	    if (score.getId() == 0)
+		getScoreService().add(score);
+	    else
+		getScoreService().update(score);
+	}
+	loadedGroup = 0;
+	return "grupos";
     }
 
     public ScoreService getScoreService() {
@@ -91,6 +125,22 @@ public class ScoreBean extends BaseFacesBean<Score> {
 
     public void setGroupService(GroupAssignmentService groupService) {
 	this.groupService = groupService;
+    }
+
+    public int getRowIndex() {
+	return rowIndex++;
+    }
+
+    public void setRowIndex(int rowIndex) {
+	this.rowIndex = rowIndex;
+    }
+
+    public int getLoadedGroup() {
+	return loadedGroup;
+    }
+
+    public void setLoadedGroup(int loadedGroup) {
+	this.loadedGroup = loadedGroup;
     }
 
 }
