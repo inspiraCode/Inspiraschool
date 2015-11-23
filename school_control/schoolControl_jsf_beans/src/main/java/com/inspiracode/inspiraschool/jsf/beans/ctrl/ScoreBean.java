@@ -35,7 +35,7 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
     public ScoreBean() {
 	super(Score.class);
     }
-
+   
     public List<Score> scoresByGroup(int idGroupAssignment) {
 	rowIndex = 1;
 	List<Score> result = getUnsavedItems();
