@@ -55,7 +55,8 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
 
     public List<Score> scoresByGroup(int idGroupAssignment) {
 	rowIndex = 1;
-	List<Score> result = getUnsavedItems();
+	List<Score> result = new ArrayList<Score>();
+	result.addAll(getUnsavedItems());
 	if (idGroupAssignment != loadedGroup) {
 	    result.clear();
 	    // Cargar calificaciones existentes
@@ -89,6 +90,7 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
 	    logger.debug(result.size() + " items to display in list");
 	    Collections.sort(result);
 	    loadedGroup = idGroupAssignment;
+	    setUnsavedItems(result);
 	}
 	return result;
 

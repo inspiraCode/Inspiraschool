@@ -43,19 +43,23 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">P. 1</f:facet>
-                    <h:inputText style="width:50px;" class="form-control" value="#{score.parcialOne}" />
+                    <h:inputText pt:tabindex="1" id="partialOne" style="width:50px;" class="form-control" value="#{score.parcialOne}">
+                        <f:ajax event="keyup" execute="partialOne" render="finalScore"></f:ajax>
+                    </h:inputText>
                 </h:column>
-                <h:column>
+                <h:column render="#{score.groupAssignment.group.career.name.toLowerCase().contains('prepa')}">
                     <f:facet name="header">P. 2</f:facet>
-                    <h:inputText style="width:50px;" class="form-control" value="#{score.parcialTwo}" />
+                    <h:inputText pt:tabindex="2" id="partialTwo" style="width:50px;" class="form-control" value="#{score.parcialTwo}">
+                        <f:ajax event="keyup" execute="partialTwo" render="finalScore"></f:ajax>
+                    </h:inputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Prom.</f:facet>
-                    <h:outputText value="#{score.finalScore}" />
+                    <h:outputText id="finalScore" value="#{score.finalScore}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">Comentario</f:facet>
-                    <h:inputText style="width:155px;" class="form-control" value="#{score.comment}" />
+                    <h:inputText pt:tabindex="3" style="width:155px;" class="form-control" value="#{score.comment}" />
                 </h:column>
             </h:dataTable>
         </div>

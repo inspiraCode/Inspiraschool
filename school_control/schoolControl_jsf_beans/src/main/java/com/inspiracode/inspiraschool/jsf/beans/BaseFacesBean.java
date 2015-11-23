@@ -78,7 +78,7 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 
 	    result = "success";
 	} catch (org.springframework.dao.DataIntegrityViolationException e) {
-	    publishError("Los datos que intenta grabar en la base de datos están duplicados.");
+	    publishError("Los datos que intenta grabar en la base de datos estï¿½n duplicados.");
 	    result = "failure";
 	} catch (Exception e) {
 	    publishError("Error al grabar los datos: " + e.getMessage());
@@ -140,7 +140,8 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     }
 
     public void setUnsavedItems(List<T> unsavedItems) {
-	this.unsavedItems = unsavedItems;
+	this.unsavedItems.clear();
+	this.unsavedItems.addAll(unsavedItems);
     }
 
     public boolean isForceDownload() {
