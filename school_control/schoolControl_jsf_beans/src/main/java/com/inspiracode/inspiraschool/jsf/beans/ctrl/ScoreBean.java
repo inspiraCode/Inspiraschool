@@ -1,5 +1,6 @@
 package com.inspiracode.inspiraschool.jsf.beans.ctrl;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -69,12 +70,7 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
 	    }
 
 	    logger.debug(result.size() + " items to display in list");
-	    result.sort(new Comparator<Score>() {
-		@Override
-		public int compare(Score o1, Score o2) {
-		    return o1.getStudent().getName().compareTo(o2.getStudent().getName());
-		}
-	    });
+	    Collections.sort(result);
 	    loadedGroup = idGroupAssignment;
 	}
 	return result;

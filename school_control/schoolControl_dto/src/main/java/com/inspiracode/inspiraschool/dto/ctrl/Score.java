@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.dto.ctrl;
 
+import java.util.Comparator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,11 +18,12 @@ import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 
 @Entity
 @Table(name = "ctrl_score", catalog = "school_control")
-public class Score implements BaseDTO {
+public class Score implements BaseDTO, Comparable<Score> {
     private static final long serialVersionUID = 1L;
-    
-    public Score(){}
-    
+
+    public Score() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_score")
@@ -55,7 +58,7 @@ public class Score implements BaseDTO {
     @Column(name = "partial_six")
     private Integer parcialSix;
 
-    @Column(name = "extraordinary", nullable=true)
+    @Column(name = "extraordinary", nullable = true)
     private Integer extraOrdinary;
 
     @Column(name = "extraordinary_two")
@@ -177,6 +180,19 @@ public class Score implements BaseDTO {
 
     public void setFinalScore(Integer finalScore) {
 	this.finalScore = finalScore;
+    }
+
+    @Override
+    public int compareTo(Score o) {
+	return Comparators.STUDENT_NAME.compare(this, o);
+    }
+    public static class Comparators {
+	public static Comparator<Score> STUDENT_NAME = new Comparator<Score>() {
+
+	    public int compare(Score s1, Score s2) {
+		return s1.getStudent().getName().compareTo(s2.getStudent().getName());
+	    }
+	};
     }
 
 }
