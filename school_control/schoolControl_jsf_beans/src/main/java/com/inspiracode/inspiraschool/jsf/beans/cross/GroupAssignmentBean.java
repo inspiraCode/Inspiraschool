@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cross;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -9,16 +11,20 @@ import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
+import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cat.Teacher;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
-import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
+import com.inspiracode.inspiraschool.dto.ctrl.Score;
+import com.inspiracode.inspiraschool.jsf.beans.BaseFacesReporteableBean;
+import com.inspiracode.inspiraschool.jsf.beans.model.ctrl.ScoreModel;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cat.TeacherService;
 import com.inspiracode.inspiraschool.service.cross.GroupAssignmentService;
+import com.inspiracode.inspiraschool.service.ctrl.ScoreService;
 
 @ManagedBean
 @SessionScoped
-public class GroupAssignmentBean extends BaseFacesBean<GroupAssignment> {
+public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignment> {
     private static final long serialVersionUID = 1901316763469701174L;
     private static final Logger logger = Logger.getLogger(GroupAssignmentBean.class.getName());
 
@@ -28,8 +34,55 @@ public class GroupAssignmentBean extends BaseFacesBean<GroupAssignment> {
     @ManagedProperty("#{teacherService}")
     private TeacherService teacherService;
 
+    @ManagedProperty("#{scoreService}")
+    private ScoreService scoreService;
+
+    @ManagedProperty("#{groupAssignmentService}")
+    private GroupAssignmentService groupService;
+
     public GroupAssignmentBean() {
 	super(GroupAssignment.class);
+    }
+
+    public List<ScoreModel> scoresReportList(GroupAssignment item) {
+	List<ScoreModel> result = new ArrayList<ScoreModel>();
+	List<Score> scores = scoreService.scoresByGroup(item.getId());
+
+	String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
+	
+	List<Student> studentsInGroup = groupService.getStudentsByGroupId(item.getId());
+	for (Student student : studentsInGroup) {
+	    boolean found = false;
+	    for (Score score : scores) {
+		if (score.getId() == 0)
+		    continue;
+		if (score.getStudent().getId() == student.getId()) {
+		    found = true;
+		    break;
+		}
+	    }
+
+	    if (!found) {
+		logger.debug("Student not found in existing scores: " + student.getName());
+		Score newScore = new Score();
+		newScore.setStudent(student);
+		newScore.setGroupAssignment(item);
+
+		scores.add(newScore);
+	    }
+	}
+	
+	logger.debug(scores.size() + " items to display in list");
+	Collections.sort(scores);
+	
+	for (Score score : scores) {
+	    logger.debug("Using score to build score model: " + score);
+	    ScoreModel model = new ScoreModel(score);
+	    model.setUserName(userName);
+	    result.add(model);
+	}
+
+	return result;
     }
 
     public String fontAwesome(GroupAssignment item) {
@@ -115,8 +168,8 @@ public class GroupAssignmentBean extends BaseFacesBean<GroupAssignment> {
 	Teacher loggedTeacher = teacherService.getTeacherByUserName(userName);
 	return groupAssignmentService.getGroupsByTeacher(loggedTeacher.getId());
     }
-    
-    public String groupSelected(GroupAssignment item){
+
+    public String groupSelected(GroupAssignment item) {
 	logger.debug("item selected, forwarding to [calificar]");
 	logger.debug(item);
 	setSelectedItem(item);
@@ -138,5 +191,21 @@ public class GroupAssignmentBean extends BaseFacesBean<GroupAssignment> {
 
     public void setTeacherService(TeacherService teacherService) {
 	this.teacherService = teacherService;
+    }
+
+    public ScoreService getScoreService() {
+	return scoreService;
+    }
+
+    public void setScoreService(ScoreService scoreService) {
+	this.scoreService = scoreService;
+    }
+
+    public GroupAssignmentService getGroupService() {
+	return groupService;
+    }
+
+    public void setGroupService(GroupAssignmentService groupService) {
+	this.groupService = groupService;
     }
 }
