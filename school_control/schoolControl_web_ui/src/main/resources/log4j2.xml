@@ -9,7 +9,7 @@
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%C] [%t] %-5level %logger{36} - %msg%n" />
 		</Console>
 
-		<RollingFile append="false" name="RollingFile1" fileName="${log-path}/inspira_teacher.log"
+		<RollingFile append="false" name="RollingFile1" fileName="${log-path}/school_control.log"
 			filePattern="${log-path}/scspro-%d{yyyy-MM-dd}-%i.log">
 			<PatternLayout>
 				<pattern>%d %p %C-%L [%t] %m%n</pattern>
@@ -24,17 +24,17 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.inspiracode" level="INFO">
-			<AppenderRef ref="RollingFile1" level="INFO" />
+		<Logger name="com.nowgroup" level="DEBUG">
+			<AppenderRef ref="RollingFile1" level="DEBUG" />
 			<AppenderRef ref="Console" level="INFO" />
 		</Logger>
-		<Logger name="org.hibernate" level="WARN">
+		<Logger name="org.hibernate" level="INFO">
 			<AppenderRef ref="RollingFile1" level="WARN" />
-			<AppenderRef ref="Console" level="WARN" />
+			<AppenderRef ref="Console" level="INFO" />
 		</Logger>
-		<Logger name="org.hibernate.type" level="WARN">
+		<Logger name="org.hibernate.type" level="INFO">
 			<AppenderRef ref="RollingFile1" level="WARN" />
-			<AppenderRef ref="Console" level="WARN" />
+			<AppenderRef ref="Console" level="INFO" />
 		</Logger>
 		<Root level="trace">
 			<AppenderRef ref="RollingFile1" level="INFO" />
