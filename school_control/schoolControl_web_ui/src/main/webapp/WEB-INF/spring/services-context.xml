@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<!-- CATALOGS -->
+
+	<bean id="assignmentService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.AssignmentSpringService">
+		<property name="assignmentDAO" ref="assignmentDAO" />
+	</bean>
+	<bean id="careerService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.CareerSpringService">
+		<property name="careerDAO" ref="careerDAO" />
+	</bean>
+	<bean id="companyService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.CompanySpringService">
+		<property name="companyDAO" ref="companyDAO" />
+	</bean>
+	<bean id="groupService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.GroupSpringService">
+		<property name="groupDAO" ref="groupDAO" />
+	</bean>
+	<bean id="paymentConceptService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.PaymentConceptSpringService">
+		<property name="paymentConceptDAO" ref="paymentConceptDAO" />
+	</bean>
+	<bean id="statusService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.StatusSpringService">
+		<property name="statusDAO" ref="statusDAO" />
+	</bean>
+	<bean id="studentService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.StudentSpringService">
+		<property name="studentDAO" ref="studentDAO" />
+	</bean>
+	<bean id="teacherService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.TeacherSpringService">
+		<property name="teacherDAO" ref="teacherDAO" />
+	</bean>
+
+	<!-- CROSS -->
+
+	<bean id="groupAssignmentService"
+		class="com.inspiracode.inspiraschool.spring.service.cross.GroupAssignmentSpringService">
+		<property name="groupAssignmentDAO" ref="groupAssignmentDAO" />
+	</bean>
+
+	<!-- CONTROL -->
+	<bean id="scoreService"
+		class="com.inspiracode.inspiraschool.spring.service.ctrl.ScoreSpringService">
+		<property name="scoreDAO" ref="scoreDAO" />
+	</bean>
+
+	<!-- SYSTEM -->
+
+	<bean id="roleService"
+		class="com.inspiracode.inspiraschool.spring.service.sys.RoleSpringService">
+		<property name="roleDAO" ref="roleDAO" />
+	</bean>
+	<bean id="userService"
+		class="com.inspiracode.inspiraschool.spring.service.sys.UserSpringService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+</beans>
