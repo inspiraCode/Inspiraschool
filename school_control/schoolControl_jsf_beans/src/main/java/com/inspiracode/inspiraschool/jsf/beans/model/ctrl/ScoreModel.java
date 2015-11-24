@@ -10,8 +10,9 @@ public class ScoreModel extends Score {
 
     private String assignmentName;
     private String groupName;
+    private String teacherName;
 
-    private int index;
+    private String userName;
 
     public ScoreModel(Score score) {
 	this.setComment(score.getComment());
@@ -19,6 +20,13 @@ public class ScoreModel extends Score {
 	this.setId(score.getId());
 	this.setParcialOne(score.getParcialOne());
 	this.setParcialTwo(score.getParcialTwo());
+
+	this.setStudentName(score.getStudent().getName());
+	this.setStudentEnrollment(score.getStudent().getEnrollNumber());
+
+	this.setAssignmentName(score.getGroupAssignment().getAssignment().getName());
+	this.setTeacherName(score.getGroupAssignment().getTeacher().getName());
+	this.setGroupName(score.getGroupAssignment().getGroup().getGrade() + " " + score.getGroupAssignment().getGroup().getDayTrip());
     }
 
     public String getStudentName() {
@@ -53,11 +61,19 @@ public class ScoreModel extends Score {
 	this.groupName = groupName;
     }
 
-    public int getIndex() {
-	return index;
+    public String getTeacherName() {
+	return teacherName;
     }
 
-    public void setIndex(int index) {
-	this.index = index;
+    public void setTeacherName(String teacherName) {
+	this.teacherName = teacherName;
+    }
+
+    public String getUserName() {
+	return userName;
+    }
+
+    public void setUserName(String userName) {
+	this.userName = userName;
     }
 }

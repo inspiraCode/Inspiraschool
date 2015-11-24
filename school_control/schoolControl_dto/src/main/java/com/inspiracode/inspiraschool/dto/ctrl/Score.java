@@ -108,6 +108,17 @@ public class Score implements BaseDTO, Comparable<Score> {
 
     public void setParcialOne(Integer parcialOne) {
 	this.parcialOne = parcialOne;
+	if ((parcialOne != null && (parcialOne >= 50 && parcialOne <= 100)) || new Integer(0).equals(parcialOne)) {
+	    if (parcialTwo != null) {
+		if ((parcialTwo >= 50 && parcialTwo <= 100) || parcialTwo == 0) {
+		    finalScore = (parcialOne + parcialTwo) / 2;
+		}
+	    } else {
+		finalScore = parcialOne;
+	    }
+	} else {
+	    finalScore = null;
+	}
     }
 
     public Integer getParcialTwo() {
@@ -116,6 +127,19 @@ public class Score implements BaseDTO, Comparable<Score> {
 
     public void setParcialTwo(Integer parcialTwo) {
 	this.parcialTwo = parcialTwo;
+	if ((parcialTwo != null && (parcialTwo >= 50 && parcialTwo <= 100)) || new Integer(0).equals(parcialTwo)) {
+	    if ((parcialOne != null && (parcialOne >= 50 && parcialOne <= 100)) || new Integer(0).equals(parcialOne)) {
+		finalScore = (parcialOne + parcialTwo) / 2;
+	    } else {
+		finalScore = parcialTwo;
+	    }
+	} else {
+	    if(parcialOne != null && (parcialOne >= 50 && parcialOne <= 100)){
+		finalScore = parcialOne;
+	    } else {
+		finalScore = null;
+	    }
+	}
     }
 
     public Integer getParcialThree() {
@@ -186,6 +210,7 @@ public class Score implements BaseDTO, Comparable<Score> {
     public int compareTo(Score o) {
 	return Comparators.STUDENT_NAME.compare(this, o);
     }
+
     public static class Comparators {
 	public static Comparator<Score> STUDENT_NAME = new Comparator<Score>() {
 
