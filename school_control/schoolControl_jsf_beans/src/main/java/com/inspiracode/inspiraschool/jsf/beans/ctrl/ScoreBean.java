@@ -7,21 +7,19 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
-import com.inspiracode.inspiraschool.jsf.beans.BaseFacesReporteableBean;
-import com.inspiracode.inspiraschool.jsf.beans.model.ctrl.ScoreModel;
+import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cross.GroupAssignmentService;
 import com.inspiracode.inspiraschool.service.ctrl.ScoreService;
 
 @ManagedBean
 @SessionScoped
-public class ScoreBean extends BaseFacesReporteableBean<Score> {
+public class ScoreBean extends BaseFacesBean<Score> {
     private static final long serialVersionUID = 1965513980898329854L;
     private static final Logger logger = Logger.getLogger(ScoreBean.class.getName());
 
@@ -36,21 +34,6 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
 
     public ScoreBean() {
 	super(Score.class);
-    }
-
-    public List<ScoreModel> scoresReportList(int idGroupAssignment) {
-	List<Score> resultPreModel = scoresByGroup(idGroupAssignment);
-	List<ScoreModel> result = new ArrayList<ScoreModel>();
-
-	String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-	
-	for (Score score : resultPreModel) {
-	    ScoreModel model = new ScoreModel(score);
-	    model.setUserName(userName);
-	    result.add(model);
-	}
-
-	return result;
     }
 
     public List<Score> scoresByGroup(int idGroupAssignment) {
@@ -98,18 +81,18 @@ public class ScoreBean extends BaseFacesReporteableBean<Score> {
 
     public String calificar() {
 	for (Score score : getUnsavedItems()) {
-	    if ((score.getParcialOne() == null || score.getParcialOne() == 0) && (score.getParcialTwo() == null || score.getParcialTwo() == 0))
+	    if (score.getParcialOne() == null && score.getParcialOne() == null && score.getComment() == null)
 		continue;
 
 	    if (score.getParcialOne() != null) {
-		if (score.getParcialOne() > 100 || (score.getParcialOne() < 50 && score.getParcialOne() > 0)) {
+		if (score.getParcialOne() >= 100 || (score.getParcialOne() <= 50 && score.getParcialOne() > 0)) {
 		    publishWarning("Revise la calificación del parcial 1 para " + score.getStudent().getName());
 		    return "";
 		}
 	    }
 
 	    if (score.getParcialTwo() != null) {
-		if ((score.getParcialTwo() < 50 && score.getParcialTwo() > 0) || score.getParcialTwo() > 100) {
+		if ((score.getParcialTwo() <= 50 && score.getParcialTwo() > 0) || score.getParcialTwo() >= 100) {
 		    publishWarning("Revise la calificación del parcial 2 para " + score.getStudent().getName());
 		    return "";
 		}
