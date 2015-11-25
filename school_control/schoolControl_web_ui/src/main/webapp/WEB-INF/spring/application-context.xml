@@ -12,6 +12,10 @@
     <!-- Enable Spring Annotation Configuration -->
     <context:annotation-config/>
     <context:spring-configured/>
+    
+    <!-- load econtrol system configuration file -->
+    <context:property-placeholder location="classpath:system.properties"/>
+    
     <!-- Create Data Source bean -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />

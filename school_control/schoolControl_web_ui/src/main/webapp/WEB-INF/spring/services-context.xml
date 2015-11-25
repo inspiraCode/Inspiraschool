@@ -53,7 +53,6 @@
 	</bean>
 
 	<!-- SYSTEM -->
-
 	<bean id="roleService"
 		class="com.inspiracode.inspiraschool.spring.service.sys.RoleSpringService">
 		<property name="roleDAO" ref="roleDAO" />
@@ -62,4 +61,7 @@
 		class="com.inspiracode.inspiraschool.spring.service.sys.UserSpringService">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
+	
+	<!-- EControl -->
+	<bean id="sysConfigService" class="com.inspiracode.inspiraschool.econtrol.service.EcontrolConfigService" />
 </beans>

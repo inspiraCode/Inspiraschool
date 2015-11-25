@@ -12,7 +12,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	
     <http auto-config="true" use-expressions="true">
     	<!-- Page level Spring Security: Intercept access to resources in /pages/secure/** -->
-    	<intercept-url pattern="/pages/secure/**" access="hasRole('ADMIN')"/>
+    	<intercept-url pattern="/pages/secure/**" access="isAuthenticated()"/>
     	
     	<!-- Page level Spring Security: Permit access to resources in /pages/public/** -->
     	<intercept-url pattern="/pages/public/**" access="permitAll"/>
@@ -21,7 +21,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         <intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
     	
     	<!-- Page level Spring Security: Intercept access to resources in /** -->
-    	<intercept-url pattern="/**" access="hasRole('ADMIN')"/>
+    	<intercept-url pattern="/**" access="isAuthenticated()"/>
     	
         <!-- Define login page for Spring Security -->
         <form-login login-page="/pages/public/login.xhtml" />
