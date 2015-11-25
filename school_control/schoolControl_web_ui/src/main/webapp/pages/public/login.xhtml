@@ -8,27 +8,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />	
     <meta name="viewport" content="width=device-width, initial-scale=1"	/>
-    <meta name="description" content="Supply Chain Software professional"/>
-    <meta name="author" content="Nowgroup Inc."/>
-    <meta name="keyword" content="Aduana, Customs, Supply Chain, Sofware, Service" />
+    <meta name="description" content="Sistema de Control Escolar"/>
+    <meta name="author" content="Inspiracode"/>
+    <meta name="keyword" content="School Control, Control Escolar, Admin" />
 
 
-    <link rel="shortcut icon" type="image/x-icon" href="#{resource['favico/favicon.ico']}"/>
-    <link rel="icon" type="image/x-icon" href="#{resource['favico/favicon.ico']}"/>
-    <link rel="apple-touch-icon" sizes="57x57" href="#{resource['favico/apple-touch-icon-57x57.png']}"/>
-	<link rel="apple-touch-icon" sizes="60x60" href="#{resource['favico/apple-touch-icon-60x60.png']}"/>
-	<link rel="apple-touch-icon" sizes="72x72" href="#{resource['favico/apple-touch-icon-72x72.png']}"/>
-	<link rel="apple-touch-icon" sizes="76x76" href="#{resource['favico/apple-touch-icon-76x76.png']}"/>
-	<link rel="apple-touch-icon" sizes="114x114" href="#{resource['favico/apple-touch-icon-114x114.png']}"/>
-	<link rel="apple-touch-icon" sizes="120x120" href="#{resource['favico/apple-touch-icon-120x120.png']}"/>
-	<link rel="icon" type="image/png" href="#{resource['favico/favicon-32x32.png']}" sizes="32x32"/>
-	<link rel="icon" type="image/png" href="#{resource['favico/favicon-96x96.png']}" sizes="96x96"/>
-	<link rel="icon" type="image/png" href="#{resource['favico/favicon-16x16.png']}" sizes="16x16"/>
-	<link rel="manifest" href="#{resource['favico/manifest.json']}" />
-	<meta name="msapplication-TileColor" content="#da532c"/>
-	<meta name="theme-color" content="#ffffff"/>
+    <link rel="shortcut icon" href="#{resource['favico/favicon.png']}"/>
+    <link rel="icon" href="#{resource['favico/favicon.png']}"/>
+	<link rel="apple-touch-icon" href="#{resource['favico/favicon.png']}"/>
 
-    <title>SCS Pro - Login</title>
+    <!--[if IE]>
+    	<link rel="shortcut icon" href="http://centrouniversitariopasodelnorte.com/wp-content/themes/cupn/images/favicon.ico">
+	<![endif]-->
+
+    <meta name="msapplication-TileColor" content="#da532c"/>
+    <meta name="theme-color" content="#ffffff"/>
+
+    <title>EControl - Login</title>
     <!-- JQUERY CORE -->
     <script src="//cdn.jsdelivr.net/jquery/2.1.4/jquery.min.js"></script>
     <!-- JQUERY UI -->
@@ -55,30 +51,24 @@
     <![endif]-->
 </h:head>
 <h:body class="login-img3-body">
-	<f:view locale="#{localeBean.locale}">
 	<div class="container">
         <h:form class="login-form">
             <div class="login-wrap">
                 <p class="login-img"><i class="fa fa-lock"></i></p>
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                  <h:inputText styleClass="form-control" pt:placeholder="#{i18n_login['login.username']}" id="userName" required="true" value="#{loginMgmtBean.userName}" requiredMessage="#{i18n_login['login.username.required']}"></h:inputText>
+                  <h:inputText styleClass="form-control" pt:placeholder="Usuario" id="userName" value="#{loginMgmtBean.userName}"></h:inputText>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                    <h:inputSecret id="password" styleClass="form-control" pt:placeholder="#{i18n_login['login.password']}" required="true" value="#{loginMgmtBean.password}" requiredMessage="#{i18n_login['login.password.required']}" name="inTxtPasswordNm"></h:inputSecret>
+                    <h:inputSecret id="password" styleClass="form-control" pt:placeholder="Contraseña" value="#{loginMgmtBean.password}"></h:inputSecret>
                 </div>
-                <label class="checkbox">
-                    <span class="pull-right"> <a href="#"> #{i18n_login['login.forgotPassword']}</a></span>
-                </label>
-                <h:commandButton id="btnLoginId" value="#{i18n_login['login.login']}" action="#{loginMgmtBean.login}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
-                <h:commandButton id="btnRegisterId" value="#{i18n_login['login.register']}" action="#{loginMgmtBean.register}" immediate="true" styleClass="btn btn-info btn-lg btn-block"></h:commandButton>
+                <h:commandButton id="btnLoginId" value="Ingresar" action="#{loginMgmtBean.login}" styleClass="btn btn-primary btn-lg btn-block"></h:commandButton>
             </div>
             <!-- CSRF Security token -->
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </h:form>
         <h:messages styleClass="alert alert-danger" pt:role="alert"></h:messages>
     </div>
-	</f:view>
 </h:body>
 </html>

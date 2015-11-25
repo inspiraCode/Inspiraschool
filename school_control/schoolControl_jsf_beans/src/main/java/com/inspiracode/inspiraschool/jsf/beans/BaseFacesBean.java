@@ -34,6 +34,10 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	    selectedItems.add(item);
     }
 
+    public boolean isSelected(T item) {
+	return selectedItems.contains(selectedItem);
+    }
+
     public String removeSelected() {
 	List<T> removeList = new LinkedList<T>();
 	for (T item : selectedItems) {
@@ -113,12 +117,12 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	selectedItem = type.newInstance();
 	return "success";
     }
-    
+
     public String edit(T item) {
 	this.setSelectedItem(item);
 	return "success";
     }
-    
+
     public String showList() {
 	return "success";
     }
@@ -169,11 +173,11 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     }
 
     public BaseService<T> getService() {
-        return service;
+	return service;
     }
 
     public void setService(BaseService<T> service) {
-        this.service = service;
+	this.service = service;
     }
 
 }
