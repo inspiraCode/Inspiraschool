@@ -28,7 +28,7 @@
                         <p>
                             <b>Carrera: </b>#{item.group.career.name}<br/>
                             <b>Grupo: </b>#{item.group.grade} #{item.group.dayTrip}<br/>
-                            #{item.group.period} #{item.group.year}
+                            #{item.group.period.periodName} #{item.group.period.periodYear}
                         </p>
                         <h:commandButton class="btn btn-light" value="Calificar" action="#{groupAssignmentBean.groupSelected(item)}"/>
                         <h:commandButton class="btn btn-success hidden-print" value="Imprimir" onclick="showLoading=false;" action="#{groupAssignmentBean.pdfReport(groupAssignmentBean.scoresReportList(item), 'calificaciones')}"/>

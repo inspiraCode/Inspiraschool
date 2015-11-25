@@ -38,6 +38,14 @@
 		class="com.inspiracode.inspiraschool.spring.service.cat.TeacherSpringService">
 		<property name="teacherDAO" ref="teacherDAO" />
 	</bean>
+	<bean id="sieGroupService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.SieGroupSpringService">
+		<property name="sieGroupDAO" ref="sieGroupDAO" />
+	</bean>
+	<bean id="periodService"
+		class="com.inspiracode.inspiraschool.spring.service.cat.PeriodSpringService">
+		<property name="periodDAO" ref="periodDAO" />
+	</bean>
 
 	<!-- CROSS -->
 
