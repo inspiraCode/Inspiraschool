@@ -4,132 +4,60 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition>
-
     <!--sidebar start-->
       <aside>
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
                   <li class="active">
-                    <a href="/scspro/pages/secure/index.xhtml"><i class="fa fa-home fa-fw"></i><span><h:outputText id="outTxtDashboardId" value="#{i18n_menu['menu.dashboard']}" name="outTxtDashboardNm"></h:outputText></span></a>
+                    <a href="/EControl/pages/secure/index.xhtml"><i class="fa fa-home fa-fw"></i><span>Tablero Estadístico</span></a>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="fa fa-th-list fa-fw"></i>
-                          <span><h:outputText id="outTxtCatalogsId" value="#{i18n_menu['menu.catalogs']}" name="outTxtCatalogsNm"></h:outputText></span>
+                          <span>Catálogos</span>
                           <span class="fa arrow menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <!-- FRACCIONES ARANCELARIAS -->
-                          <li><a href="/scspro/pages/secure/cat/tariff/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.tariffs']}"></h:outputText></a></li>
-                          <!-- MATERIALES -->
-                          <li><a href="/scspro/pages/secure/cat/material/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.materials']}"></h:outputText></a></li>
-                          <!-- COMPANIAS -->
-                          <li><a href="/scspro/pages/secure/cat/company/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.companies']}"></h:outputText></a></li>
-                          <!-- ADUANAS -->
-                          <li><a href="/scspro/pages/secure/cat/customs/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.customs']}"></h:outputText></a></li>
-                          <!-- AGENCIAS ADUANALES -->
-                          <li><a href="/scspro/pages/secure/cat/custom-broker/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.customBrokers']}"></h:outputText></a></li>
-                          <!-- TRATADOS COMERCIALES -->
-                          <li><a href="/scspro/pages/secure/cat/trade-agreement/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.tradeAgreements']}"></h:outputText></a></li>
-                          <!-- IDENTIFICADORES -->
-                          <li><a href="/scspro/pages/secure/cat/identifier/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.identifiers']}"></h:outputText></a></li>
-                          <!-- CONCEPTOS DE CARGO -->
-                          <li><a href="/scspro/pages/secure/cat/charge-concept/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.chargeConcepts']}"></h:outputText></a></li>
-                          <!-- UNIDADES DE MEDIDA -->
-                          <li><a href="/scspro/pages/secure/cat/measurement-unit/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.measurement']}"></h:outputText></a></li>
-                          <!-- ETIQUETAS INTERNACIONALES -->
-                          <li><a href="/scspro/pages/secure/cat/un-labels/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.labels']}"></h:outputText></a></li>
-                          <!-- ALMACENES -->
-                          <li><a href="/scspro/pages/secure/cat/storage/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.storages']}"></h:outputText></a></li>
-                          <!-- CONDICIONES DE PAGO -->
-                          <li><a href="/scspro/pages/secure/cat/payment/list.xhtml"><h:outputText value="#{i18n_menu['menu.catalogs.payment']}"></h:outputText></a></li>
+                          <!-- CARRERAS -->
+                          <li><a href="/EControl/pages/secure/cat/career/list.xhtml">Carreras</a></li>
+                          <!-- MATERIAS -->
+                          <li><a href="/EControl/pages/secure/cat/assignment/list.xhtml">Asignaturas</a></li>
+                          <!-- MAESTROS -->
+                          <li><a href="/EControl/pages/secure/cat/teacher/list.xhtml">Maestros</a></li>
+                          <!-- GRUPOS -->
+                          <li><a href="/EControl/pages/secure/cat/group/list.xhtml">Grupos</a></li>
+                          <!-- ESTUDIANTES -->
+                          <li><a href="/EControl/pages/secure/cat/student/list.xhtml">Estudiantes</a></li>
+                          <!-- EMPRESAS -->
+                          <li><a href="/EControl/pages/secure/cat/company/list.xhtml">Empresas</a></li>
                       </ul>
                   </li>
                   <li>
-                      <a href="/scspro/pages/secure/proc/transit/list.xhtml">
+                      <a href="/EControl/pages/secure/proc/sie/index.xhtml">
                         <i class="fa fa-road fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.transit']}"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/scspro/pages/secure/proc/receipt/list.xhtml">
-                        <i class="fa fa-tags fa-fw"></i>
-                        <span><h:outputText id="outTxtReceiptId" value="#{i18n_menu['menu.receipt']}" name="outTxtReceiptNm"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/scspro/pages/secure/packing/packing-list.xhtml">
-                        <i class="fa fa-cubes fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.packing']}"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="/scspro/pages/secure/invoice/invoice-list.xhtml">
-                        <i class="fa fa-check fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.invoice']}"></h:outputText></span>
+                        <span>SIE</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="fa fa-shopping-cart fa-fw"></i>
-                          <span><h:outputText id="outTxtShippingId" value="#{i18n_menu['menu.shipping.cart']}" name="outTxtShippingNm"></h:outputText></span>
+                          <span>Alumnos</span>
                           <span class="fa arrow menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a href="/scspro/pages/secure/shipping/assignment-list.xhtml"><h:outputText id="outTxtShippingAssignmentId" value="#{i18n_menu['menu.shipping.assignment']}" name="outTxtShippingAssignmentNm"></h:outputText></a></li>                          
-                          <li><a href="/scspro/pages/secure/shipping/documentation-list.xhtml"><h:outputText id="outTxtShippingDocsId" value="#{i18n_menu['menu.shipping.documentation']}" name="outTxtShippingDocsNm"></h:outputText></a></li>
+                          <li><a href="/EControl/pages/secure/student/enrollment-list.xhtml">Inscripciones</a></li>                          
+                          <li><a href="/EControl/pages/secure/student/payment-list.xhtml">Colegiaturas</a></li>
                       </ul>
-                  </li>
-                  <li>
-                      <a href="/scspro/pages/secure/shipping/shipment-list.xhtml">
-                        <i class="fa fa-truck fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.shipment']}"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                        <i class="fa fa-money fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.finance']}"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li class="sub-menu">
-                      <a href="#">
-                        <i class="fa fa-file-text fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.documentation']}"></h:outputText></span>
-                        <span class="fa arrow menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <!-- SED -->
-                          <li><a href="/scspro/pages/secure/documentation/sed/list.xhtml"><h:outputText value="#{i18n_menu['menu.documentation.sed']}"></h:outputText></a></li>
-                          <!-- PEDIMENTOS -->
-                          <li><a href="/scspro/pages/secure/documentation/pedimento/list.xhtml"><h:outputText value="#{i18n_menu['menu.documentation.pedimento']}"></h:outputText></a></li>
-                          <!-- PREFILE -->
-                          <li><a href="/scspro/pages/secure/documentation/prefile/list.xhtml"><h:outputText value="#{i18n_menu['menu.documentation.prefile']}"></h:outputText></a></li>
-                          <!-- DOCUMENTOS DE SOPORTE -->
-                          <li><a href="/scspro/pages/secure/documentation/support/list.xhtml"><h:outputText value="#{i18n_menu['menu.documentation.support']}"></h:outputText></a></li>
-                      </ul>
-                  </li>
-                  <li>
-                      <a href="#">
-                        <i class="fa fa-paperclip fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.file']}"></h:outputText></span>
-                      </a>
-                  </li>
-                  <li>
-                      <a href="#">
-                        <i class="fa fa-line-chart fa-fw"></i>
-                        <span><h:outputText value="#{i18n_menu['menu.reports']}"></h:outputText></span>
-                      </a>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="fa fa-gears fa-fw"></i>
-                          <span><h:outputText value="#{i18n_menu['menu.system']}"></h:outputText></span>
+                          <span>Sistema</span>
                           <span class="fa arrow menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a href="#"><h:outputText value="#{i18n_menu['menu.system.users']}"></h:outputText></a></li>
+                          <li><a href="/EControl/pages/secure/system/users-list.xhtml">Usuarios</a></li>
                       </ul>
                   </li>
               </ul>
