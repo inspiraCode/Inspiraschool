@@ -85,14 +85,14 @@ public class ScoreBean extends BaseFacesBean<Score> {
 		continue;
 
 	    if (score.getParcialOne() != null) {
-		if (score.getParcialOne() >= 100 || (score.getParcialOne() <= 50 && score.getParcialOne() > 0)) {
+		if (score.getParcialOne() > 100 || (score.getParcialOne() <= 50 && score.getParcialOne() > 0)) {
 		    publishWarning("Revise la calificación del parcial 1 para " + score.getStudent().getName());
 		    return "";
 		}
 	    }
 
 	    if (score.getParcialTwo() != null) {
-		if ((score.getParcialTwo() <= 50 && score.getParcialTwo() > 0) || score.getParcialTwo() >= 100) {
+		if ((score.getParcialTwo() <= 50 && score.getParcialTwo() > 0) || score.getParcialTwo() > 100) {
 		    publishWarning("Revise la calificación del parcial 2 para " + score.getStudent().getName());
 		    return "";
 		}
