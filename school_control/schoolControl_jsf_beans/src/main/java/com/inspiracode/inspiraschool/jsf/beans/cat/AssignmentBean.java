@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.inspiracode.inspiraschool.dto.cat.Assignment;
@@ -13,6 +14,7 @@ import com.inspiracode.inspiraschool.service.cat.AssignmentService;
 public class AssignmentBean extends BaseFacesBean<Assignment> {
   private static final long serialVersionUID = -3401655463406219716L;
 
+  @ManagedProperty("#{assignmentService}")
   private AssignmentService assignmentService;
 
   public AssignmentBean() {

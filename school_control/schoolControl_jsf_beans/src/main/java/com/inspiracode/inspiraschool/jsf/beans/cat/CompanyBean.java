@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.inspiracode.inspiraschool.dto.cat.Company;
@@ -13,6 +14,7 @@ import com.inspiracode.inspiraschool.service.cat.CompanyService;
 public class CompanyBean extends BaseFacesBean<Company> {
     private static final long serialVersionUID = 1241126928793312089L;
     
+    @ManagedProperty("#{companyService}")
     private CompanyService companyService;
     
     public CompanyBean(){

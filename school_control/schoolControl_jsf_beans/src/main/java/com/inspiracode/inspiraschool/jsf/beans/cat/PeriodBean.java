@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.inspiracode.inspiraschool.dto.cat.Period;
@@ -13,6 +14,7 @@ import com.inspiracode.inspiraschool.service.cat.PeriodService;
 public class PeriodBean extends BaseFacesBean<Period> {
     private static final long serialVersionUID = -6225946609782103977L;
 
+    @ManagedProperty("#{periodService}")
     private PeriodService periodService;
 
     public PeriodBean() {

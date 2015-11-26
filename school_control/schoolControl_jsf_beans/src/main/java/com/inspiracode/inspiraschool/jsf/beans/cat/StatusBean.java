@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
+import javax.faces.bean.ManagedProperty;
+
 import com.inspiracode.inspiraschool.dto.cat.StudentStatus;
 import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
@@ -8,6 +10,7 @@ import com.inspiracode.inspiraschool.service.cat.StatusService;
 public class StatusBean extends BaseFacesBean<StudentStatus> {
     private static final long serialVersionUID = -6368682762929686214L;
 
+    @ManagedProperty("#{statusService}")
     private StatusService statusService;
 
     public StatusBean() {
