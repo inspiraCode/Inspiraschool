@@ -55,11 +55,11 @@ public class Student implements BaseDTO {
     @Column(name = "enrollment_date", nullable = true)
     private Date enrollmentDate = new Date();
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_company")
     private Company company;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status")
     private StudentStatus studentStatus;
 
@@ -70,6 +70,11 @@ public class Student implements BaseDTO {
     @JoinTable(name = "cross_student_group_assignment", catalog = "school_control", joinColumns = { @JoinColumn(name = "id_student") },
 	    inverseJoinColumns = { @JoinColumn(name = "id_group_assignment") })
     private Set<GroupAssignment> groups = new HashSet<GroupAssignment>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "cross_sie_student", catalog = "school_control", joinColumns = { @JoinColumn(name = "id_student") },
+	    inverseJoinColumns = { @JoinColumn(name = "cat_sie_group_id") })
+    private Set<SieGroup> sies = new HashSet<SieGroup>();
 
     public int getId() {
 	return id;
@@ -181,6 +186,14 @@ public class Student implements BaseDTO {
 
 	Student oStudent = (Student) obj;
 	return this.getId() == oStudent.getId();
+    }
+
+    public Set<SieGroup> getSies() {
+	return sies;
+    }
+
+    public void setSies(Set<SieGroup> sies) {
+	this.sies = sies;
     }
 
 }

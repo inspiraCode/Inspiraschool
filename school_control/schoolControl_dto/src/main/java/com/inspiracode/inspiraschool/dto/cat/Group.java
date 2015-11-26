@@ -15,86 +15,76 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 @Entity
 @Table(name = "cat_group", catalog = "school_control")
 public class Group implements BaseDTO {
-  private static final long serialVersionUID = -2797889685826034468L;
+    private static final long serialVersionUID = -2797889685826034468L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id_group")
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_group")
+    private int id;
 
-  @Column(name = "grade")
-  private String grade;
+    @Column(name = "grade")
+    private String grade;
 
-  @Column(name = "period")
-  private String period;
+    @Column(name = "mode")
+    private String mode;
 
-  @Column(name = "mode")
-  private String mode;
+    @Column(name = "day_trip")
+    private String dayTrip;
 
-  @Column(name = "day_trip")
-  private String dayTrip;
+    @JoinColumn(name = "id_career")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Career career;
 
-  @Column(name = "year_of_course")
-  private int year;
+    @JoinColumn(name = "id_period")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Period period;
 
-  @JoinColumn(name = "id_career")
-  @ManyToOne(fetch=FetchType.EAGER)
-  private Career career;
+    public int getId() {
+	return id;
+    }
 
-  public int getId() {
-    return id;
-  }
+    public void setId(int id) {
+	this.id = id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public String getGrade() {
+	return grade;
+    }
 
-  public String getGrade() {
-    return grade;
-  }
+    public void setGrade(String grade) {
+	this.grade = grade;
+    }
 
-  public void setGrade(String grade) {
-    this.grade = grade;
-  }
+    public String getMode() {
+	return mode;
+    }
 
-  public String getPeriod() {
-    return period;
-  }
+    public void setMode(String mode) {
+	this.mode = mode;
+    }
 
-  public void setPeriod(String period) {
-    this.period = period;
-  }
+    public String getDayTrip() {
+	return dayTrip;
+    }
 
-  public String getMode() {
-    return mode;
-  }
+    public void setDayTrip(String dayTrip) {
+	this.dayTrip = dayTrip;
+    }
 
-  public void setMode(String mode) {
-    this.mode = mode;
-  }
+    public Career getCareer() {
+	return career;
+    }
 
-  public String getDayTrip() {
-    return dayTrip;
-  }
+    public void setCareer(Career career) {
+	this.career = career;
+    }
 
-  public void setDayTrip(String dayTrip) {
-    this.dayTrip = dayTrip;
-  }
+    public Period getPeriod() {
+	return period;
+    }
 
-  public int getYear() {
-    return year;
-  }
-
-  public void setYear(int year) {
-    this.year = year;
-  }
-
-  public Career getCareer() {
-    return career;
-  }
-
-  public void setCareer(Career career) {
-    this.career = career;
-  }
+    public void setPeriod(Period period) {
+	this.period = period;
+    }
 
 }

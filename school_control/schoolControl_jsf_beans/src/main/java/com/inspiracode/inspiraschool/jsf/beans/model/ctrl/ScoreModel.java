@@ -10,6 +10,7 @@ public class ScoreModel extends Score {
 
     private String assignmentName;
     private String groupName;
+    private String groupSIE; 
     private String teacherName;
 
     private String userName;
@@ -27,6 +28,7 @@ public class ScoreModel extends Score {
 	this.setAssignmentName(score.getGroupAssignment().getAssignment().getName());
 	this.setTeacherName(score.getGroupAssignment().getTeacher().getName());
 	this.setGroupName(score.getGroupAssignment().getGroup().getGrade() + " " + score.getGroupAssignment().getGroup().getDayTrip());
+	//this.setGroupSIE(score.getGroupAssignment().getGroup().get);
     }
 
     public String getStudentName() {
@@ -75,5 +77,13 @@ public class ScoreModel extends Score {
 
     public void setUserName(String userName) {
 	this.userName = userName;
+    }
+
+    public String getGroupSIE() {
+	return groupSIE;
+    }
+
+    public void setGroupSIE(String groupSIE) {
+	this.groupSIE = groupSIE;
     }
 }
