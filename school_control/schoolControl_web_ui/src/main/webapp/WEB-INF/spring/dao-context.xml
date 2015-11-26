@@ -23,6 +23,8 @@
 		class="com.inspiracode.inspiraschool.dao.hibernate.cat.StudentDAOHibernate" />
 	<bean id="teacherDAO"
 		class="com.inspiracode.inspiraschool.dao.hibernate.cat.TeacherDAOHibernate" />
+	<bean id="periodDAO" 
+		class="com.inspiracode.inspiraschool.dao.hibernate.cat.PeriodDAOHibernate" />
 
 	<!-- CROSS -->
 	<bean id="groupAssignmentDAO"

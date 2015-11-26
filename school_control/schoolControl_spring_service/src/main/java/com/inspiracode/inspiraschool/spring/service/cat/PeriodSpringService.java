@@ -3,6 +3,7 @@ package com.inspiracode.inspiraschool.spring.service.cat;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.inspiracode.inspiraschool.dao.BaseDAO;
 import com.inspiracode.inspiraschool.dao.cat.PeriodDAO;
 import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.service.cat.PeriodService;
@@ -20,6 +21,7 @@ public class PeriodSpringService extends BaseSpringService<Period> implements Pe
 
     @Required
     public void setPeriodDAO(PeriodDAO periodDAO) {
+	super.setDaoFactory((BaseDAO<Period>) periodDAO);
 	this.periodDAO = periodDAO;
     }
 
