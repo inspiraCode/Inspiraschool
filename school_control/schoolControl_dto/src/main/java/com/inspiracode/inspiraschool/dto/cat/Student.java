@@ -55,11 +55,11 @@ public class Student implements BaseDTO {
     @Column(name = "enrollment_date", nullable = true)
     private Date enrollmentDate = new Date();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_company")
     private Company company;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status")
     private StudentStatus studentStatus;
 

@@ -4,5 +4,5 @@ import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public interface StudentService extends BaseService<Student> {
-
+    String getStudentGroups(Student student);
 }
