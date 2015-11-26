@@ -56,12 +56,6 @@
             <h:commandLink id="removeSelectedButton" action="#{careerBean.removeSelected}" onclick="return confirm('¿Seguro que quiere borrar las carreras seleccionadas del catálogo?');" styleClass="btn btn-warning" style="margin-left:10px;margin-bottom:30px;">
                 <i class="fa fa-times"></i> Borrar Seleccionados
             </h:commandLink>
-            <!-- <h:commandLink id="pdfExportButton" onclick="showLoading=false;" action="#{careerBean.pdfReport(careerBean.all, 'carreras')}" styleClass="btn btn-info" style="margin-left:10px;margin-bottom:30px;">
-                <i class="fa fa-file-pdf-o"></i> Pdf
-            </h:commandLink>
-            <h:commandLink id="xlsxExportButton" onclick="showLoading=false;" action="#{careerBean.xlsReport(careerBean.all, 'carreras')}" styleClass="btn btn-success" style="margin-left:5px;margin-bottom:30px;">
-                <i class="fa fa-file-excel-o"></i> Excel
-            </h:commandLink> -->
             <div id="companiesTable-wrapper">
             <h:dataTable pt:id="companiesTable" value="#{careerBean.all}" var="item" styleClass="table table-striped table-bordered table-hover compact" rowClasses="odd, even">
                 <h:column>
