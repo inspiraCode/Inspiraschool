@@ -25,4 +25,10 @@ public class StatusBean extends BaseFacesBean<StudentStatus> {
 	super.setService((BaseService<StudentStatus>) statusService);
 	this.statusService = statusService;
     }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 }

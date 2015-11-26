@@ -25,4 +25,10 @@ public class PaymentConceptBean extends BaseFacesBean<PaymentConcept> {
 	super.setService((BaseService<PaymentConcept>) paymentConceptService);
 	this.paymentConceptService = paymentConceptService;
     }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 }

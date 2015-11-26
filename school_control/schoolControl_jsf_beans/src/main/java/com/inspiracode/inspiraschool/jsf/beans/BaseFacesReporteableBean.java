@@ -23,7 +23,7 @@ import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
-public class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T> {
+public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T> {
     private static final long serialVersionUID = -1504000319744782357L;
     
     private JasperPrint jasperPrint;

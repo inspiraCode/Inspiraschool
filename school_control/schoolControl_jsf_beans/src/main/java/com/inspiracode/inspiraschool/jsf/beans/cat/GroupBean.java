@@ -30,4 +30,10 @@ public class GroupBean extends BaseFacesBean<Group> {
 	this.groupService = groupService;
     }
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
 }

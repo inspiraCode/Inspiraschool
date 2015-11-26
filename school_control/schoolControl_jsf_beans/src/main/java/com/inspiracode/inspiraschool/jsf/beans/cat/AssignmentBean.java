@@ -12,21 +12,27 @@ import com.inspiracode.inspiraschool.service.cat.AssignmentService;
 @ManagedBean
 @SessionScoped
 public class AssignmentBean extends BaseFacesBean<Assignment> {
-  private static final long serialVersionUID = -3401655463406219716L;
+    private static final long serialVersionUID = -3401655463406219716L;
 
-  @ManagedProperty("#{assignmentService}")
-  private AssignmentService assignmentService;
+    @ManagedProperty("#{assignmentService}")
+    private AssignmentService assignmentService;
 
-  public AssignmentBean() {
-    super(Assignment.class);
-  }
+    public AssignmentBean() {
+	super(Assignment.class);
+    }
 
-  public AssignmentService getAssignmentService() {
-    return assignmentService;
-  }
+    public AssignmentService getAssignmentService() {
+	return assignmentService;
+    }
 
-  public void setAssignmentService(AssignmentService assignmentService) {
-    super.setService((BaseService<Assignment>) assignmentService);
-    this.assignmentService = assignmentService;
-  }
+    public void setAssignmentService(AssignmentService assignmentService) {
+	super.setService((BaseService<Assignment>) assignmentService);
+	this.assignmentService = assignmentService;
+    }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 }

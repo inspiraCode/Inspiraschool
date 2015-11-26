@@ -11,21 +11,27 @@ import com.inspiracode.inspiraschool.service.sys.RoleService;
 @ManagedBean
 @SessionScoped
 public class RoleBean extends BaseFacesBean<Role> {
-  private static final long serialVersionUID = -4416613837271284898L;
+    private static final long serialVersionUID = -4416613837271284898L;
 
-  private RoleService roleService;
+    private RoleService roleService;
 
-  public RoleBean() {
-    super(Role.class);
-  }
+    public RoleBean() {
+	super(Role.class);
+    }
 
-  public RoleService getRoleService() {
-    return roleService;
-  }
+    public RoleService getRoleService() {
+	return roleService;
+    }
 
-  public void setRoleService(RoleService roleService) {
-    super.setService((BaseService<Role>) roleService);
-    this.roleService = roleService;
-  }
+    public void setRoleService(RoleService roleService) {
+	super.setService((BaseService<Role>) roleService);
+	this.roleService = roleService;
+    }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 
 }

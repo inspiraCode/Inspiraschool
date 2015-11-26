@@ -30,4 +30,10 @@ public class CareerBean extends BaseFacesBean<Career> {
 	this.careerService = careerService;
     }
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
 }

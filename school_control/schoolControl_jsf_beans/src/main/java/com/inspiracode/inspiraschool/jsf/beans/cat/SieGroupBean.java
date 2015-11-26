@@ -30,4 +30,10 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 	this.sieGroupService = sieGroupService;
     }
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
 }

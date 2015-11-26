@@ -29,4 +29,10 @@ public class CompanyBean extends BaseFacesBean<Company> {
 	super.setService((BaseService<Company>) companyService);
 	this.companyService = companyService;
     }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 }

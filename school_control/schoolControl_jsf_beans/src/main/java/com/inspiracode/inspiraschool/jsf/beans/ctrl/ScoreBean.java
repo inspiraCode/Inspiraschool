@@ -140,4 +140,10 @@ public class ScoreBean extends BaseFacesBean<Score> {
 	this.loadedGroup = loadedGroup;
     }
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
 }

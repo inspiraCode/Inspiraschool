@@ -85,8 +85,13 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	return selectedItem;
     }
 
+    protected abstract boolean validate();
+
     public String upload() {
 	String result = "";
+	if (!validate()) {
+	    return "";
+	}
 	try {
 	    if (selectedItem.getId() == 0)
 		add(selectedItem);

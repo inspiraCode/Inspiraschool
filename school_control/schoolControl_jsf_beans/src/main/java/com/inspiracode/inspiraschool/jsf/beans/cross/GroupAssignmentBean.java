@@ -49,7 +49,7 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 	List<Score> scores = scoreService.scoresByGroup(item.getId());
 
 	String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
-	
+
 	List<Student> studentsInGroup = groupService.getStudentsByGroupId(item.getId());
 	for (Student student : studentsInGroup) {
 	    boolean found = false;
@@ -71,10 +71,10 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 		scores.add(newScore);
 	    }
 	}
-	
+
 	logger.debug(scores.size() + " items to display in list");
 	Collections.sort(scores);
-	
+
 	for (Score score : scores) {
 	    logger.debug("Using score to build score model: " + score);
 	    ScoreModel model = new ScoreModel(score);
@@ -207,5 +207,11 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 
     public void setGroupService(GroupAssignmentService groupService) {
 	this.groupService = groupService;
+    }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
     }
 }

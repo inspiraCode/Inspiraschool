@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
+import java.util.Calendar;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -21,6 +23,15 @@ public class PeriodBean extends BaseFacesBean<Period> {
 	super(Period.class);
     }
 
+    @Override
+    public String addNew() throws InstantiationException, IllegalAccessException {
+	Period newPeriod = new Period();
+	newPeriod.setPeriodYear(Calendar.getInstance().get(Calendar.YEAR));
+	setSelectedItem(newPeriod);
+
+	return "Edit";
+    }
+
     public PeriodService getPeriodService() {
 	return periodService;
     }
@@ -28,5 +39,17 @@ public class PeriodBean extends BaseFacesBean<Period> {
     public void setPeriodService(PeriodService periodService) {
 	super.setService((BaseService<Period>) periodService);
 	this.periodService = periodService;
+    }
+
+    @Override
+    protected boolean validate() {
+	boolean result = true;
+	int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+	int selectedYear = getSelectedItem().getPeriodYear();
+	if (selectedYear < currentYear || selectedYear > currentYear + 1) {
+	    publishError("Revise el año del periodo.");
+	    result = false;
+	}
+	return result;
     }
 }

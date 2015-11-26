@@ -30,4 +30,10 @@ public class TeacherBean extends BaseFacesBean<Teacher> {
 	this.teacherService = teacherService;
     }
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
 }

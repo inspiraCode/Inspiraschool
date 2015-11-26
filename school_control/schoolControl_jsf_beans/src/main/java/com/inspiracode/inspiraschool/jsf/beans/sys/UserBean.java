@@ -11,21 +11,27 @@ import com.inspiracode.inspiraschool.service.sys.UserService;
 @ManagedBean
 @SessionScoped
 public class UserBean extends BaseFacesBean<User> {
-  private static final long serialVersionUID = -2227204283655337632L;
+    private static final long serialVersionUID = -2227204283655337632L;
 
-  private UserService userService;
+    private UserService userService;
 
-  public UserBean() {
-    super(User.class);
-  }
+    public UserBean() {
+	super(User.class);
+    }
 
-  public UserService getUserService() {
-    return userService;
-  }
+    public UserService getUserService() {
+	return userService;
+    }
 
-  public void setUserService(UserService userService) {
-    super.setService((BaseService<User>) userService);
-    this.userService = userService;
-  }
+    public void setUserService(UserService userService) {
+	super.setService((BaseService<User>) userService);
+	this.userService = userService;
+    }
+
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
 
 }
