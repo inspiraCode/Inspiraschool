@@ -10,11 +10,14 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     private static final long serialVersionUID = -6115375274929965881L;
+    private static final Logger logger = Logger.getLogger(BaseFacesBean.class.getName());
 
     private Class<T> type;
     private BaseService<T> service;
@@ -27,15 +30,24 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	this.type = type;
     }
 
-    public void selectedItem(T item) {
+    public boolean checkSelectedItem(T item) {
+	return selectedItems.contains(item);
+    }
+
+    // GETTER TO FORCE checkSelectedItem as property
+    public boolean getCheckSelectedItem() {
+	return true;
+    }
+
+    // SETTER TO FORCE checkSelectedItem as property
+    public void setCheckSelectedItem(boolean b) {
+    }
+
+    public void selectItem(T item) {
 	if (selectedItems.contains(item))
 	    selectedItems.remove(item);
 	else
 	    selectedItems.add(item);
-    }
-
-    public boolean isSelected(T item) {
-	return selectedItems.contains(selectedItem);
     }
 
     public String removeSelected() {
@@ -48,8 +60,8 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	    unsavedItems.remove(item);
 	}
 	selectedItems.clear();
-	;
 	forceDownload = true;
+	publishInfo(removeList.size() + " elementos borrados");
 	return "";
     }
 
@@ -58,6 +70,7 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     }
 
     public List<T> getAll() throws InstantiationException, IllegalAccessException {
+	logger.debug("get all items: " + type.getClass().getName());
 	if (unsavedItems.isEmpty() || forceDownload) {
 	    unsavedItems.clear();
 	    for (T item : service.getAll()) {
@@ -80,13 +93,13 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	    else
 		update(selectedItem);
 
-	    result = "success";
+	    result = "list";
 	} catch (org.springframework.dao.DataIntegrityViolationException e) {
 	    publishError("Los datos que intenta grabar en la base de datos est�n duplicados.");
-	    result = "failure";
+	    result = "";
 	} catch (Exception e) {
 	    publishError("Error al grabar los datos: " + e.getMessage());
-	    result = "failure";
+	    result = "";
 	}
 	return result;
     }
@@ -115,16 +128,16 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 
     public String addNew() throws InstantiationException, IllegalAccessException {
 	selectedItem = type.newInstance();
-	return "success";
+	return "Edit";
     }
 
     public String edit(T item) {
 	this.setSelectedItem(item);
-	return "success";
+	return "Edit";
     }
 
     public String showList() {
-	return "success";
+	return "list";
     }
 
     public void setSelectedItem(T selectedItem) {
