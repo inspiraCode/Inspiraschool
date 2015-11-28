@@ -20,6 +20,11 @@ public class CompanyBean extends BaseFacesBean<Company> {
     public CompanyBean(){
 	super(Company.class);
     }
+    
+    public int getParticularId(){
+	// Identifier for particular company type
+	return 12;
+    }
 
     public CompanyService getCompanyService() {
 	return companyService;

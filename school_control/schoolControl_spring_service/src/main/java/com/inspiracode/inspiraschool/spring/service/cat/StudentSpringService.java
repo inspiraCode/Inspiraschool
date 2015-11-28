@@ -1,6 +1,5 @@
 package com.inspiracode.inspiraschool.spring.service.cat;
 
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Required;
@@ -15,7 +14,7 @@ import com.inspiracode.inspiraschool.spring.service.BaseSpringService;
 public class StudentSpringService extends BaseSpringService<Student> implements StudentService {
     private static final long serialVersionUID = -3461391344550006086L;
     private StudentDAO studentDAO;
-    
+
     @Override
     public String getStudentGroups(Student student) {
 	String result = "";
@@ -31,8 +30,13 @@ public class StudentSpringService extends BaseSpringService<Student> implements 
 	if (result.length() > 2) {
 	    result = result.substring(0, result.length() - 2);
 	}
-	
+
 	return result;
+    }
+
+    @Override
+    public Set<GroupAssignment> getStudentGroupsList(Student student) {
+	return studentDAO.getStudentGroups(student);
     }
 
     public StudentDAO getStudentDAO() {
