@@ -13,11 +13,11 @@
         <!--overview start-->
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
+            <h3 class="page-header"><i class="fa fa-graduation-cap"></i> <h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
                 <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></h3>
             <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
-                <li><i class="fa fa-industry"></i><h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
+                <li><i class="fa fa-graduation-cap"></i><h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
                 <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></li>
             </ol>
           </div>
@@ -40,11 +40,19 @@
                 
                 <!-- HEADER DATA -->
                 <div class="row" style="margin-top:10px;">
-                    <div class="control-group col-md-4">
+                    <div class="control-group col-md-6">
                         <!-- Sender Selection -->
                         <h:outputLabel for="textStudentEnroll" value="Matrícula: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:inputText styleClass="form-control" pt:type="number" id="textStudentEnroll" value="#{studentBean.selectedItem.enrollNumber}" pt:placeholder="Matrícula"></h:inputText>
+                            <div class="col-lg-8">
+                                <h:inputText styleClass="form-control" pt:type="number" id="textStudentEnroll" value="#{studentBean.selectedItem.enrollNumber}" pt:placeholder="Matrícula"></h:inputText>
+                            </div>
+                            <div class="col-lg-4">
+                                <h:commandLink rendered="#{studentBean.selectedItem.id == 0}" actionListener="#{studentBean.enrollment}" styleClass="btn btn-info btn-sm" style="margin-right:10px;">
+                                    <f:ajax render="textStudentEnroll" update="@form" />
+                                    <i class="fa fa-bolt"></i> Generar Matrícula
+                                </h:commandLink>
+                            </div>
                         </div>
                     </div>
                     <div class="control-group col-md-3">

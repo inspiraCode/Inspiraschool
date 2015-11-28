@@ -10,14 +10,11 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.log4j.Logger;
-
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     private static final long serialVersionUID = -6115375274929965881L;
-    private static final Logger logger = Logger.getLogger(BaseFacesBean.class.getName());
 
     private Class<T> type;
     private BaseService<T> service;
@@ -70,7 +67,6 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     }
 
     public List<T> getAll() throws InstantiationException, IllegalAccessException {
-	logger.debug("get all items: " + type.getClass().getName());
 	if (unsavedItems.isEmpty() || forceDownload) {
 	    unsavedItems.clear();
 	    for (T item : service.getAll()) {

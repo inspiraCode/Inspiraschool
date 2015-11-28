@@ -12,6 +12,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
 import org.primefaces.event.DragDropEvent;
 
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
@@ -25,6 +26,7 @@ import com.inspiracode.inspiraschool.service.cat.StudentService;
 @SessionScoped
 public class StudentBean extends BaseFacesBean<Student> {
     private static final long serialVersionUID = 8490610255861915518L;
+    private static final Logger logger = Logger.getLogger(StudentBean.class.getName());
 
     @ManagedProperty("#{studentService}")
     private StudentService studentService;
@@ -39,8 +41,18 @@ public class StudentBean extends BaseFacesBean<Student> {
 	return true;
     }
 
+    public void enrollment() {
+	// TODO: Generate automatic value.
+	logger.debug("Generated new enroll number");
+	getSelectedItem().setEnrollNumber("01150001");
+    }
+
     public boolean isSieEnabled() {
+	if (getSelectedItem().getId() == 0)
+	    return true;
 	Set<GroupAssignment> groups = studentService.getStudentGroupsList(getSelectedItem());
+	if (groups == null)
+	    return true;
 	for (GroupAssignment ga : groups) {
 	    if (ga.getGroup().getCareer().getName().toLowerCase().contains("prepa"))
 		return true;
