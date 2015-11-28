@@ -130,7 +130,7 @@
                     <div class="control-group col-md-12">
                         <p:growl id="growl" escape="false"/>
                         <h:panelGroup id="availableSies" layout="block" styleClass="panel panel-primary" style="overflow:hidden;">
-                            <p class="panel-heading">Grupos SIE Disponibles</p>
+                            <p class="panel-heading">Grupos SIE Disponibles <a class="btn btn-default btn-sm" data-toggle="modal" href="#addSieForm"><i class="fa fa-plus"></i> Agregar</a></p>
                             <h:panelGroup layout="block" style="padding:10px;" rendered="#{empty studentBean.availableSies}">
                                 No hay grupos disponibles para asignar
                             </h:panelGroup>
@@ -231,6 +231,38 @@
             </div>
         </div>
         <!-- /TABS CONTROLLER -->
+
+        <!-- ADD SIE GROUP DIV AND FORM -->
+        <div id="addSieForm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addSieFormLabel" aria-hidden="true" style="display:none">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Agregar grupo SIE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:form pt:role="form" id="frmSIEGroup">
+                            <div class="form-group">
+                                <h:outputLabel for="textGroupName" value="Grupo"></h:outputLabel>
+                                <h:inputText styleClass="form-control" id="textGroupName" value="#{sieGroupBean.selectedItem.sieGroupName}" pt:placeholder="Grupo"></h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="selGroupPeriod" value="Periodo"></h:outputLabel>
+                                <h:selectOneMenu id="selGroupPeriod" value="#{sieGroupBean.selectedItem.period}" styleClass="form-control">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{periodBean.all}"  var="periodItem" itemValue="#{periodItem.id}" itemLabel="#{periodItem.periodYear} #{periodItem.periodName}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <h:commandLink id="btnSaveId" actionListener="#{sieGroupBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                                <f:ajax render="availableSies addSieForm" update="@form" />
+                                <i class="fa fa-save"></i> Grabar
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /SIE GROUP FORM -->
     </ui:define>
 </ui:composition>
 
