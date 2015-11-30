@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core" 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/default/main.xhtml">
+	<ui:define name="title">EControl - Periodos #{periodBean.selectedItem.id>0?periodBean.selectedItem.id:'Nuevo'} </ui:define>
+    <ui:define name="content">
+        <!-- Page Heading -->
+        <!--overview start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{periodBean.selectedItem.id==0}" value=" Nuevo Periodo"></h:outputText>
+                <h:outputText rendered="#{periodBean.selectedItem.id>0}" value=" #{periodBean.selectedItem.periodName} (#{periodBean.selectedItem.id})"></h:outputText></h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
+                <li><i class="fa fa-industry"></i><h:outputText rendered="#{periodBean.selectedItem.id==0}" value=" Nuevo Periodo"></h:outputText>
+                <h:outputText rendered="#{periodBean.selectedItem.id>0}" value=" #{periodBean.selectedItem.periodName} (#{periodBean.selectedItem.id})"></h:outputText></li>
+            </ol>
+          </div>
+        </div>
+        <p:messages id="msg" />
+        <!-- Form content -->
+        <h:form>
+            <fieldset> 
+                <div class="row">
+                    <h:commandLink id="btnSaveId" action="#{periodBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                        <i class="fa fa-save"></i> Grabar
+                    </h:commandLink>
+                    <h:commandLink id="btnDeleteId" action="#{periodBean.delete(periodBean.selectedItem)}" rendered="#{periodBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar la carrera #{periodBean.selectedItem.periodName}?');" styleClass="btn btn-danger" style="margin-right:30px;">
+                        <i class="fa fa-trash-o"></i> Borrar
+                    </h:commandLink>
+                    <h:commandLink id="btnGoBackId" action="#{periodBean.showList}" styleClass="btn btn-primary">
+                        <i class="fa fa-arrow-left"></i> Regresar
+                    </h:commandLink>
+                </div>
+                
+                <!-- HEADER DATA -->
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-4">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textPeriodName" value="Periodo: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" id="textPeriodName" value="#{periodBean.selectedItem.periodName}" pt:placeholder="Periodo"></h:inputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-10">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textPeriodYear" value="Año: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText pt:type="number" styleClass="form-control" id="textPeriodYear" value="#{periodBean.selectedItem.periodYear}" pt:placeholder="Año"></h:inputText>
+                        </div>
+                    </div>
+                </div>
+                <!-- /HEADER DATA -->
+            </fieldset>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>
