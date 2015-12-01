@@ -11,8 +11,6 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.event.DragDropEvent;
@@ -45,7 +43,9 @@ public class StudentBean extends BaseFacesBean<Student> {
     private int periodId;
     private String sieGroupName;
     private Period selectedPeriod;
-
+    
+    private List<SieGroup> availableSies = new ArrayList<SieGroup>();
+    
     public StudentBean() {
 	super(Student.class);
     }
@@ -84,21 +84,27 @@ public class StudentBean extends BaseFacesBean<Student> {
     }
 
     public List<SieGroup> getAvailableSies() {
-	// TODO: Define
-	return new ArrayList<SieGroup>();
+	logger.debug("Getting available SIE Groups");
+	if(availableSies.isEmpty()){
+	    availableSies.addAll(sieGroupService.getAll());
+	}
+	logger.debug("Got " + availableSies.size() + " from db");
+	logger.debug("Got " + getSelectedItem().getSies().size() + " from current selected");
+	availableSies.removeAll(getSelectedItem().getSies());
+	logger.debug("Got " + availableSies + " from db after removing local");
+	return availableSies;
     }
 
     public void setAvailableSies(List<SieGroup> availableSies) {
-	// TODO: Define
     }
 
     public List<SieGroup> getAssignedSies() {
-	// TODO: Define
-	return new ArrayList<SieGroup>();
+	List<SieGroup> result = new ArrayList<SieGroup>();
+	result.addAll(getSelectedItem().getSies());
+	return result;
     }
 
     public void setAssignedSies(List<SieGroup> assignedSies) {
-	// TODO: Define
     }
 
     // setter to complete property
@@ -106,6 +112,7 @@ public class StudentBean extends BaseFacesBean<Student> {
     }
 
     public void onRemoveSie(DragDropEvent event) {
+	this.availableSies.clear();
 	HtmlPanelGroup availableSies = (HtmlPanelGroup) event.getComponent().findComponent("selectedSies");
 	if (availableSies != null) {
 	    availableSies.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback() {
@@ -114,6 +121,7 @@ public class StudentBean extends BaseFacesBean<Student> {
 		public void invokeContextCallback(FacesContext context, UIComponent target) {
 		    HtmlPanelGroup draggedItem = (HtmlPanelGroup) target;
 		    SieGroup item = draggedItem != null ? (SieGroup) draggedItem.getAttributes().get("sieGroup") : new SieGroup();
+		    logger.debug("Removing sie group from student: " + item);
 		    getSelectedItem().getSies().remove(item);
 		}
 	    });
@@ -131,6 +139,7 @@ public class StudentBean extends BaseFacesBean<Student> {
 		public void invokeContextCallback(FacesContext context, UIComponent target) {
 		    HtmlPanelGroup draggedItem = (HtmlPanelGroup) target;
 		    SieGroup item = draggedItem != null ? (SieGroup) draggedItem.getAttributes().get("sieGroup") : new SieGroup();
+		    logger.debug("Adding sie group to student: " + item);
 		    getSelectedItem().getSies().add(item);
 		}
 	    });

@@ -10,15 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.apache.log4j.Logger;
-
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 @Entity
 @Table(name = "cat_sie_group", catalog = "school_control")
 public class SieGroup implements BaseDTO {
     private static final long serialVersionUID = -185712408958712867L;
-    private static final Logger logger = Logger.getLogger(SieGroup.class.getName());
 
     @Id
     @GeneratedValue
@@ -28,8 +25,8 @@ public class SieGroup implements BaseDTO {
     @Column(name = "cat_sie_group_name")
     private String sieGroupName;
 
-    @JoinColumn(name = "id_period", nullable=false)
-    @ManyToOne(fetch = FetchType.EAGER, optional=false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_period", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
     private Period period;
 
     public int getId() {
@@ -53,8 +50,29 @@ public class SieGroup implements BaseDTO {
     }
 
     public void setPeriod(Period period) {
-	logger.debug("Setting period: " + period);
 	this.period = period;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj == null)
+	    return false;
+	if (!(obj instanceof SieGroup))
+	    return false;
+	SieGroup temp = (SieGroup) obj;
+	return temp.id == this.id;
+    }
+    
+    @Override
+    public int hashCode() {
+	int tmp = 0;
+	tmp = (id + sieGroupName).hashCode();
+	return tmp;
+    }
+    
+    @Override
+    public String toString() {
+        return "id:" + id + ";sieGroupName:" + sieGroupName + ";period:{" + period + "}";
     }
 
 }
