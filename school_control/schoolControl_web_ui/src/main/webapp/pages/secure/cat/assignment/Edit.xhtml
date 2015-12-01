@@ -7,18 +7,18 @@
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/default/main.xhtml">
-	<ui:define name="title">EControl - Carreras #{careerBean.selectedItem.id>0?careerBean.selectedItem.id:'Nuevo'} </ui:define>
+	<ui:define name="title">EControl - Asignaturas #{assignmentBean.selectedItem.id>0?assignmentBean.selectedItem.id:'Nuevo'} </ui:define>
     <ui:define name="content">
         <!-- Page Heading -->
         <!--overview start-->
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{careerBean.selectedItem.id==0}" value=" Nueva Carrera"></h:outputText>
-                <h:outputText rendered="#{careerBean.selectedItem.id>0}" value=" #{careerBean.selectedItem.name} (#{careerBean.selectedItem.id})"></h:outputText></h3>
+            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{assignmentBean.selectedItem.id==0}" value=" Nueva Asignatura"></h:outputText>
+                <h:outputText rendered="#{assignmentBean.selectedItem.id>0}" value=" #{assignmentBean.selectedItem.name} (#{assignmentBean.selectedItem.id})"></h:outputText></h3>
             <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
-                <li><i class="fa fa-industry"></i><h:outputText rendered="#{careerBean.selectedItem.id==0}" value=" Nueva Carrera"></h:outputText>
-                <h:outputText rendered="#{careerBean.selectedItem.id>0}" value=" #{careerBean.selectedItem.name} (#{careerBean.selectedItem.id})"></h:outputText></li>
+                <li><i class="fa fa-industry"></i><h:outputText rendered="#{assignmentBean.selectedItem.id==0}" value=" Nueva Asignatura"></h:outputText>
+                <h:outputText rendered="#{assignmentBean.selectedItem.id>0}" value=" #{assignmentBean.selectedItem.name} (#{assignmentBean.selectedItem.id})"></h:outputText></li>
             </ol>
           </div>
         </div>
@@ -27,33 +27,24 @@
         <h:form>
             <fieldset> 
                 <div class="row">
-                    <h:commandLink id="btnSaveId" action="#{careerBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                    <h:commandLink id="btnSaveId" action="#{assignmentBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
                         <i class="fa fa-save"></i> Grabar
                     </h:commandLink>
-                    <h:commandLink id="btnDeleteId" action="#{careerBean.delete(careerBean.selectedItem)}" rendered="#{careerBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar la carrera #{careerBean.selectedItem.name}?');" styleClass="btn btn-danger" style="margin-right:30px;">
+                    <h:commandLink id="btnDeleteId" action="#{assignmentBean.delete(assignmentBean.selectedItem)}" rendered="#{assignmentBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar la asignatura #{assignmentBean.selectedItem.name}?');" styleClass="btn btn-danger" style="margin-right:30px;">
                         <i class="fa fa-trash-o"></i> Borrar
                     </h:commandLink>
-                    <h:commandLink id="btnGoBackId" action="#{careerBean.showList}" styleClass="btn btn-primary">
+                    <h:commandLink id="btnGoBackId" action="#{assignmentBean.showList}" styleClass="btn btn-primary">
                         <i class="fa fa-arrow-left"></i> Regresar
                     </h:commandLink>
                 </div>
                 
                 <!-- HEADER DATA -->
                 <div class="row" style="margin-top:10px;">
-                    <div class="control-group col-md-4">
-                        <!-- Sender Selection -->
-                        <h:outputLabel for="textCareerCode" value="Código: " styleClass="control-label"></h:outputLabel>
-                        <div class="controls">
-                            <h:inputText styleClass="form-control" id="textCareerCode" value="#{careerBean.selectedItem.code}" pt:placeholder="Código"></h:inputText>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top:10px;">
                     <div class="control-group col-md-10">
                         <!-- Sender Selection -->
-                        <h:outputLabel for="textCareerName" value="Carrera: " styleClass="control-label"></h:outputLabel>
+                        <h:outputLabel for="textCareerName" value="Asignatura: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:inputText styleClass="form-control" id="textCareerName" value="#{careerBean.selectedItem.name}" pt:placeholder="Nombre carrera"></h:inputText>
+                            <h:inputText styleClass="form-control" id="textCareerName" value="#{assignmentBean.selectedItem.name}" pt:placeholder="Nombre asignatura"></h:inputText>
                         </div>
                     </div>
                 </div>
@@ -66,7 +57,7 @@
         <div class="row" style="margin-top:15px;">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs">
-                <li class="active"><a href="#curricula" data-toggle="tab">Currícula</a>
+                <li class="active"><a href="#planEstudio" data-toggle="tab">Plan de Estudio</a>
                 </li>
                 <li><a href="#grupos" data-toggle="tab">Grupos en Curso</a>
                 </li>
@@ -77,12 +68,12 @@
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
-                <div class="tab-pane fade in active" id="curricula">
+                <div class="tab-pane fade in active" id="planEstudio">
                     <!-- /.navbar-top-links -->
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Currícula</div>
+                        <div class="panel-heading">Plan de Estudio</div>
                         EN CONSTRUCCIÓN.<br/>
-                        <strong>Objetivo:</strong> Mostrar las materias por ciclo que se pueden elegir para formar grupos.
+                        <strong>Objetivo:</strong> Mostrar el plan de estudio por materia.
                         <div class="panel-footer">Resúmen: ...</div>
                     </div>
                 </div>
