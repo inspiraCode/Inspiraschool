@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:h="http://xmlns.jcp.org/jsf/html" 
+    xmlns:f="http://xmlns.jcp.org/jsf/core" 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+    xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/templates/default/main.xhtml">
+	<ui:define name="title">EControl - Estudiantes #{studentBean.selectedItem.id>0?studentBean.selectedItem.id:'Nuevo'} </ui:define>
+    <ui:define name="content">
+        <!-- Page Heading -->
+        <!--overview start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-graduation-cap"></i> <h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
+                <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></h3>
+            <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
+                <li><i class="fa fa-graduation-cap"></i><h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
+                <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></li>
+            </ol>
+          </div>
+        </div>
+        <p:messages id="msg" />
+        <!-- Form content -->
+        <h:form>
+            <fieldset> 
+                <div class="row">
+                    <h:commandLink id="btnSaveId" action="#{studentBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                        <i class="fa fa-save"></i> Grabar
+                    </h:commandLink>
+                    <h:commandLink id="btnDeleteId" action="#{studentBean.delete(studentBean.selectedItem)}" rendered="#{studentBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar el alumno #{studentBean.selectedItem.name}? \nRecuerde que al borrar el alumno se borrará su historial.');" styleClass="btn btn-danger" style="margin-right:30px;">
+                        <i class="fa fa-trash-o"></i> Borrar
+                    </h:commandLink>
+                    <h:commandLink id="btnGoBackId" action="#{studentBean.showList}" styleClass="btn btn-primary">
+                        <i class="fa fa-arrow-left"></i> Regresar
+                    </h:commandLink>
+                </div>
+                
+                <!-- HEADER DATA -->
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-6">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textStudentEnroll" value="Matrícula: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <div class="col-lg-8">
+                                <h:inputText styleClass="form-control" pt:type="number" id="textStudentEnroll" value="#{studentBean.selectedItem.enrollNumber}" pt:placeholder="Matrícula"></h:inputText>
+                            </div>
+                            <div class="col-lg-4">
+                                <h:commandLink rendered="#{studentBean.selectedItem.id == 0}" actionListener="#{studentBean.enrollment}" styleClass="btn btn-info btn-sm" style="margin-right:10px;">
+                                    <f:ajax render="textStudentEnroll" update="@form" />
+                                    <i class="fa fa-bolt"></i> Generar Matrícula
+                                </h:commandLink>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="dtpStudentEnrollDate" value="Fecha de Inscripción: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <p:calendar id="dtpStudentEnrollDate" value="#{studentBean.selectedItem.enrollmentDate}" showOn="button" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-4">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textStudentName" value="Nombre(s): " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" id="textStudentName" value="#{studentBean.selectedItem.name}" pt:placeholder="Nombre(s)"></h:inputText>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-4">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textStudentLastName" value="Apellido(s): " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" id="textStudentLastName" value="#{studentBean.selectedItem.lastName}" pt:placeholder="Apellido(s)"></h:inputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selStudentGender" value="Sexo: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selStudentGender" value="#{studentBean.selectedItem.gender}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Hombre" itemValue="H" />
+                                <f:selectItem itemLabel="Mujer" itemValue="M" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="dtpBirthDate" value="Fecha de Nacimiento: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <p:calendar id="dtpBirthDate" value="#{studentBean.selectedItem.birthDate}" showOn="button" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-12">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textStudentAddress" value="Dirección: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" id="textStudentAddress" value="#{studentBean.selectedItem.address}" pt:placeholder="Dirección"></h:inputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selCompany" value="Empresa: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selCompany" value="#{studentBean.selectedItem.company}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{companyBean.all}"  var="companyItem" itemValue="#{companyItem.id}" itemLabel="#{companyItem.name}" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textStudentClock" value="Número de reloj: " styleClass="control-label"></h:outputLabel>
+                        <h:inputText styleClass="form-control" pt:type="number" id="textStudentClock" value="#{studentBean.selectedItem.clockId}" pt:placeholder="Reloj"></h:inputText>
+                    </div>
+                </div>
+
+                <h:panelGroup styleClass="row" layout="block" style="margin-top:10px;" rendered="#{studentBean.sieEnabled}"> 
+                    <div class="control-group col-md-12">
+                        <p:growl id="growl" escape="false"/>
+                        <h:panelGroup id="availableSies" layout="block" styleClass="panel panel-primary" style="overflow:hidden;">
+                            <p class="panel-heading">Grupos SIE Disponibles <a class="btn btn-default btn-sm" data-toggle="modal" href="#addSieForm"><i class="fa fa-plus"></i> Agregar</a></p>
+                            <h:panelGroup layout="block" style="padding:10px;" rendered="#{empty studentBean.availableSies}">
+                                No hay grupos disponibles para asignar
+                            </h:panelGroup>
+                            <ui:repeat var="item" value="#{studentBean.availableSies}" rendered="#{not empty studentBean.availableSies}">
+                                <h:panelGroup id="item" styleClass="btn btn-primary" style="margin:5px;">
+                                    <f:attribute name="sieGroup" value="#{item}"/>
+                                    <h:outputText value="#{item.sieGroupName} (#{item.period.periodName}-#{item.period.periodYear})" />
+                                </h:panelGroup>
+                                <p:draggable for="item" revert="true" cursor="move" opacity="0.3" helper="clone" />
+                            </ui:repeat>
+                            <p:droppable id="dropSelected" for="availableSies" accept=".btn-success" tolerance="touch" activeStyleClass="panel-selected">
+                                <p:ajax listener="#{studentBean.onRemoveSie}" update="availableSies selectedSies growl" />
+                            </p:droppable>
+                        </h:panelGroup>
+
+                        <h:panelGroup id="selectedSies" layout="block" styleClass="panel panel-primary" style="overflow:hidden;">
+                            <p class="panel-heading">Grupos SIE Asignados</p>
+                            <h:panelGroup layout="block" style="padding:10px;" rendered="#{empty studentBean.assignedSies}">
+                                No hay grupos SIE asignados
+                            </h:panelGroup>
+                            <ui:repeat var="item" value="#{studentBean.assignedSies}" rendered="#{not empty studentBean.assignedSies}">
+                                <h:panelGroup id="item" styleClass="btn btn-success" style="margin:5px;">
+                                    <f:attribute name="sieGroup" value="#{item}"/>
+                                    <h:outputText value="#{item.sieGroupName} (#{item.period.periodName}-#{item.period.periodYear})" />
+                                </h:panelGroup>
+                                <p:draggable for="item" revert="true" cursor="move" opacity="0.3" helper="clone"  />
+                            </ui:repeat>
+                            <p:droppable id="dropAvailable" for="selectedSies" accept=".btn-primary" tolerance="touch" activeStyleClass="panel-selected">
+                                <p:ajax listener="#{studentBean.onAddSie}" update="availableSies selectedSies growl" />
+                            </p:droppable>
+                        </h:panelGroup>
+                    </div>
+                </h:panelGroup>
+
+                <!-- /HEADER DATA -->
+            </fieldset>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        </h:form>
+
+        <!-- TABS CONTROLLER -->
+        <div class="row" style="margin-top:15px;">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#materias" data-toggle="tab">En Curso</a>
+                </li>
+                <li><a href="#cuenta" data-toggle="tab">Estado de cuenta</a>
+                </li>
+                <li><a href="#kardex" data-toggle="tab">Kardex</a>
+                </li>
+                <li><a href="#asistencia" data-toggle="tab">Asistencia</a>
+                </li>
+                <li><a href="#expediente" data-toggle="tab">Expediente</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="materias">
+                    <!-- /.navbar-top-links -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Materias en curso</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar las materias que el alumno está cursando actualmente. Esto servirá para cambiar el alumno de grupo.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="cuenta">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Estado de cuenta</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar los pagos saldados y pendientes de los alumnos particulares.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="kardex">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Kardex</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar las calificaciones finales de las materias cursadas.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="asistencia">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Asistencia</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar un resumen del porcentaje de asistencia a clases presenciales.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="expediente">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Expediente</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar un listado de los documentos recibidos por el alumno.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /TABS CONTROLLER -->
+
+        <!-- ADD SIE GROUP DIV AND FORM -->
+        <div id="addSieForm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addSieFormLabel" aria-hidden="true" style="display:none">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" type="button" data-dismiss="modal" aria-hidden="true">x</button>
+                        <h4 class="modal-title">Agregar grupo SIE</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h:form pt:role="form" id="frmSIEGroup">
+                            <div class="form-group">
+                                <h:outputLabel for="textGroupName" value="Grupo"></h:outputLabel>
+                                <h:inputText styleClass="form-control" id="textGroupName" value="#{sieGroupBean.selectedItem.sieGroupName}" pt:placeholder="Grupo"></h:inputText>
+                            </div>
+                            <div class="form-group">
+                                <h:outputLabel for="selGroupPeriod" value="Periodo"></h:outputLabel>
+                                <h:selectOneMenu id="selGroupPeriod" value="#{sieGroupBean.selectedItem.period}" styleClass="form-control">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                    <f:selectItems value="#{periodBean.all}"  var="periodItem" itemValue="#{periodItem.id}" itemLabel="#{periodItem.periodYear} #{periodItem.periodName}" />
+                                </h:selectOneMenu>
+                            </div>
+                            <h:commandLink id="btnSaveId" actionListener="#{sieGroupBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                                <f:ajax render="availableSies addSieForm" update="@form" />
+                                <i class="fa fa-save"></i> Grabar
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /SIE GROUP FORM -->
+    </ui:define>
+</ui:composition>
+
+</html>
