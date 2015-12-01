@@ -1,6 +1,5 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +25,7 @@ public class SieGroup implements BaseDTO {
     private String sieGroupName;
 
     @JoinColumn(name = "id_period", nullable = false)
-    @ManyToOne(fetch = FetchType.EAGER, optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Period period;
 
     public int getId() {
