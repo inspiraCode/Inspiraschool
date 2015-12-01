@@ -7,18 +7,17 @@
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/default/main.xhtml">
-	<ui:define name="title">EControl - Estudiantes #{studentBean.selectedItem.id>0?studentBean.selectedItem.id:'Nuevo'} </ui:define>
+	<ui:define name="title">EControl - Estudiantes #{studentBean.selectedItem.enrollNumber} </ui:define>
     <ui:define name="content">
         <!-- Page Heading -->
         <!--overview start-->
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-graduation-cap"></i> <h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
-                <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></h3>
+            <!-- Student addition is disabled, so edit button is the only accesor. Show the name and enroll number of the selected student -->
+            <h3 class="page-header"><i class="fa fa-graduation-cap"></i> #{studentBean.selectedItem.name} (#{studentBean.selectedItem.enrollNumber})</h3>
             <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
-                <li><i class="fa fa-graduation-cap"></i><h:outputText rendered="#{studentBean.selectedItem.id==0}" value=" Nuevo Alumno"></h:outputText>
-                <h:outputText rendered="#{studentBean.selectedItem.id>0}" value=" #{studentBean.selectedItem.name} (#{studentBean.selectedItem.id})"></h:outputText></li>
+                <li><i class="fa fa-graduation-cap"></i> #{studentBean.selectedItem.name} (#{studentBean.selectedItem.enrollNumber})</li>
             </ol>
           </div>
         </div>
@@ -42,17 +41,8 @@
                 <div class="row" style="margin-top:10px;">
                     <div class="control-group col-md-6">
                         <!-- Sender Selection -->
-                        <h:outputLabel for="textStudentEnroll" value="Matrícula: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <div class="col-lg-8">
-                                <h:inputText styleClass="form-control" pt:type="number" id="textStudentEnroll" value="#{studentBean.selectedItem.enrollNumber}" pt:placeholder="Matrícula"></h:inputText>
-                            </div>
-                            <div class="col-lg-4">
-                                <h:commandLink rendered="#{studentBean.selectedItem.id == 0}" actionListener="#{studentBean.enrollment}" styleClass="btn btn-info btn-sm" style="margin-right:10px;">
-                                    <f:ajax render="textStudentEnroll" update="@form" />
-                                    <i class="fa fa-bolt"></i> Generar Matrícula
-                                </h:commandLink>
-                            </div>
+                            <div class="col-lg-8"> <strong>Matrícula: </strong>#{studentBean.selectedItem.enrollNumber}</div>
                         </div>
                     </div>
                     <div class="control-group col-md-3">
@@ -113,7 +103,7 @@
                         <!-- Sender Selection -->
                         <h:outputLabel for="selCompany" value="Empresa: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:selectOneMenu id="selCompany" value="#{studentBean.selectedItem.company}" styleClass="form-control">
+                            <h:selectOneMenu id="selCompany" value="#{studentBean.selectedItem.company.id}" styleClass="form-control">
                                 <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
                                 <f:selectItems value="#{companyBean.all}"  var="companyItem" itemValue="#{companyItem.id}" itemLabel="#{companyItem.name}" />
                             </h:selectOneMenu>

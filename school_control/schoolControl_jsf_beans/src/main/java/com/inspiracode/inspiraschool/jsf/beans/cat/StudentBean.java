@@ -1,6 +1,7 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,13 +44,25 @@ public class StudentBean extends BaseFacesBean<Student> {
     private int periodId;
     private String sieGroupName;
     private Period selectedPeriod;
-    
+
     private List<SieGroup> availableSies = new ArrayList<SieGroup>();
-    
+
     public StudentBean() {
 	super(Student.class);
     }
-    
+
+    @Override
+    public void setSelectedItem(Student selectedItem) {
+	Set<SieGroup> studentGroups = studentService.getStudentSieGroups(selectedItem);
+
+	if (studentGroups == null) {
+	    studentGroups = new HashSet<SieGroup>();
+	}
+
+	selectedItem.setSies(studentGroups);
+	super.setSelectedItem(selectedItem);
+    }
+
     public void uploadSieGroup() {
 	logger.debug("Adding sie group to database with period: " + selectedPeriod);
 	SieGroup newSieGroup = new SieGroup();
@@ -62,12 +75,6 @@ public class StudentBean extends BaseFacesBean<Student> {
     protected boolean validate() {
 	// TODO: Validate
 	return true;
-    }
-
-    public void enrollment() {
-	// TODO: Generate automatic value.
-	logger.debug("Generated new enroll number");
-	getSelectedItem().setEnrollNumber("01150001");
     }
 
     public boolean isSieEnabled() {
@@ -85,7 +92,7 @@ public class StudentBean extends BaseFacesBean<Student> {
 
     public List<SieGroup> getAvailableSies() {
 	logger.debug("Getting available SIE Groups");
-	if(availableSies.isEmpty()){
+	if (availableSies.isEmpty()) {
 	    availableSies.addAll(sieGroupService.getAll());
 	}
 	logger.debug("Got " + availableSies.size() + " from db");
