@@ -49,4 +49,9 @@ public class Period implements BaseDTO {
 	this.periodYear = periodYear;
     }
 
+    @Override
+    public String toString() {
+	return "id:" + id + ";periodName:" + periodName + ";periodYear:" + periodYear + ";";
+    }
+
 }

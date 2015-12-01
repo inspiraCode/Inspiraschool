@@ -1,5 +1,6 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,12 +10,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.log4j.Logger;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 @Entity
 @Table(name = "cat_sie_group", catalog = "school_control")
 public class SieGroup implements BaseDTO {
     private static final long serialVersionUID = -185712408958712867L;
+    private static final Logger logger = Logger.getLogger(SieGroup.class.getName());
 
     @Id
     @GeneratedValue
@@ -24,8 +28,8 @@ public class SieGroup implements BaseDTO {
     @Column(name = "cat_sie_group_name")
     private String sieGroupName;
 
-    @JoinColumn(name = "id_period")
-    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_period", nullable=false)
+    @ManyToOne(fetch = FetchType.EAGER, optional=false, cascade = CascadeType.ALL)
     private Period period;
 
     public int getId() {
@@ -49,6 +53,7 @@ public class SieGroup implements BaseDTO {
     }
 
     public void setPeriod(Period period) {
+	logger.debug("Setting period: " + period);
 	this.period = period;
     }
 

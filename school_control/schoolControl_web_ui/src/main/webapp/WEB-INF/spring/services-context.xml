@@ -41,6 +41,9 @@
 	<bean id="periodService" class="com.inspiracode.inspiraschool.spring.service.cat.PeriodSpringService">
 		<property name="periodDAO" ref="periodDAO"></property>
 	</bean>
+	<bean id="sieGroupService" class="com.inspiracode.inspiraschool.spring.service.cat.SieGroupSpringService">
+		<property name="sieGroupDAO" ref="sieGroupDAO"></property>
+	</bean>
 
 	<!-- CROSS -->
 

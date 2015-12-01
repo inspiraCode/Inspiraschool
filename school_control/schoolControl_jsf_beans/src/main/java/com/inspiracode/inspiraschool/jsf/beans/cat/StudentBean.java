@@ -11,15 +11,20 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.event.DragDropEvent;
 
+import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
+import com.inspiracode.inspiraschool.service.cat.PeriodService;
+import com.inspiracode.inspiraschool.service.cat.SieGroupService;
 import com.inspiracode.inspiraschool.service.cat.StudentService;
 
 @ManagedBean
@@ -31,8 +36,26 @@ public class StudentBean extends BaseFacesBean<Student> {
     @ManagedProperty("#{studentService}")
     private StudentService studentService;
 
+    @ManagedProperty("#{sieGroupService}")
+    private SieGroupService sieGroupService;
+
+    @ManagedProperty("#{periodService}")
+    private PeriodService periodService;
+
+    private int periodId;
+    private String sieGroupName;
+    private Period selectedPeriod;
+
     public StudentBean() {
 	super(Student.class);
+    }
+    
+    public void uploadSieGroup() {
+	logger.debug("Adding sie group to database with period: " + selectedPeriod);
+	SieGroup newSieGroup = new SieGroup();
+	newSieGroup.setPeriod(selectedPeriod);
+	newSieGroup.setSieGroupName(sieGroupName);
+	sieGroupService.add(newSieGroup);
     }
 
     @Override
@@ -116,6 +139,11 @@ public class StudentBean extends BaseFacesBean<Student> {
 	}
     }
 
+    @Override
+    public String addNew() throws InstantiationException, IllegalAccessException {
+	return super.addNew();
+    }
+
     public String getStudentGroups(Student item) {
 	return studentService.getStudentGroups(item);
     }
@@ -128,4 +156,48 @@ public class StudentBean extends BaseFacesBean<Student> {
 	super.setService((BaseService<Student>) studentService);
 	this.studentService = studentService;
     }
+
+    public SieGroupService getSieGroupService() {
+	return sieGroupService;
+    }
+
+    public void setSieGroupService(SieGroupService sieGroupService) {
+	this.sieGroupService = sieGroupService;
+    }
+
+    public int getPeriodId() {
+	return periodId;
+    }
+
+    public void setPeriodId(int periodId) {
+	logger.debug("Setting period id:" + periodId);
+	selectedPeriod = periodService.get(periodId);
+	this.periodId = periodId;
+    }
+
+    public PeriodService getPeriodService() {
+	return periodService;
+    }
+
+    public void setPeriodService(PeriodService periodService) {
+	this.periodService = periodService;
+    }
+
+    public String getSieGroupName() {
+	return sieGroupName;
+    }
+
+    public void setSieGroupName(String sieGroupName) {
+	logger.debug("Setting group name as " + sieGroupName);
+	this.sieGroupName = sieGroupName;
+    }
+
+    public Period getSelectedPeriod() {
+	return selectedPeriod;
+    }
+
+    public void setSelectedPeriod(Period selectedPeriod) {
+	this.selectedPeriod = selectedPeriod;
+    }
+
 }

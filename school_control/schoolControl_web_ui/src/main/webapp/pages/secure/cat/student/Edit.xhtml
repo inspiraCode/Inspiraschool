@@ -244,19 +244,17 @@
                         <h:form pt:role="form" id="frmSIEGroup">
                             <div class="form-group">
                                 <h:outputLabel for="textGroupName" value="Grupo"></h:outputLabel>
-                                <h:inputText styleClass="form-control" id="textGroupName" value="#{sieGroupBean.selectedItem.sieGroupName}" pt:placeholder="Grupo"></h:inputText>
+                                <h:inputText styleClass="form-control" id="textGroupName" value="#{studentBean.sieGroupName}" pt:placeholder="Grupo"></h:inputText>
                             </div>
                             <div class="form-group">
                                 <h:outputLabel for="selGroupPeriod" value="Periodo"></h:outputLabel>
-                                <h:selectOneMenu id="selGroupPeriod" value="#{sieGroupBean.selectedItem.period}" styleClass="form-control">
+                                <h:selectOneMenu id="selGroupPeriod" value="#{studentBean.periodId}" styleClass="form-control">
                                     <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
                                     <f:selectItems value="#{periodBean.all}"  var="periodItem" itemValue="#{periodItem.id}" itemLabel="#{periodItem.periodYear} #{periodItem.periodName}" />
                                 </h:selectOneMenu>
                             </div>
-                            <h:commandLink id="btnSaveId" actionListener="#{sieGroupBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
-                                <f:ajax render="availableSies addSieForm" update="@form" />
-                                <i class="fa fa-save"></i> Grabar
-                            </h:commandLink>
+                            <h:commandButton id="btnSaveSie" value="Grabar" action="#{studentBean.uploadSieGroup}" styleClass="btn btn-success" style="margin-right:10px;" />
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                         </h:form>
                     </div>
                 </div>

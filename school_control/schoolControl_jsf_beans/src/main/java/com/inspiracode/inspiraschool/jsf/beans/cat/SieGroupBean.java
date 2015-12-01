@@ -17,6 +17,12 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
     @ManagedProperty("#{sieGroupService}")
     private SieGroupService sieGroupService;
 
+    @Override
+    protected boolean validate() {
+	// TODO Auto-generated method stub
+	return true;
+    }
+
     public SieGroupBean() {
 	super(SieGroup.class);
     }
@@ -29,11 +35,4 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 	super.setService((BaseService<SieGroup>) sieGroupService);
 	this.sieGroupService = sieGroupService;
     }
-
-    @Override
-    protected boolean validate() {
-	// TODO Auto-generated method stub
-	return true;
-    }
-
 }

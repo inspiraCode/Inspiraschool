@@ -10,11 +10,14 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     private static final long serialVersionUID = -6115375274929965881L;
+    private static final Logger logger = Logger.getLogger(BaseFacesBean.class.getName());
 
     private Class<T> type;
     private BaseService<T> service;
@@ -84,8 +87,10 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
     protected abstract boolean validate();
 
     public String upload() {
+	logger.debug("Uploading object: " + selectedItem.getClass().getCanonicalName());
 	String result = "";
 	if (!validate()) {
+	    logger.debug("Validation error at upload action");
 	    return "";
 	}
 	try {
@@ -96,12 +101,15 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 
 	    result = "list";
 	} catch (org.springframework.dao.DataIntegrityViolationException e) {
-	    publishError("Los datos que intenta grabar en la base de datos est�n duplicados.");
+	    logger.debug("Duplicated data");
+	    publishError("Los datos que intenta grabar en la base de datos están duplicados.");
 	    result = "";
 	} catch (Exception e) {
+	    logger.debug("Exception: " + e.getMessage());
 	    publishError("Error al grabar los datos: " + e.getMessage());
 	    result = "";
 	}
+	logger.debug("Upload result: " + result);
 	return result;
     }
 

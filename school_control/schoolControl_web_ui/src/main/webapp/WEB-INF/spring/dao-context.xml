@@ -25,6 +25,8 @@
 		class="com.inspiracode.inspiraschool.dao.hibernate.cat.TeacherDAOHibernate" />
 	<bean id="periodDAO" 
 		class="com.inspiracode.inspiraschool.dao.hibernate.cat.PeriodDAOHibernate" />
+	<bean id="sieGroupDAO" 
+		class="com.inspiracode.inspiraschool.dao.hibernate.cat.SieGroupDAOHibernate" />
 
 	<!-- CROSS -->
 	<bean id="groupAssignmentDAO"
