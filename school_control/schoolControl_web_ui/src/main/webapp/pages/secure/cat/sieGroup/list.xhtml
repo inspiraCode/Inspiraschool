@@ -82,9 +82,15 @@
                     <h:commandLink id="editButton" action="#{sieGroupBean.edit(item)}" styleClass="btn btn-primary" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">
                         <i class="fa fa-pencil"></i> Modificar
                     </h:commandLink>
-                    <h:commandLink id="removeButton" action="#{sieGroupBean.delete(item)}" onclick="return confirm('¿Está usted seguro de borrar este grupo SIE del catálogo?\n Considere que no se pueden borrar grupos SIE que tienen historial de uso en la base de datos.');" styleClass="btn btn-primary" style="margin-bottom:5px;margin-top:5px;">
+                    <h:commandLink id="removeButton" action="#{sieGroupBean.delete(item)}" onclick="return confirm('¿Está usted seguro de borrar este grupo SIE del catálogo?\n Considere que no se pueden borrar grupos SIE que tienen historial de uso en la base de datos.');" styleClass="btn btn-primary" style="margin-bottom:5px;margin-top:5px; margin-right:10px;">
                         <f:param name="item" value="#{item}" />
                         <i class="fa fa-times"></i> Borrar
+                    </h:commandLink>
+                     <h:commandLink action="#{sieGroupBean.edit(item)}" styleClass="btn btn-success" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">
+                        <i class="fa fa-object-group"></i> Parcial 1
+                    </h:commandLink>
+                     <h:commandLink action="#{sieGroupBean.edit(item)}" styleClass="btn btn-success" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">
+                        <i class="fa fa-object-group"></i> Parcial 2
                     </h:commandLink>
                 </h:column>
             </h:dataTable>
