@@ -4,5 +4,6 @@ import com.inspiracode.inspiraschool.dto.cat.SieGroup;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public interface SieGroupService extends BaseService<SieGroup> {
-
+    SieGroup getSieGroupWithScores(int sieGroupId);
+    
 }

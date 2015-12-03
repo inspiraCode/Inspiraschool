@@ -1,11 +1,17 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,7 +33,13 @@ public class SieGroup implements BaseDTO {
     @JoinColumn(name = "id_period", nullable = false)
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     private Period period;
-
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "cross_sie_student", catalog = "school_control", joinColumns = { @JoinColumn(name = "cat_sie_group_id") },
+	    inverseJoinColumns = { @JoinColumn(name = "id_student") })
+    private Set<Student> students = new HashSet<Student>();
+    
+    
     public int getId() {
 	return id;
     }
@@ -72,6 +84,14 @@ public class SieGroup implements BaseDTO {
     @Override
     public String toString() {
         return "id:" + id + ";sieGroupName:" + sieGroupName + ";period:{" + period + "}";
+    }
+
+    public Set<Student> getStudents() {
+	return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+	this.students = students;
     }
 
 }

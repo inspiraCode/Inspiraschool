@@ -22,5 +22,9 @@ public class SieGroupSpringService extends BaseSpringService<SieGroup> implement
 	super.setDaoFactory((BaseDAO<SieGroup>) sieGroupDAO);
 	this.sieGroupDAO = sieGroupDAO;
     }
+    @Override
+    public SieGroup getSieGroupWithScores(int sieGroupId) {
+	return sieGroupDAO.getSieWithScores(sieGroupId);
+    }
 
 }

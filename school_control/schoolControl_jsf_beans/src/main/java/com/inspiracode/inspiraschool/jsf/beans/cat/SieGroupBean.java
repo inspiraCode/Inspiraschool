@@ -1,11 +1,15 @@
 package com.inspiracode.inspiraschool.jsf.beans.cat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
+import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cat.PeriodService;
@@ -15,7 +19,7 @@ import com.inspiracode.inspiraschool.service.cat.SieGroupService;
 @SessionScoped
 public class SieGroupBean extends BaseFacesBean<SieGroup> {
     private static final long serialVersionUID = 7549788216996264705L;
-    
+
     @ManagedProperty("#{sieGroupService}")
     private SieGroupService sieGroupService;
     @ManagedProperty("#{periodService}")
@@ -43,6 +47,24 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 
     public int getPeriodId() {
 	return periodId;
+    }
+
+    public List<Student> getSieStudents() {
+	SieGroup sGroupWScores = sieGroupService.getSieGroupWithScores(getSelectedItem().getId());
+	List<Student> result = new ArrayList<Student>();
+	if (sGroupWScores != null)
+	    result.addAll(sGroupWScores.getStudents());
+	return result;
+    }
+
+    public String partialOne(SieGroup item) {
+	setSelectedItem(item);
+	return "Partial_one";
+    }
+
+    public String partialTwo(SieGroup item) {
+	setSelectedItem(item);
+	return "Partial_two";
     }
 
     public void setPeriodId(int periodId) {

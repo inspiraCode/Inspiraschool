@@ -15,12 +15,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
+import com.inspiracode.inspiraschool.dto.ctrl.Score;
 
 @Entity
 @Table(name = "cat_student", catalog = "school_control")
@@ -75,6 +77,9 @@ public class Student implements BaseDTO {
     @JoinTable(name = "cross_sie_student", catalog = "school_control", joinColumns = { @JoinColumn(name = "id_student") },
 	    inverseJoinColumns = { @JoinColumn(name = "cat_sie_group_id") })
     private Set<SieGroup> sies = new HashSet<SieGroup>();
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
+    private Set<Score> scores = new HashSet<Score>();
 
     public int getId() {
 	return id;
@@ -194,6 +199,14 @@ public class Student implements BaseDTO {
 
     public void setSies(Set<SieGroup> sies) {
 	this.sies = sies;
+    }
+
+    public Set<Score> getScores() {
+	return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+	this.scores = scores;
     }
 
 }
