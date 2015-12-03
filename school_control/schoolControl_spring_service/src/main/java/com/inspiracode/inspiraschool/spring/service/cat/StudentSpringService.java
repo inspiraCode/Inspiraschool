@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Required;
 
 import com.inspiracode.inspiraschool.dao.BaseDAO;
 import com.inspiracode.inspiraschool.dao.cat.StudentDAO;
+import com.inspiracode.inspiraschool.dto.cat.SieGroup;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 import com.inspiracode.inspiraschool.service.cat.StudentService;
@@ -20,6 +21,8 @@ public class StudentSpringService extends BaseSpringService<Student> implements 
 	String result = "";
 	String groupGrade = "";
 	Set<GroupAssignment> sGroups = studentDAO.getStudentGroups(student);
+	if (sGroups == null)
+	    return "";
 	for (GroupAssignment ga : sGroups) {
 	    groupGrade = ga.getGroup().getGrade();
 	    if (!result.contains(groupGrade + ", ")) {
@@ -37,6 +40,11 @@ public class StudentSpringService extends BaseSpringService<Student> implements 
     @Override
     public Set<GroupAssignment> getStudentGroupsList(Student student) {
 	return studentDAO.getStudentGroups(student);
+    }
+    
+    @Override
+    public Set<SieGroup> getStudentSieGroups(Student student) {
+	return studentDAO.getStudentSieGroups(student);
     }
 
     public StudentDAO getStudentDAO() {

@@ -50,9 +50,6 @@
         <p:messages id="msg" />
         <!-- Form content -->
         <h:form id="estudianteListForm">
-            <h:commandLink id="addButton" action="#{studentBean.addNew}" styleClass="btn btn-primary" style="margin-bottom:30px;">
-                <i class="fa fa-plus"></i>Agregar
-            </h:commandLink>
             <h:commandLink id="removeSelectedButton" action="#{studentBean.removeSelected}" onclick="return confirm('¿Seguro que quiere borrar los estudiantes seleccionados del catálogo?');" styleClass="btn btn-warning" style="margin-left:10px;margin-bottom:30px;">
                 <i class="fa fa-times"></i> Borrar Seleccionados
             </h:commandLink>
