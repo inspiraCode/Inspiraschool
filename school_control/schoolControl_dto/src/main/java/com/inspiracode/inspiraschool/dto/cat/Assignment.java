@@ -22,6 +22,12 @@ public class Assignment implements BaseDTO {
     @Column(name = "assignment_name")
     private String name;
 
+    @Column(name = "sie_index")
+    private int sieIndex;
+
+    @Column(name = "sie_code")
+    private String sieCode;
+
     public int getId() {
 	return id;
     }
@@ -36,6 +42,22 @@ public class Assignment implements BaseDTO {
 
     public void setName(String name) {
 	this.name = name;
+    }
+
+    public int getSieIndex() {
+	return sieIndex;
+    }
+
+    public void setSieIndex(int sieIndex) {
+	this.sieIndex = sieIndex;
+    }
+
+    public String getSieCode() {
+	return sieCode;
+    }
+
+    public void setSieCode(String sieCode) {
+	this.sieCode = sieCode;
     }
 
     @Override

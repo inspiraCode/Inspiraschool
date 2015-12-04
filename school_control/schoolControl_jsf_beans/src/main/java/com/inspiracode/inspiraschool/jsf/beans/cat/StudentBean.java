@@ -62,6 +62,10 @@ public class StudentBean extends BaseFacesBean<Student> {
 	super(Student.class);
     }
 
+    public List<Assignment> getSelectedAssignments() {
+	return selectedAssignments;
+    }
+    
     public List<Assignment> getAvailableAssignments() {
 	availableAssignments.clear();
 	if (selectedGroup == null) {
@@ -288,10 +292,6 @@ public class StudentBean extends BaseFacesBean<Student> {
 
     public void setGroupService(GroupService groupService) {
 	this.groupService = groupService;
-    }
-
-    public List<Assignment> getSelectedAssignments() {
-	return selectedAssignments;
     }
 
     public void setSelectedAssignments(List<Assignment> selectedAssignments) {
