@@ -1,5 +1,6 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,7 +27,7 @@ import com.inspiracode.inspiraschool.dto.ctrl.Score;
 
 @Entity
 @Table(name = "cat_student", catalog = "school_control")
-public class Student implements BaseDTO {
+public class Student implements BaseDTO, Comparable<Student> {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -77,7 +78,7 @@ public class Student implements BaseDTO {
     @JoinTable(name = "cross_sie_student", catalog = "school_control", joinColumns = { @JoinColumn(name = "id_student") },
 	    inverseJoinColumns = { @JoinColumn(name = "cat_sie_group_id") })
     private Set<SieGroup> sies = new HashSet<SieGroup>();
-    
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "student")
     private Set<Score> scores = new HashSet<Score>();
 
@@ -207,6 +208,32 @@ public class Student implements BaseDTO {
 
     public void setScores(Set<Score> scores) {
 	this.scores = scores;
+    }
+
+    @Override
+    public int compareTo(Student o) {
+	return Comparators.NAME.compare(this, o);
+    }
+
+    public static class Comparators {
+	public static Comparator<Student> NAME = new Comparator<Student>() {
+
+	    @Override
+	    public int compare(Student o1, Student o2) {
+		return o1.name.compareTo(o2.name);
+	    }
+
+	};
+
+	public static Comparator<Student> ENROLLMENT = new Comparator<Student>() {
+
+	    @Override
+	    public int compare(Student o1, Student o2) {
+		return o1.enrollNumber.compareTo(o2.enrollNumber);
+	    }
+
+	};
+
     }
 
 }
