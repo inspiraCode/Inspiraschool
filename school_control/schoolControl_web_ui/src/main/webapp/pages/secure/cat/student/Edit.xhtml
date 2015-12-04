@@ -8,6 +8,13 @@
     xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/default/main.xhtml">
 	<ui:define name="title">EControl - Estudiantes #{studentBean.selectedItem.enrollNumber} </ui:define>
+    <ui:define name="content-header">
+        <script>
+        $(document).ready(function() {
+            $('#assignmentItem').draggable({stack: "div"});
+        });
+        </script>
+    </ui:define>
     <ui:define name="content">
         <!-- Page Heading -->
         <!--overview start-->
@@ -181,9 +188,8 @@
                     <!-- /.navbar-top-links -->
                     <div class="panel panel-primary">
                         <div class="panel-heading">Materias en curso</div>
-                        EN CONSTRUCCIÓN.<br/>
-                        <strong>Objetivo:</strong> Mostrar las materias que el alumno está cursando actualmente. Esto servirá para cambiar el alumno de grupo.
-                        <div class="panel-footer">Resúmen: ...</div>
+                        <ui:include src="tab_assignment.xhtml" />
+                        <div class="panel-footer">Materias en grupos: #{studentBean.getStudentGroups(studentBean.selectedItem)}</div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="cuenta">

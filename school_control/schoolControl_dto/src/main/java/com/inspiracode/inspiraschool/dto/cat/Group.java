@@ -1,5 +1,8 @@
 package com.inspiracode.inspiraschool.dto.cat;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
+import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 
 @Entity
 @Table(name = "cat_group", catalog = "school_control")
@@ -38,6 +43,9 @@ public class Group implements BaseDTO {
     @JoinColumn(name = "id_period")
     @ManyToOne(fetch = FetchType.EAGER)
     private Period period;
+    
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="group")
+    private List<GroupAssignment> assignments = new ArrayList<GroupAssignment>();
 
     public int getId() {
 	return id;
@@ -85,6 +93,14 @@ public class Group implements BaseDTO {
 
     public void setPeriod(Period period) {
 	this.period = period;
+    }
+
+    public List<GroupAssignment> getAssignments() {
+	return assignments;
+    }
+
+    public void setAssignments(List<GroupAssignment> assignments) {
+	this.assignments = assignments;
     }
 
 }

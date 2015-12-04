@@ -20,13 +20,17 @@ public class StudentSpringService extends BaseSpringService<Student> implements 
     public String getStudentGroups(Student student) {
 	String result = "";
 	String groupGrade = "";
+	String groupDayTrip = "";
+	String groupName = "";
 	Set<GroupAssignment> sGroups = studentDAO.getStudentGroups(student);
 	if (sGroups == null)
 	    return "";
 	for (GroupAssignment ga : sGroups) {
 	    groupGrade = ga.getGroup().getGrade();
-	    if (!result.contains(groupGrade + ", ")) {
-		result += ga.getGroup().getGrade() + ", ";
+	    groupDayTrip = ga.getGroup().getDayTrip();
+	    groupName = groupGrade + " " + groupDayTrip;
+	    if (!result.contains(groupName + ", ")) {
+		result += groupName + ", ";
 	    }
 	}
 

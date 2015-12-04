@@ -4,5 +4,5 @@ import com.inspiracode.inspiraschool.dto.cat.Group;
 import com.inspiracode.inspiraschool.service.BaseService;
 
 public interface GroupService extends BaseService<Group> {
-
+    Group getGroupWithAssignments(int groupId);
 }

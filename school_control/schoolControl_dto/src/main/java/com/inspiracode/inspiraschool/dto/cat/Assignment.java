@@ -12,30 +12,40 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 @Entity
 @Table(name = "cat_assignment", catalog = "school_control")
 public class Assignment implements BaseDTO {
-  private static final long serialVersionUID = -1404012876344978431L;
+    private static final long serialVersionUID = -1404012876344978431L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id_assignment")
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_assignment")
+    private int id;
 
-  @Column(name = "assignment_name")
-  private String name;
+    @Column(name = "assignment_name")
+    private String name;
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+	return id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public void setId(int id) {
+	this.id = id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+	return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+	if (obj == null)
+	    return false;
+	if (!(obj instanceof Assignment))
+	    return false;
+	Assignment o = (Assignment) obj;
+	return this.getId() == o.getId();
+    }
 
 }

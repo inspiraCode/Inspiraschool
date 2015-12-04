@@ -23,4 +23,9 @@ public class GroupSpringService extends BaseSpringService<Group> implements Grou
 	super.setDaoFactory((BaseDAO<Group>) groupDAO);
 	this.groupDAO = groupDAO;
     }
+
+    @Override
+    public Group getGroupWithAssignments(int groupId) {
+	return groupDAO.getGroupWithAssignments(groupId);
+    }
 }
