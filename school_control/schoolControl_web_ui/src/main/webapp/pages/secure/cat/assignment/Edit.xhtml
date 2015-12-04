@@ -42,9 +42,25 @@
                 <div class="row" style="margin-top:10px;">
                     <div class="control-group col-md-10">
                         <!-- Sender Selection -->
-                        <h:outputLabel for="textCareerName" value="Asignatura: " styleClass="control-label"></h:outputLabel>
+                        <h:outputLabel for="textAssignmentName" value="Asignatura: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:inputText styleClass="form-control" id="textCareerName" value="#{assignmentBean.selectedItem.name}" pt:placeholder="Nombre asignatura"></h:inputText>
+                            <h:inputText styleClass="form-control" id="textAssignmentName" value="#{assignmentBean.selectedItem.name}" pt:placeholder="Nombre asignatura"></h:inputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-4">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textSieCode" value="Código SIE: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" id="textSieCode" value="#{assignmentBean.selectedItem.sieCode}" pt:placeholder="Código SIE"></h:inputText>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-4">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="textSieIndex" value="Índice SIE: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:inputText styleClass="form-control" pt:type="number" id="textSieIndex" value="#{assignmentBean.selectedItem.sieIndex}" pt:placeholder="Índice SIE"></h:inputText>
                         </div>
                     </div>
                 </div>

@@ -124,6 +124,10 @@ public class StudentBean extends BaseFacesBean<Student> {
     @Override
     protected boolean validate() {
 	// TODO: Validate
+	Set<GroupAssignment> gaSet = new HashSet<GroupAssignment>();
+	gaSet.addAll(selectedAssignments);
+	getSelectedItem().setGroups(gaSet);
+	// TODO: If the student was scored in the previous group, move the scores to the new group.
 	return true;
     }
 

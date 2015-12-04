@@ -69,6 +69,14 @@
                     <f:facet name="header">Nombre</f:facet>
                     <h:outputText value="#{item.name}" />
                 </h:column>
+                <h:column>
+                    <f:facet name="header">Código SIE</f:facet>
+                    <h:outputText value="#{item.sieCode}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Índice SIE</f:facet>
+                    <h:outputText value="#{item.sieIndex}" />
+                </h:column>
                 
                 <h:column>
                     <h:commandLink id="editButton" action="#{assignmentBean.edit(item)}" styleClass="btn btn-primary" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">

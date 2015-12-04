@@ -43,13 +43,22 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 	super(SieGroup.class);
     }
 
-    public int sieScorePartialOne(Student studentItem, Assignment assignmentItem) {
+    public int sieScore(Student studentItem, Assignment assignmentItem, int partialIndex) {
 	//recorrer las calificaciones del estudiante(studentItem)
 	for (Score score : studentItem.getScores()) {//para cada calificacion 
 	    //revisar si la assignatura del score es igual al parametro de assignatura (assignmentItem)
 	    if (score.getGroupAssignment().getAssignment().equals(assignmentItem)) {
 		//si es igual, devolver esa calificacion
-		return score.getParcialOne()/10;
+		switch (partialIndex) {
+		case 0:
+		    return score.getFinalScore() == null ? 0 : score.getFinalScore() / 10;
+		case 1:
+		    return score.getParcialOne() == null ? 0 : score.getParcialOne() / 10;
+		case 2:
+		    return score.getParcialTwo() == null ? 0 : score.getParcialTwo() / 10;
+		default:
+		    return 0;
+		}
 	    }
 	}
 	//si no se encontro, devolver 0.
@@ -96,7 +105,7 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 	    }
 	}
 	logger.debug("materias encontradas: " + result.size());
-	//Collections.sort(result);
+	Collections.sort(result);
 	return result;
     }
 
