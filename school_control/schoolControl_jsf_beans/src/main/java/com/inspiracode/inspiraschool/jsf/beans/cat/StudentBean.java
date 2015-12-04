@@ -12,12 +12,12 @@ import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.log4j.Logger;
 import org.primefaces.event.DragDropEvent;
 
-import com.inspiracode.inspiraschool.dto.cat.Assignment;
 import com.inspiracode.inspiraschool.dto.cat.Group;
 import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
@@ -55,18 +55,18 @@ public class StudentBean extends BaseFacesBean<Student> {
     private Group selectedGroup;
 
     private List<SieGroup> availableSies = new ArrayList<SieGroup>();
-    private List<Assignment> availableAssignments = new ArrayList<Assignment>();
-    private List<Assignment> selectedAssignments = new ArrayList<Assignment>();
+    private List<GroupAssignment> availableAssignments = new ArrayList<GroupAssignment>();
+    private List<GroupAssignment> selectedAssignments = new ArrayList<GroupAssignment>();
 
     public StudentBean() {
 	super(Student.class);
     }
 
-    public List<Assignment> getSelectedAssignments() {
+    public List<GroupAssignment> getSelectedAssignments() {
 	return selectedAssignments;
     }
     
-    public List<Assignment> getAvailableAssignments() {
+    public List<GroupAssignment> getAvailableAssignments() {
 	availableAssignments.clear();
 	if (selectedGroup == null) {
 	    return availableAssignments;
@@ -74,10 +74,13 @@ public class StudentBean extends BaseFacesBean<Student> {
 	logger.debug("found " + selectedGroup.getAssignments().size() + " group assignments in database for the selected group");
 	for (GroupAssignment ga : selectedGroup.getAssignments()) {
 	    logger.debug("Assignment in record: " + ga.getAssignment().getName());
-	    if (!availableAssignments.contains(ga.getAssignment())) {
-		availableAssignments.add(ga.getAssignment());
+	    if (!availableAssignments.contains(ga)) {
+		availableAssignments.add(ga);
 	    }
 	}
+
+	availableAssignments.removeAll(selectedAssignments);
+	
 	logger.debug("found " + availableAssignments.size() + " available assignments to show.");
 	return availableAssignments;
     }
@@ -99,9 +102,12 @@ public class StudentBean extends BaseFacesBean<Student> {
 	selectedItem.setSies(studentGroups);
 
 	Set<GroupAssignment> groupAssignments = studentService.getStudentGroupsList(selectedItem);
-	if (groupAssignments != null && !groupAssignments.isEmpty()) {
-	    selectedGroupId = groupAssignments.iterator().next().getGroup().getId();
+	selectedAssignments.clear();
+	for(GroupAssignment ga : groupAssignments){
+	    selectedGroupId = ga.getGroup().getId();
 	    selectedGroup = groupService.getGroupWithAssignments(selectedGroupId);
+	    
+	    selectedAssignments.add(ga);
 	}
 
 	super.setSelectedItem(selectedItem);
@@ -146,28 +152,60 @@ public class StudentBean extends BaseFacesBean<Student> {
 	return availableSies;
     }
 
-    public void setAvailableSies(List<SieGroup> availableSies) {
-    }
-
     public List<SieGroup> getAssignedSies() {
 	List<SieGroup> result = new ArrayList<SieGroup>();
 	result.addAll(getSelectedItem().getSies());
 	return result;
     }
 
-    public void setAssignedSies(List<SieGroup> assignedSies) {
-    }
-
     // setter to complete property
     public void setSieEnabled(boolean sieEnabled) {
     }
 
+    public void addAllAssignments(ActionEvent actionEvent){
+	selectedAssignments.addAll(availableAssignments);
+	publishInfo("Todas las materias del grupo agregadas al alumno.");
+    }
+    
+    public void removeAllAssignments(ActionEvent actionEvent){
+	selectedAssignments.clear();
+	publishInfo("Todas las materias asignadas al alumno han sido retiradas.");
+    }
+    
     public void onRemoveAssignment(DragDropEvent event){
-	publishWarning("Quitando Asignatura.");
+	availableAssignments.clear();
+	HtmlPanelGroup selectedGroupAssignmentsPanel = (HtmlPanelGroup) event.getComponent().findComponent("selectedGroupAssignmentsPanel");
+	if(selectedGroupAssignmentsPanel != null){
+	    selectedGroupAssignmentsPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback(){
+
+		@Override
+		public void invokeContextCallback(FacesContext context, UIComponent target) {
+		    HtmlPanelGroup draggedItem = (HtmlPanelGroup) target;
+		    GroupAssignment item = draggedItem != null ? (GroupAssignment) draggedItem.getAttributes().get("assignmentItem") : new GroupAssignment();
+		    selectedAssignments.remove(item);
+		    publishInfo("Asignatura " + item.getAssignment().getName() + " desvinculada del alumno.");
+		}});
+	} else {
+	    publishError("Error al quitar asignatura");
+	}
     }
     
     public void onAddAssignment(DragDropEvent event){
-	publishWarning("Agregando Asignatura");
+	HtmlPanelGroup groupAssignmentPanel = (HtmlPanelGroup) event.getComponent().findComponent("groupAssignmentsPanel");
+	if(groupAssignmentPanel!=null){
+	    groupAssignmentPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback(){
+
+		@Override
+		public void invokeContextCallback(FacesContext context, UIComponent target) {
+		    HtmlPanelGroup draggedItem = (HtmlPanelGroup) target;
+		    GroupAssignment item = draggedItem != null ? (GroupAssignment) draggedItem.getAttributes().get("assignmentItem") : new GroupAssignment();
+		    if(!selectedAssignments.contains(item))
+			selectedAssignments.add(item);
+		    publishInfo("Asignatura " + item.getAssignment().getName() + " vinculada al alumno con éxito.");
+		}});
+	}else{
+	    publishError("Error al agregar asignatura.");
+	}
     }
     
     public void onRemoveSie(DragDropEvent event) {
@@ -294,7 +332,7 @@ public class StudentBean extends BaseFacesBean<Student> {
 	this.groupService = groupService;
     }
 
-    public void setSelectedAssignments(List<Assignment> selectedAssignments) {
+    public void setSelectedAssignments(List<GroupAssignment> selectedAssignments) {
 	this.selectedAssignments = selectedAssignments;
     }
 

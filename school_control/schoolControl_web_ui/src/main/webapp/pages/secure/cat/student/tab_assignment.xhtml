@@ -35,19 +35,19 @@
                         <ui:repeat var="item" value="#{studentBean.availableAssignments}" rendered="#{not empty studentBean.availableAssignments}">
                             <h:panelGroup id="item" styleClass="btn btn-info" style="margin:5px;">
                                 <f:attribute name="assignmentItem" value="#{item}"/>
-                                <h:outputText value="#{item.name}" />
+                                <h:outputText value="#{item.assignment.name} #{item.group.grade}" />
                             </h:panelGroup>
                             <p:draggable for="item" revert="true" cursor="move" opacity="0.3" helper="clone" containment="#draggables" stack="#draggables"  />
                         </ui:repeat>
                         <p:droppable id="dropSelected" for="groupAssignmentsPanel" accept=".btn-primary" tolerance="touch" activeStyleClass="panel-selected">
-                            <p:ajax listener="#{studentBean.onRemoveAssignment}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl" />
+                            <p:ajax listener="#{studentBean.onRemoveAssignment}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl :assignmentSummary:groupsLabel" />
                         </p:droppable> 
                     </h:panelGroup>
                     <div style="width:10%;display:inline-block;vertical-align:middle;">
-                        <h:commandLink action="#{studentBean.upload}" styleClass="btn btn-success" style="margin-right:5px;">
+                        <h:commandLink actionListener="#{studentBean.addAllAssignments}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl" styleClass="btn btn-success" style="margin-right:5px;">
                             <i class="fa fa-angle-double-right"></i>
                         </h:commandLink>
-                        <h:commandLink action="#{studentBean.upload}" styleClass="btn btn-danger">
+                        <h:commandLink actionListener="#{studentBean.removeAllAssignments}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl" styleClass="btn btn-danger">
                             <i class="fa fa-angle-double-left"></i>
                         </h:commandLink>
                     </div>
@@ -59,12 +59,12 @@
                         <ui:repeat var="item" value="#{studentBean.selectedAssignments}" rendered="#{not empty studentBean.selectedAssignments}">
                             <h:panelGroup id="item" styleClass="btn btn-primary" style="margin:5px;">
                                 <f:attribute name="assignmentItem" value="#{item}" />
-                                <h:outputText value="#{item.name}" />
+                                <h:outputText value="#{item.assignment.name} #{item.group.grade}" />
                             </h:panelGroup>
                             <p:draggable for="item" revert="true" cursor="move" opacity="0.3" helper="clone" containment="#draggables" stack="#draggables" />
                         </ui:repeat>
                         <p:droppable id="dropAvailable" for="selectedGroupAssignmentsPanel" accept=".btn-info" tolerance="touch" activeStyleClass="panel-selected">
-                            <p:ajax listener="#{studentBean.onAddAssignment}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl" />
+                            <p:ajax listener="#{studentBean.onAddAssignment}" update="groupAssignmentsPanel selectedGroupAssignmentsPanel growl :assignmentSummary:groupsLabel" />
                         </p:droppable>
                     </h:panelGroup>
                 </div>
