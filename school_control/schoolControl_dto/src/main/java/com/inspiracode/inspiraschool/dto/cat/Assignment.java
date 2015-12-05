@@ -82,7 +82,7 @@ public class Assignment implements BaseDTO, Comparable<Assignment> {
 
 	    @Override
 	    public int compare(Assignment o1, Assignment o2) {
-		return o2.sieIndex - o1.sieIndex;
+		return o1.sieIndex - o2.sieIndex;
 	    }
 	};
 

@@ -1,11 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2015-11-23T18:25:06 -->
+<!-- 2015-12-04T19:21:53 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Calificaciones_SIE" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e507dc1e-922a-4384-835d-d32161997d6e">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#C3CFD9">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#E6F3FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#737A80">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<topPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<leftPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<bottomPen lineWidth="0.5" lineColor="#FFFFFF"/>
+			<rightPen lineWidth="0.5" lineColor="#FFFFFF"/>
+		</box>
+	</style>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
+	<field name="lastName" class="java.lang.String">
+		<fieldDescription><![CDATA[lastName]]></fieldDescription>
+	</field>
+	<field name="address" class="java.lang.String">
+		<fieldDescription><![CDATA[address]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[gender]]></fieldDescription>
+	</field>
+	<field name="enrollmentDate" class="java.util.Date">
+		<fieldDescription><![CDATA[enrollmentDate]]></fieldDescription>
+	</field>
+	<field name="assignmentScore" class="java.lang.Integer">
+		<fieldDescription><![CDATA[assignmentScore]]></fieldDescription>
+	</field>
+	<field name="birthDate" class="java.util.Date">
+		<fieldDescription><![CDATA[birthDate]]></fieldDescription>
+	</field>
+	<field name="clockId" class="java.lang.String">
+		<fieldDescription><![CDATA[clockId]]></fieldDescription>
+	</field>
+	<field name="enrollNumber" class="java.lang.String">
+		<fieldDescription><![CDATA[enrollNumber]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="assignmentName" class="java.lang.String">
+		<fieldDescription><![CDATA[assignmentName]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -19,7 +88,127 @@
 		<band height="61" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch"/>
+		<band height="236" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="10" width="550" height="226" uuid="9ca39f81-10c6-4e73-adac-ba60dfaa1ae7">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<rowGroup name="name1" width="60" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="40" uuid="25117ca0-25ab-4310-a35b-6d74d5c06f76"/>
+								<textFieldExpression><![CDATA[$V{name1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="120" height="20" forecolor="#FFFFFF" uuid="1928616a-08e5-4ce2-ab64-076c7e83ee5c"/>
+								<text><![CDATA[Total name1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="enrollNumber1" width="60" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{enrollNumber}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="d4799be9-e88b-449b-b0f9-e6898396d43e"/>
+								<textFieldExpression><![CDATA[$V{enrollNumber1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CG">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="20" uuid="47d4d3c4-a251-4363-894f-df0a880e03e5"/>
+								<text><![CDATA[Total enrollNumber1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="assignmentName1" height="20" totalPosition="End">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{assignmentName}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="009ab997-acdf-4c70-994c-1f5e1b457f7d"/>
+								<textFieldExpression><![CDATA[$V{assignmentName1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CT">
+							<staticText>
+								<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="5a7be3f7-716f-4dd7-bdd9-cdf8b218c96a"/>
+								<text><![CDATA[Total assignmentName1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="assignmentScore_MEASURE1" class="java.lang.Integer">
+					<measureExpression><![CDATA[$F{assignmentScore}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9a2e7770-7779-4d23-8d0e-3d182b4dca01"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="assignmentName1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="7608617e-bfea-464a-96fd-b81039727c24"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="name1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="59e197a3-99a4-4557-ac40-77c8aa7c54ec"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="name1" columnTotalGroup="assignmentName1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="81a3e6b6-715c-4209-a792-8a34c50e4678"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="enrollNumber1">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="2226aa4a-a005-4cf1-9bf3-d887c46d8b56"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="enrollNumber1" columnTotalGroup="assignmentName1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" forecolor="#FFFFFF" uuid="ed118c64-2b71-4eb4-a9fd-b42343dded4a"/>
+							<textFieldExpression><![CDATA[$V{assignmentScore_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="45" splitType="Stretch"/>
