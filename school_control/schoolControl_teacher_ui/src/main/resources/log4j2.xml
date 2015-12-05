@@ -24,8 +24,8 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.inspiracode" level="INFO">
-			<AppenderRef ref="RollingFile1" level="INFO" />
+		<Logger name="com.inspiracode" level="DEBUG">
+			<AppenderRef ref="RollingFile1" level="DEBUG" />
 			<AppenderRef ref="Console" level="INFO" />
 		</Logger>
 		<Logger name="org.hibernate" level="WARN">

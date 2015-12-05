@@ -21,6 +21,7 @@ public class ScoreModel extends Score {
 	this.setId(score.getId());
 	this.setParcialOne(score.getParcialOne());
 	this.setParcialTwo(score.getParcialTwo());
+	this.setFinalScore(score.getFinalScore());
 
 	this.setStudentName(score.getStudent().getName());
 	this.setStudentEnrollment(score.getStudent().getEnrollNumber());

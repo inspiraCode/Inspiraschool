@@ -41,21 +41,26 @@
                     <f:facet name="header">Alumno</f:facet>
                     <h:outputText value="#{score.student.name}" />
                 </h:column>
-                <h:column>
+                <h:column rendered="#{groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}">
                     <f:facet name="header">P. 1</f:facet>
-                    <h:inputText pt:tabindex="1" id="partialOne" style="width:50px;" class="form-control" value="#{score.parcialOne}">
+                    <h:inputText pt:tabindex="1" pt:type="number" id="partialOne" style="width:70px;" class="form-control" value="#{score.parcialOne}">
                         <f:ajax event="keyup" execute="partialOne" render="finalScore"></f:ajax>
                     </h:inputText>
                 </h:column>
-                <h:column render="#{score.groupAssignment.group.career.name.toLowerCase().contains('prepa')}">
+                <h:column rendered="#{groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}">
                     <f:facet name="header">P. 2</f:facet>
-                    <h:inputText pt:tabindex="2" id="partialTwo" style="width:50px;" class="form-control" value="#{score.parcialTwo}">
+                    <h:inputText pt:tabindex="2" id="partialTwo" pt:type="number" style="width:70px;" class="form-control" value="#{score.parcialTwo}">
                         <f:ajax event="keyup" execute="partialTwo" render="finalScore"></f:ajax>
                     </h:inputText>
                 </h:column>
                 <h:column>
-                    <f:facet name="header">Prom.</f:facet>
-                    <h:outputText id="finalScore" value="#{score.finalScore}" />
+                    <f:facet name="header">
+                        <h:outputText rendered="#{groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}" value="Prom." />
+                        <h:outputText rendered="#{!groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}" value="Calif." />
+                    </f:facet>
+                    <h:outputText rendered="#{groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}" id="finalScore" value="#{score.finalScore}" />
+                    <h:inputText rendered="#{!groupAssignmentBean.selectedItem.group.career.name.toLowerCase().startsWith('prepa')}" pt:tabindex="1" id="textFinalScore" pt:type="number" style="width:70px;" class="form-control" value="#{score.finalScore}">
+                    </h:inputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Comentario</f:facet>

@@ -31,7 +31,8 @@
                             #{item.group.period.periodName} #{item.group.period.periodYear}
                         </p>
                         <h:commandButton class="btn btn-light" value="Calificar" action="#{groupAssignmentBean.groupSelected(item)}"/>
-                        <h:commandButton class="btn btn-success hidden-print" value="Imprimir" onclick="showLoading=false;" action="#{groupAssignmentBean.pdfReport(groupAssignmentBean.scoresReportList(item), 'calificaciones')}"/>
+                        <h:commandButton rendered="#{item.group.career.name.toLowerCase().contains('prepa')}" class="btn btn-success hidden-print" value="Imprimir" onclick="showLoading=false;" action="#{groupAssignmentBean.pdfReport(groupAssignmentBean.scoresReportList(item), 'calificaciones')}"/>
+                        <h:commandButton rendered="#{!item.group.career.name.toLowerCase().contains('prepa')}" class="btn btn-success hidden-print" value="Imprimir" onclick="showLoading=false;" action="#{groupAssignmentBean.pdfReport(groupAssignmentBean.scoresReportList(item), 'calificaciones_pro')}"/>
                     </div>
                 </div>
             </ui:repeat>

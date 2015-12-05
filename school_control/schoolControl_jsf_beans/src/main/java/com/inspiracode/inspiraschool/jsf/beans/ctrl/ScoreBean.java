@@ -70,7 +70,7 @@ public class ScoreBean extends BaseFacesBean<Score> {
 		}
 	    }
 
-	    logger.debug(result.size() + " items to display in list");
+	    logger.debug(result.size() + " items to display in list from career: " + result.get(0).getGroupAssignment().getGroup().getCareer().getName());
 	    Collections.sort(result);
 	    loadedGroup = idGroupAssignment;
 	    setUnsavedItems(result);
@@ -85,15 +85,22 @@ public class ScoreBean extends BaseFacesBean<Score> {
 		continue;
 
 	    if (score.getParcialOne() != null) {
-		if (score.getParcialOne() > 100 || (score.getParcialOne() <= 50 && score.getParcialOne() > 0)) {
+		if (score.getParcialOne() > 10 || (score.getParcialOne() < 5 && score.getParcialOne() > 0)) {
 		    publishWarning("Revise la calificación del parcial 1 para " + score.getStudent().getName());
 		    return "";
 		}
 	    }
 
 	    if (score.getParcialTwo() != null) {
-		if ((score.getParcialTwo() <= 50 && score.getParcialTwo() > 0) || score.getParcialTwo() > 100) {
+		if ((score.getParcialTwo() < 5 && score.getParcialTwo() > 0) || score.getParcialTwo() > 10) {
 		    publishWarning("Revise la calificación del parcial 2 para " + score.getStudent().getName());
+		    return "";
+		}
+	    }
+	    
+	    if (score.getFinalScore() != null) {
+		if ((score.getFinalScore() < 5 && score.getFinalScore() > 0) || score.getFinalScore() > 10) {
+		    publishWarning("Revise la calificación para " + score.getStudent().getName());
 		    return "";
 		}
 	    }

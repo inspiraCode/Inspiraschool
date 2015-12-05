@@ -51,11 +51,11 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 		//si es igual, devolver esa calificacion
 		switch (partialIndex) {
 		case 0:
-		    return score.getFinalScore() == null ? 0 : score.getFinalScore() / 10;
+		    return score.getFinalScore() == null ? 0 : score.getFinalScore();
 		case 1:
-		    return score.getParcialOne() == null ? 0 : score.getParcialOne() / 10;
+		    return score.getParcialOne() == null ? 0 : score.getParcialOne();
 		case 2:
-		    return score.getParcialTwo() == null ? 0 : score.getParcialTwo() / 10;
+		    return score.getParcialTwo() == null ? 0 : score.getParcialTwo();
 		default:
 		    return 0;
 		}

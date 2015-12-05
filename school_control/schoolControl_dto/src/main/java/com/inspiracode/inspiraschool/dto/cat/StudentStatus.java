@@ -12,30 +12,29 @@ import com.inspiracode.inspiraschool.dto.BaseDTO;
 @Entity
 @Table(name = "cat_status", catalog = "school_control")
 public class StudentStatus implements BaseDTO {
-  private static final long serialVersionUID = 7842157759555265165L;
+    private static final long serialVersionUID = 7842157759555265165L;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id_status")
-  private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_status")
+    private int id;
 
-  @Column(name = "status_name")
-  private String name;
+    @Column(name = "status_name")
+    private String name;
 
-  public int getId() {
-    return id;
-  }
+    public int getId() {
+	return id;
+    }
 
-  public void setId(int id) {
-    this.id = id;
-  }
+    public void setId(int id) {
+	this.id = id;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+	return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
+    public void setName(String name) {
+	this.name = name;
+    }
 }
