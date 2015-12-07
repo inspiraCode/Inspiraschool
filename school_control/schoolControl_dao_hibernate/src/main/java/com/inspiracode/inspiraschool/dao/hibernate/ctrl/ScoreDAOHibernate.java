@@ -14,10 +14,11 @@ public class ScoreDAOHibernate extends BaseHibernateDAO<Score> implements ScoreD
 	super(Score.class);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<Score> scoresByGroup(int groupId) {
-	//List<Score> result = (List<Score>) getHibernateTemplate().find(QUERY_SCORES_BY_GROUP, groupId);
-	List<Score> temp = getAll();
+	List<Score> temp = (List<Score>) getHibernateTemplate().find(QUERY_SCORES_BY_GROUP, groupId);
+	//List<Score> temp = getAll();
 	List<Score> result = new ArrayList<Score>();
 	for (Score score : temp) {
 	    if (score.getGroupAssignment().getId() == groupId) {
