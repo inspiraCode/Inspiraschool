@@ -49,7 +49,7 @@ public class ScoreBean extends BaseFacesBean<Score> {
 		result.addAll(existingScores);
 	    }
 	    // Cargar materias asignadas sin calificar
-	    List<Student> studentsInGroup = groupService.getStudentsByGroupId(idGroupAssignment);
+	    List<Student> studentsInGroup = groupService.getActiveStudentsByGroupId(idGroupAssignment);
 	    logger.debug(studentsInGroup.size() + " students in group in db.");
 	    for (Student student : studentsInGroup) {
 		boolean found = false;

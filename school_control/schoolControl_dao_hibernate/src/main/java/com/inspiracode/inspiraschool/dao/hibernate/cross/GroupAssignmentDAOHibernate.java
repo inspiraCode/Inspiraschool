@@ -32,6 +32,17 @@ public class GroupAssignmentDAOHibernate extends BaseHibernateDAO<GroupAssignmen
 	}
 	return result;
     }
+    
+    @Override
+    public List<Student> getActiveStudentsByGroupId(int groupId) {
+	List<Student> result = new ArrayList<Student>();
+	GroupAssignment tempGroup = get(groupId);
+	for (Student gStudent : tempGroup.getStudents()) {
+	    if(gStudent.getStudentStatus().getId() == 1)
+		result.add(gStudent);
+	}
+	return result;
+    }
 
     private String periodoActual() {
 	String result = "";
@@ -56,5 +67,4 @@ public class GroupAssignmentDAOHibernate extends BaseHibernateDAO<GroupAssignmen
 
 	return result;
     }
-
 }

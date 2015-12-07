@@ -16,5 +16,7 @@ public interface GroupAssignmentDAO extends BaseDAO<GroupAssignment> {
     List<GroupAssignment> getGroupsByTeacher(int teacherId);
 
     List<Student> getStudentsByGroupId(int groupId);
+    
+    List<Student> getActiveStudentsByGroupId(int groupId);
 
 }

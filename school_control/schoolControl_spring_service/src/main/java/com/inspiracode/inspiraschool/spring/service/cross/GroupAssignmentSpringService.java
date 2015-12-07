@@ -37,5 +37,10 @@ public class GroupAssignmentSpringService extends BaseSpringService<GroupAssignm
 	this.groupAssignmentDAO = groupAssignmentDAO;
     }
 
+    @Override
+    public List<Student> getActiveStudentsByGroupId(int groupId) {
+	return groupAssignmentDAO.getActiveStudentsByGroupId(groupId);
+    }
+
     
 }
