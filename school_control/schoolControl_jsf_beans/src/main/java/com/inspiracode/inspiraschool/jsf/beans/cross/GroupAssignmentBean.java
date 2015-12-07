@@ -50,7 +50,7 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 
 	String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
 
-	List<Student> studentsInGroup = groupService.getStudentsByGroupId(item.getId());
+	List<Student> studentsInGroup = groupService.getActiveStudentsByGroupId(item.getId());
 	for (Student student : studentsInGroup) {
 	    boolean found = false;
 	    for (Score score : scores) {
@@ -76,10 +76,12 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 	Collections.sort(scores);
 
 	for (Score score : scores) {
-	    logger.debug("Using score to build score model: " + score);
-	    ScoreModel model = new ScoreModel(score);
-	    model.setUserName(userName);
-	    result.add(model);
+	    if (score.getStudent().getStudentStatus().getId() == 1) {
+		logger.debug("Using score to build score model: " + score);
+		ScoreModel model = new ScoreModel(score);
+		model.setUserName(userName);
+		result.add(model);
+	    }
 	}
 
 	return result;
