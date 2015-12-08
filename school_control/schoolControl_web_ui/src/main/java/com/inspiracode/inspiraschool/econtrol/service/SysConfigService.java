@@ -1,6 +1,8 @@
 package com.inspiracode.inspiraschool.econtrol.service;
 
-public interface SysConfigService {
+import java.io.Serializable;
+
+public interface SysConfigService extends Serializable {
     String getAvatarDirectoryName();
 
     String getStudentFileDirectoryName();

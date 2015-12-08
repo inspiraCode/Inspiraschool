@@ -36,6 +36,10 @@
 			<AppenderRef ref="RollingFile1" level="WARN" />
 			<AppenderRef ref="Console" level="INFO" />
 		</Logger>
+		<Logger name="org.springframework.security" level="TRACE">
+			<AppenderRef ref="RollingFile1" level="TRACE" />
+			<AppenderRef ref="Console" level="INFO" />
+		</Logger>
 		<Root level="trace">
 			<AppenderRef ref="RollingFile1" level="INFO" />
 			<AppenderRef ref="Console" level="INFO" />

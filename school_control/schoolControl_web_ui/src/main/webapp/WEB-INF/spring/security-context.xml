@@ -10,18 +10,18 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 	<!-- Enable method level Spring Security by annotations -->
 	<global-method-security pre-post-annotations="enabled" />
 	
-    <http auto-config="true" use-expressions="true">
+    <http auto-config="true" use-expressions="true" >
     	<!-- Page level Spring Security: Intercept access to resources in /pages/secure/** -->
-    	<intercept-url pattern="/pages/secure/**" access="isAuthenticated()"/>
-    	
-    	<!-- Page level Spring Security: Permit access to resources in /pages/public/** -->
+    	<intercept-url pattern="/pages/secure/**" access="hasAuthority('ADMIN')"/>
+
+    	<!-- Page level Spring Security: Intercept access to resources in /pages/secure/** -->
     	<intercept-url pattern="/pages/public/**" access="permitAll"/>
     	
-    	<!-- Page Level Spring Security: Enable Primefaces -->
-        <intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
+    	<!-- Page level Spring Security: Intercept access to resources in /pages/secure/** -->
+    	<intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>
     	
     	<!-- Page level Spring Security: Intercept access to resources in /** -->
-    	<intercept-url pattern="/**" access="isAuthenticated()"/>
+    	<intercept-url pattern="/**" access="hasAuthority('ADMIN')"/>
     	
         <!-- Define login page for Spring Security -->
         <form-login login-page="/pages/public/login.xhtml" />
@@ -40,9 +40,4 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			<password-encoder ref="encoder" />
 		</authentication-provider>
 	</authentication-manager>
-	
-	<!-- Inject authentication Manager to our LoginBean -->
-	<b:bean id="loginBean" name="loginBean" class="com.inspiracode.inspiraschool.jsf.beans.LoginBean" scope="prototype">
-		<b:property name="authenticationManager" ref="authenticationManager"/>
-	</b:bean>
 </b:beans>

@@ -9,6 +9,7 @@
     		<from-action>#{loginMgmtBean.logout}</from-action>
     		<from-outcome>loggedout</from-outcome>
     		<to-view-id>/pages/public/login.xhtml</to-view-id>
+    		<redirect/>
     	</navigation-case>
     </navigation-rule>
     <navigation-rule>
@@ -22,6 +23,7 @@
     		<from-action>#{loginMgmtBean.login}</from-action>
     		<from-outcome>correct</from-outcome>
     		<to-view-id>/pages/secure/index.xhtml</to-view-id>
+    		<redirect/>
     	</navigation-case>
     </navigation-rule>
 </faces-config>

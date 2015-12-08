@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14480582993760" configfile="/schoolControl_teacher_ui/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="pages/public/login.xhtml" x="98" y="372" id="pf14480584770351" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14480584770362 pf14480584770363" inlinks="pf14480584770362" path="/pages/public/login.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="pages/secure/index.xhtml" x="444" y="180" id="pf14480584770364" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" inlinks="pf14480584770363" path="/pages/secure/index.xhtml"/>
-  <links id="pf14480584770362" target="pf14480584770351" source="pf14480584770351" outcome="incorrect" fromaction="#{loginMgmtBean.login}"/>
-  <links id="pf14480584770363" target="pf14480584770364" source="pf14480584770351" outcome="correct" fromaction="#{loginMgmtBean.login}"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/public/login.xhtml" x="338" y="178" id="pf14480584770351" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf14480584770362 pf14480584770363" inlinks="pf14480584770362 pf14495990438787" path="/pages/public/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pages/secure/index.xhtml" x="554" y="178" id="pf14480584770364" referenceLink="//@navigationRule.1/@navigationCase.1/@toViewId|" inlinks="pf14480584770363" path="/pages/secure/index.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="178" id="pf14495990438788" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf14495990438787" path="*"/>
+  <links id="pf14480584770363" target="pf14480584770364" source="pf14480584770351" outcome="correct" redirect="true" fromaction="#{loginMgmtBean.login}"/>
+  <links id="pf14495990438787" target="pf14480584770351" source="pf14495990438788" outcome="loggedout" redirect="true" fromaction="#{loginMgmtBean.logout}"/>
+  <links id="pf14480584770362" target="pf14480584770351" source="pf14480584770351" outcome="incorrect" fromaction="#{loginMgmtBean.login}">
+    <bendPoints d1Height="-36" d2Height="-36"/>
+    <bendPoints d1Width="-64" d1Height="-36" d2Width="-64" d2Height="-36"/>
+    <bendPoints d1Width="-64" d2Width="-64"/>
+  </links>
 </pageflow:Pageflow>
