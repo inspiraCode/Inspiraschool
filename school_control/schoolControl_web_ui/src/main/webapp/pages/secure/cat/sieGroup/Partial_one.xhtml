@@ -17,10 +17,10 @@
             <h3 class="page-header"><h:graphicImage library="img" name="logo.png" style="display:inline-block;margin-right:5px;width:96px;"/> Calificación Parcial 1</h3>
             <p>#{sieGroupBean.selectedItem.sieGroupName} #{sieGroupBean.selectedItem.period.periodName} #{sieGroupBean.selectedItem.period.periodYear}
             <h:form>
-            <h:commandLink  onclick="showLoading=false;" action="#{sieScoresBean.pdfReport(Calificaciones_SIE_p1, sieGroupBean.scoresParams)}" styleClass="btn btn-primary" style="margin-bottom:30px;margin-left:10px">
+            <h:commandLink  onclick="showLoading=false;" action="#{sieGroupBean.pdfSQLReport('Calificaciones_SIE_p1', sieGroupBean.scoresParams)}" styleClass="btn btn-primary" style="margin-bottom:30px;margin-left:10px">
                 <i class="fa fa-file-pdf-o"></i> PDF
             </h:commandLink>
-            <h:commandLink  onclick="showLoading=false;" action="#{sieScoresBean.xlsReport(Calificaciones_SIE_p1, sieGroupBean.scoresParams)}" styleClass="btn btn-primary" style="margin-bottom:30px;margin-left:10px">
+            <h:commandLink  onclick="showLoading=false;" action="#{sieGroupBean.xlsSQLReport('Calificaciones_SIE_p1', sieGroupBean.scoresParams)}" styleClass="btn btn-primary" style="margin-bottom:30px;margin-left:10px">
                 <i class="fa fa-file-excel-o"></i> Excel
             </h:commandLink>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />

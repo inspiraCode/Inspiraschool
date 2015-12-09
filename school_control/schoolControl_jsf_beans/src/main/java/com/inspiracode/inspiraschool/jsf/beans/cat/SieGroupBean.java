@@ -18,14 +18,14 @@ import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
-import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
+import com.inspiracode.inspiraschool.jsf.beans.BaseFacesReporteableBean;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cat.PeriodService;
 import com.inspiracode.inspiraschool.service.cat.SieGroupService;
 
 @ManagedBean
 @SessionScoped
-public class SieGroupBean extends BaseFacesBean<SieGroup> {
+public class SieGroupBean extends BaseFacesReporteableBean<SieGroup> {
     private static final long serialVersionUID = 7549788216996264705L;
     private static final Logger logger = Logger.getLogger(SieGroupBean.class.getName());
     @ManagedProperty("#{sieGroupService}")
@@ -51,8 +51,10 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
     public Map<String, Object> getScoresParams() {
 	Map<String, Object> params = new HashMap<String, Object>();
 	params.put("SIE_GROUP_ID", getSelectedItem().getId());
+	logger.debug("SIE_GROUP_ID : " + getSelectedItem().getId());
 
 	params.put("USER_NAME", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+	logger.debug("USER_NAME: " + FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
 	return params;
     }
 
@@ -106,7 +108,9 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
     }
 
     public List<Assignment> getAssignments() {
+	logger.debug("previous selectedGroupId: " + selectedGroupId + " / new group Id:" + getSelectedItem().getId());
 	if (selectedGroupId == getSelectedItem().getId()) {
+	    logger.debug("loading assignments from Cache.");
 	    return sieAssignments;
 	}
 
@@ -119,7 +123,7 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 	    logger.debug("calificaciones encontradas: " + sieStudent.getScores().size());
 	    for (Score score : sieStudent.getScores()) {
 		// Seek for assignment in current result or add if not found
-		if(!result.contains(score.getGroupAssignment().getAssignment())){
+		if (!result.contains(score.getGroupAssignment().getAssignment())) {
 		    logger.debug("FIRST TIME I SEE THIS ASSIGNMENT: " + score.getGroupAssignment().getAssignment());
 		    result.add(score.getGroupAssignment().getAssignment());
 		}

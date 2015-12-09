@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletOutputStream;
@@ -35,7 +36,8 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 	super(type);
     }
 
-    public String pdfReport(String reportName, Map<String, Object> params) {
+    public String pdfSQLReport(String reportName, Map<String, Object> params) {
+	logger.debug("downloading report " + reportName);
 	try {
 	    initializeReport(reportName, params);
 	    OutputPdfReport(reportName);
@@ -46,7 +48,7 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 	return "";
     }
 
-    public String xlsReport(String reportName, Map<String, Object> params) {
+    public String xlsSQLReport(String reportName, Map<String, Object> params) {
 	try {
 	    initializeReport(reportName, params);
 	    OutputXlsReport(reportName);
@@ -64,6 +66,7 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
     }
 
     private void OutputPdfReport(String reportName) {
+	logger.debug("Generating output PDF report");
 	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".pdf");
 	try {
@@ -125,11 +128,13 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 
     private boolean compileReport(String reportName) {
 	String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/" + reportName + ".jasper");
-
+	logger.debug("compiling as report: " + reportPath);
 	File jasperFile = new File(reportPath);
+	logger.debug("file read, checking existance");
 	if (!jasperFile.exists()) {
 	    try {
 		String xmlFileName = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/" + reportName + ".jrxml");
+		logger.debug("compiling report: " + xmlFileName);
 		jasperFile = new File(xmlFileName);
 
 		if (!jasperFile.exists())
@@ -138,7 +143,7 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 		JasperCompileManager.compileReportToFile(xmlFileName, reportPath);
 	    } catch (Exception e) {
 		publishError("Error al compilar reporte: " + reportName);
-		publishError(e.getLocalizedMessage());
+		logger.error(e.getMessage(), e);
 		return false;
 	    }
 	}
@@ -164,7 +169,9 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
     }
 
     private void initializeReport(String reportName, Map<String, Object> params) throws JRException {
+	logger.debug("Initializing report: " + reportName);
 	if (!compileReport(reportName)) {
+	    logger.error("No fue posible compilar el reporte");
 	    throw new JRException("No fue posible compilar el reporte");
 	}
 
@@ -172,10 +179,16 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 
 	File jasperFile = new File(reportPath);
 	if (!jasperFile.exists()) {
+	    logger.error("file not found: " + reportPath);
 	    throw new JRException("No se encontró el archivo del reporte: " + reportPath);
 	}
 	jasperPrint = JasperFillManager.fillReport(reportPath, params, this.getDBConnection());
 	if (jasperPrint == null) {
+	    logger.error("could not fill report with selectedparameters: " + params);
+	    Set<String> pKeySet = params.keySet();
+	    for (String s : pKeySet) {
+		logger.debug("param " + s + " : " + params.get(s));
+	    }
 	    throw new JRException("No se pudo llenar el reporte con los parámetros seleccionados");
 	}
     }
