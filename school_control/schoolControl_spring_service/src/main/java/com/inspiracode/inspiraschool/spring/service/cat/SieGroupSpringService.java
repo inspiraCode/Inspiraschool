@@ -26,5 +26,4 @@ public class SieGroupSpringService extends BaseSpringService<SieGroup> implement
     public SieGroup getSieGroupWithScores(int sieGroupId) {
 	return sieGroupDAO.getSieWithScores(sieGroupId);
     }
-
 }

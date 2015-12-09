@@ -1,6 +1,8 @@
 package com.inspiracode.inspiraschool.jsf.beans;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -30,6 +32,15 @@ public abstract class BaseFacesBean<T extends BaseDTO> implements Serializable {
 	this.type = type;
     }
 
+    protected Connection getDBConnection(){
+	try {
+	    return service.getConnection();
+	} catch (SQLException e) {
+	    publishError("Ha ocurrido un error al obtener la conexión a la base de datos: " + e.getMessage());
+	    return null;
+	}
+    }
+    
     public boolean checkSelectedItem(T item) {
 	return selectedItems.contains(item);
     }

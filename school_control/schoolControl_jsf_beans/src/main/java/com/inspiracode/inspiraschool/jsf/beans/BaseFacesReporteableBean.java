@@ -21,32 +21,73 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleXlsxReportConfiguration;
 
+import org.apache.log4j.Logger;
+
 import com.inspiracode.inspiraschool.dto.BaseDTO;
 
 public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFacesBean<T> {
     private static final long serialVersionUID = -1504000319744782357L;
-    
+    private static final Logger logger = Logger.getLogger(BaseFacesReporteableBean.class.getName());
+
     private JasperPrint jasperPrint;
 
     public BaseFacesReporteableBean(Class<T> type) {
 	super(type);
     }
-    
-    public String pdfReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
-	initializeReport(reportList, reportName);
-	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
-	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".pdf");
-	ServletOutputStream servletOutputStream = response.getOutputStream();
-	JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
-	FacesContext.getCurrentInstance().responseComplete();
+
+    public String pdfReport(String reportName, Map<String, Object> params) {
+	try {
+	    initializeReport(reportName, params);
+	    OutputPdfReport(reportName);
+	} catch (JRException e) {
+	    publishError(e.getMessage());
+	    logger.error(e.getMessage(), e);
+	}
 	return "";
     }
 
-    public String xlsReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
+    public String xlsReport(String reportName, Map<String, Object> params) {
+	try {
+	    initializeReport(reportName, params);
+	    OutputXlsReport(reportName);
+	} catch (JRException e) {
+	    publishError(e.getMessage());
+	    logger.error(e.getMessage(), e);
+	}
+	return "";
+    }
+
+    public String pdfReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
 	initializeReport(reportList, reportName);
+	OutputPdfReport(reportName);
+	return "";
+    }
+
+    private void OutputPdfReport(String reportName) {
+	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".pdf");
+	try {
+	    ServletOutputStream servletOutputStream = response.getOutputStream();
+	    JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+	} catch (Exception e) {
+	    publishError("No fue posible formar la respuesta del reporte: " + e.getMessage());
+	    logger.error(e.getMessage(), e);
+	}
+
+	FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    private void OutputXlsReport(String reportName) {
 	HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
 	response.addHeader("Content-disposition", "attachment; filename=" + reportName + ".xlsx");
-	ServletOutputStream servletOutputStream = response.getOutputStream();
+	ServletOutputStream servletOutputStream;
+	try {
+	    servletOutputStream = response.getOutputStream();
+	} catch (IOException e) {
+	    publishError("Error al calcular la salida del archivo. Consulte al administrador con la siguiente información de referencia: " + e.getMessage());
+	    logger.error(e.getMessage(), e);
+	    return;
+	}
 
 	JRXlsxExporter docxExporter = new JRXlsxExporter();
 	docxExporter.setExporterInput(new SimpleExporterInput(jasperPrint));
@@ -58,9 +99,19 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 	configuration.setCollapseRowSpan(false);
 	docxExporter.setConfiguration(configuration);
 
-	docxExporter.exportReport();
+	try {
+	    docxExporter.exportReport();
+	} catch (JRException e) {
+	    publishError("Error al exportar reporte en formato de excel: " + e.getMessage());
+	    logger.error(e.getMessage(), e);
+	}
 
 	FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public String xlsReport(List<? extends BaseDTO> reportList, String reportName) throws JRException, IOException {
+	initializeReport(reportList, reportName);
+	OutputXlsReport(reportName);
 	return "";
     }
 
@@ -71,7 +122,7 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
     public void setJasperPrint(JasperPrint jasperPrint) {
 	this.jasperPrint = jasperPrint;
     }
-    
+
     private boolean compileReport(String reportName) {
 	String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/" + reportName + ".jasper");
 
@@ -82,7 +133,7 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 		jasperFile = new File(xmlFileName);
 
 		if (!jasperFile.exists())
-		    throw new Exception("report sourcecode file " + xmlFileName + "not found");
+		    throw new Exception("No se encontró el archivo del reporte: " + xmlFileName);
 
 		JasperCompileManager.compileReportToFile(xmlFileName, reportPath);
 	    } catch (Exception e) {
@@ -94,20 +145,39 @@ public abstract class BaseFacesReporteableBean<T extends BaseDTO> extends BaseFa
 
 	return true;
     }
-    
+
     private void initializeReport(List<? extends BaseDTO> reportList, String reportName) throws JRException {
 	JRBeanCollectionDataSource connectionDS = new JRBeanCollectionDataSource(reportList);
 
-	if (!compileReport(reportName))
-	    throw new JRException("Could not compile report.");
+	if (!compileReport(reportName)) {
+	    throw new JRException("No fue posible compilar el reporte");
+	}
 
 	String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/" + reportName + ".jasper");
 
 	File jasperFile = new File(reportPath);
 	if (!jasperFile.exists()) {
-	    throw new JRException("Report not found " + reportPath);
+	    throw new JRException("No se encontró el archivo del reporte: " + reportPath);
 	}
 	Map<String, Object> params = new HashMap<String, Object>();
 	jasperPrint = JasperFillManager.fillReport(reportPath, params, connectionDS);
     }
+
+    private void initializeReport(String reportName, Map<String, Object> params) throws JRException {
+	if (!compileReport(reportName)) {
+	    throw new JRException("No fue posible compilar el reporte");
+	}
+
+	String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reports/" + reportName + ".jasper");
+
+	File jasperFile = new File(reportPath);
+	if (!jasperFile.exists()) {
+	    throw new JRException("No se encontró el archivo del reporte: " + reportPath);
+	}
+	jasperPrint = JasperFillManager.fillReport(reportPath, params, this.getDBConnection());
+	if (jasperPrint == null) {
+	    throw new JRException("No se pudo llenar el reporte con los parámetros seleccionados");
+	}
+    }
+
 }

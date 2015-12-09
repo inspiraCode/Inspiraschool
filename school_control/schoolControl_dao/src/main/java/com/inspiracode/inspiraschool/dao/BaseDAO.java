@@ -1,6 +1,8 @@
 package com.inspiracode.inspiraschool.dao;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
@@ -37,4 +39,11 @@ public interface BaseDAO<T extends BaseDTO> extends Serializable {
      * @param object
      */
     void delete(T object);
+    
+    /**
+     * 
+     * @return a SQL Connection
+     * @throws SQLException 
+     */
+    Connection getConnection() throws SQLException;
 }

@@ -1,6 +1,8 @@
 package com.inspiracode.inspiraschool.service;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
@@ -17,4 +19,6 @@ public interface BaseService<T extends BaseDTO> extends Serializable {
     void delete(T object);
     
     void deleteAll(List<T> items);
+    
+    Connection getConnection() throws SQLException;
 }

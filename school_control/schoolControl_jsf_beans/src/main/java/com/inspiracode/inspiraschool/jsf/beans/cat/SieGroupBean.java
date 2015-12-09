@@ -2,11 +2,14 @@ package com.inspiracode.inspiraschool.jsf.beans.cat;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -41,6 +44,14 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 
     public SieGroupBean() {
 	super(SieGroup.class);
+    }
+
+    public Map<String, Object> getScoresParams() {
+	Map<String, Object> params = new HashMap<String, Object>();
+	params.put("SIE_GROUP_ID", getSelectedItem().getId());
+
+	params.put("USER_NAME", FacesContext.getCurrentInstance().getExternalContext().getRemoteUser());
+	return params;
     }
 
     public int sieScore(Student studentItem, Assignment assignmentItem, int partialIndex) {

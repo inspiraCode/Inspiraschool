@@ -1,11 +1,15 @@
 package com.inspiracode.inspiraschool.dao.hibernate;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.connection.ConnectionProvider;
+import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +62,12 @@ public abstract class BaseHibernateDAO<T extends BaseDTO> extends HibernateDaoSu
 		fullTextSession.clear();
 	    }
 	}
+    }
+
+    public Connection getConnection() throws SQLException {
+	SessionFactoryImplementor sfi = (SessionFactoryImplementor) this.getSessionFactory();
+	ConnectionProvider cp = sfi.getConnectionProvider();
+	return cp.getConnection();
     }
 
     protected Session conn() {

@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.spring.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +13,10 @@ import com.inspiracode.inspiraschool.service.BaseService;
 public abstract class BaseSpringService<T extends BaseDTO> implements BaseService<T> {
     private static final long serialVersionUID = 1L;
     private BaseDAO<T> daoFactory;
-    
-    public BaseSpringService(){}
-    
+
+    public BaseSpringService() {
+    }
+
     public T get(int id) {
 	return (T) daoFactory.get(id);
     }
@@ -43,6 +46,11 @@ public abstract class BaseSpringService<T extends BaseDTO> implements BaseServic
 	for (T item : items) {
 	    delete(item);
 	}
+    }
+
+    @Override
+    public Connection getConnection() throws SQLException {
+	return daoFactory.getConnection();
     }
 
     public BaseDAO<T> getDaoFactory() {
