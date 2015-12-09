@@ -35,6 +35,8 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
     private int periodId;
     private int rowIndex = 1;
     private List<Student> sieStudents = new ArrayList<Student>();
+    private List<Assignment> sieAssignments = new ArrayList<Assignment>();
+    private int selectedGroupId = 0;
 
     @Override
     protected boolean validate() {
@@ -56,8 +58,10 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
 
     public int sieScore(Student studentItem, Assignment assignmentItem, int partialIndex) {
 	//recorrer las calificaciones del estudiante(studentItem)
+	logger.debug("Buscando calificación de " + assignmentItem.getName() + " para " + studentItem.getName());
 	for (Score score : studentItem.getScores()) {//para cada calificacion 
 	    //revisar si la assignatura del score es igual al parametro de assignatura (assignmentItem)
+	    logger.debug("Registro de calificación: " + score);
 	    if (score.getGroupAssignment().getAssignment().equals(assignmentItem)) {
 		//si es igual, devolver esa calificacion
 		switch (partialIndex) {
@@ -102,21 +106,29 @@ public class SieGroupBean extends BaseFacesBean<SieGroup> {
     }
 
     public List<Assignment> getAssignments() {
+	if (selectedGroupId == getSelectedItem().getId()) {
+	    return sieAssignments;
+	}
+
 	List<Assignment> result = new ArrayList<Assignment>();
 	if (sieStudents.isEmpty())
 	    getSieStudents();
-	logger.debug("studiantes encontrados: " + sieStudents.size());
+	logger.debug("estudiantes encontrados: " + sieStudents.size());
 	//llenar la lista, y recorrer todos los estudiantes calificados
 	for (Student sieStudent : sieStudents) {
 	    logger.debug("calificaciones encontradas: " + sieStudent.getScores().size());
 	    for (Score score : sieStudent.getScores()) {
-		//score.getGroupAssignment().getAssignment();
-		if (!result.contains(score.getGroupAssignment().getAssignment()))
+		// Seek for assignment in current result or add if not found
+		if(!result.contains(score.getGroupAssignment().getAssignment())){
+		    logger.debug("FIRST TIME I SEE THIS ASSIGNMENT: " + score.getGroupAssignment().getAssignment());
 		    result.add(score.getGroupAssignment().getAssignment());
+		}
 	    }
 	}
 	logger.debug("materias encontradas: " + result.size());
 	Collections.sort(result);
+	sieAssignments = result;
+	selectedGroupId = getSelectedItem().getId();
 	return result;
     }
 

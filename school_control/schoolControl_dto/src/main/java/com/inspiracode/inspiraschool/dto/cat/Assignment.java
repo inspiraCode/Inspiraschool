@@ -63,6 +63,18 @@ public class Assignment implements BaseDTO, Comparable<Assignment> {
     }
 
     @Override
+    public String toString() {
+	return "id:" + id + ";name:" + name + ";";
+    }
+    
+    @Override
+    public int hashCode() {
+	int tmp = 0;
+	tmp = (id + name).hashCode();
+	return tmp;
+    }
+
+    @Override
     public boolean equals(Object obj) {
 	if (obj == null)
 	    return false;

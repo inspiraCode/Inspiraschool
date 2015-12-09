@@ -205,6 +205,11 @@ public class Score implements BaseDTO, Comparable<Score> {
     public void setFinalScore(Integer finalScore) {
 	this.finalScore = finalScore;
     }
+    
+    @Override
+    public String toString() {
+        return "id:" + id + ";partialOne:" + parcialOne + ";partialTwo:" + parcialTwo + ";final:" + finalScore + ";";
+    }
 
     @Override
     public int compareTo(Score o) {
