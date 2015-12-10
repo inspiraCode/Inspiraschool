@@ -88,7 +88,7 @@ public class GroupBean extends BaseFacesReporteableBean<Group> {
 	students.clear();
 	for (GroupAssignment ga : groupWithScores.getAssignments()) {
 	    for (Student st : ga.getStudents()) {
-		if (!students.contains(st))
+		if (!students.contains(st) && st.getStudentStatus().getId() == 1)
 		    students.add(st);
 	    }
 	}
