@@ -115,8 +115,8 @@ public class SieGroupBean extends BaseFacesReporteableBean<SieGroup> {
 	}
 
 	List<Assignment> result = new ArrayList<Assignment>();
-	if (sieStudents.isEmpty())
-	    getSieStudents();
+	getSieStudents();
+	    
 	logger.debug("estudiantes encontrados: " + sieStudents.size());
 	//llenar la lista, y recorrer todos los estudiantes calificados
 	for (Student sieStudent : sieStudents) {
