@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2015-12-09T17:51:15 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GruposCampus" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac071bae-5db0-43b6-865b-6cfa8624b592">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="school_control"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CG" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CT" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="Crosstab_CD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<leftPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+			<rightPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="GROUP_ID" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[68]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT cg.id_group, cga.id_assignment, cst.student_name, ca.assignment_name, cts.partial_two, cst.enroll_number,ca.sie_index
+FROM cat_group cg
+inner join cross_group_assignment cga
+on cg.id_group = cga.id_group
+inner join cat_assignment ca 
+on ca.id_assignment = cga.id_assignment
+inner join cross_student_group_assignment csga
+on cga.id = csga.id_group_assignment
+inner join cat_student cst 
+on csga.id_student = cst.Id_student
+inner join ctrl_score cts
+on cga.id = cts.id_group_assignment AND cst.Id_student = cts.id_student]]>
+	</queryString>
+	<field name="id_group" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_assignment" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="student_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="assignment_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="partial_two" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="enroll_number" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sie_index" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<filterExpression><![CDATA[new Integer($F{id_group}).equals($P{GROUP_ID})]]></filterExpression>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="66" splitType="Stretch">
+			<crosstab>
+				<reportElement x="0" y="0" width="800" height="60" uuid="277eaf44-96f1-49f1-bea5-dc51cfd4117f">
+					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
+				</reportElement>
+				<rowGroup name="student_name1" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{student_name}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="41e3ac02-5fab-462f-81c8-5d7fe867d40a"/>
+								<box leftPadding="2">
+									<topPen lineWidth="0.8"/>
+									<leftPen lineWidth="0.8"/>
+									<bottomPen lineWidth="0.8"/>
+									<rightPen lineWidth="0.8"/>
+								</box>
+								<textFieldExpression><![CDATA[$V{student_name1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="d00aa9e1-9a19-4395-b8c2-f20bb3499b27"/>
+								<text><![CDATA[Total student_name1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<rowGroup name="enroll_number1" width="60">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{enroll_number}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="576467f7-2c35-4477-a406-f2787b8f79d9"/>
+								<textFieldExpression><![CDATA[$V{enroll_number1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="3d15fc6a-6abf-4223-88fd-6167364cd708"/>
+								<text><![CDATA[Total enroll_number1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="sie_index1" height="0">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{sie_index}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH"/>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="4c9a1999-89ac-4dd2-a715-0a721bcbdc74"/>
+								<text><![CDATA[Total sie_index1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<columnGroup name="assignment_name1" height="20">
+					<bucket class="java.lang.String">
+						<bucketExpression><![CDATA[$F{assignment_name}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents mode="Opaque" style="Crosstab_CH">
+							<textField>
+								<reportElement x="0" y="0" width="60" height="20" uuid="d8038da7-6fa5-4734-86cd-780e871ac7ce"/>
+								<textFieldExpression><![CDATA[$V{assignment_name1}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents>
+							<staticText>
+								<reportElement x="0" y="0" width="-2147483648" height="-2147483648" uuid="bb4d66a1-cfaa-4208-a6e7-d69916b4706c"/>
+								<text><![CDATA[Total assignment_name1]]></text>
+							</staticText>
+						</cellContents>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="partial_two_MEASURE1" class="java.lang.Integer" calculation="Highest">
+					<measureExpression><![CDATA[$F{partial_two}]]></measureExpression>
+				</measure>
+				<crosstabCell width="60" height="20">
+					<cellContents mode="Opaque" style="Crosstab_CD">
+						<textField isBlankWhenNull="true">
+							<reportElement x="0" y="0" width="60" height="20" uuid="a9857346-33c3-426d-8ca1-22f5078bd131"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="sie_index1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="89de18cb-eece-4c15-b370-24200efec7c4"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" columnTotalGroup="assignment_name1">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="3d601939-e300-4daf-9287-e95e6df4d030"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="student_name1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="c8ee2a33-4690-49cf-bec3-b86b02138fdb"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="student_name1" columnTotalGroup="sie_index1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="9b036c18-ff1d-4703-8445-b090ea5accea"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="student_name1" columnTotalGroup="assignment_name1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="78b0b899-8e86-4d72-8e89-0221abe66baf"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="enroll_number1">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="abf6390f-cac3-4c60-8ec6-8f7ccbcbce5c"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="enroll_number1" columnTotalGroup="sie_index1">
+					<cellContents mode="Opaque" style="Crosstab_CT">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="19657003-a34f-4d40-b5ae-31bdea0788ce"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="60" height="20" rowTotalGroup="enroll_number1" columnTotalGroup="assignment_name1">
+					<cellContents mode="Opaque" style="Crosstab_CG">
+						<textField>
+							<reportElement x="0" y="0" width="60" height="20" uuid="0fe706ab-49c9-4de5-9c4d-a335dcaf6d41"/>
+							<textFieldExpression><![CDATA[$V{partial_two_MEASURE1}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+</jasperReport>
