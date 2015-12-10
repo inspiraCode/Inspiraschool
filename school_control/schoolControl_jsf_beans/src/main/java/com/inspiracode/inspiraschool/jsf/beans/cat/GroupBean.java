@@ -107,7 +107,11 @@ public class GroupBean extends BaseFacesReporteableBean<Group> {
 	    result.add(ga.getAssignment());
 	}
 
-	Collections.sort(result);
+	if(getSelectedItem().getCareer().getName().toLowerCase().startsWith("prepa"))
+	    Collections.sort(result);
+	else
+	    Collections.sort(result, Assignment.Comparators.NAME);
+	
 	cachedAssignments = result;
 	selectedGroupId = groupWithAssignments.getId();
 	return result;
