@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2015-12-10T10:33:03 -->
+<!-- 2015-12-10T11:01:13 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GruposCampus" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="ac071bae-5db0-43b6-865b-6cfa8624b592">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="school_control"/>
@@ -171,7 +171,7 @@ on cga.id = cts.id_group_assignment AND cst.Id_student = cts.id_student]]>
 		<band height="67" splitType="Stretch">
 			<image>
 				<reportElement x="10" y="0" width="70" height="67" uuid="d4538a58-2727-4ece-a3c2-de09ca4807f9"/>
-				<imageExpression><![CDATA["src/main/webapp/reports/logoCircular.png"]]></imageExpression>
+				<imageExpression><![CDATA["logoCircular.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="80" y="0" width="220" height="20" uuid="f6930993-591c-4ff2-9d59-1fb533f1f7c9"/>

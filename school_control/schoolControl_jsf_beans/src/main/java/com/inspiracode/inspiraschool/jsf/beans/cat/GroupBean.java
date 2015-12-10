@@ -20,7 +20,7 @@ import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 import com.inspiracode.inspiraschool.dto.ctrl.Score;
-import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
+import com.inspiracode.inspiraschool.jsf.beans.BaseFacesReporteableBean;
 import com.inspiracode.inspiraschool.service.BaseService;
 import com.inspiracode.inspiraschool.service.cat.CareerService;
 import com.inspiracode.inspiraschool.service.cat.GroupService;
@@ -29,7 +29,7 @@ import com.inspiracode.inspiraschool.service.ctrl.ScoreService;
 
 @ManagedBean
 @SessionScoped
-public class GroupBean extends BaseFacesBean<Group> {
+public class GroupBean extends BaseFacesReporteableBean<Group> {
     private static final long serialVersionUID = -1169756132687652990L;
     private static final Logger logger = Logger.getLogger(GroupBean.class.getName());
 
