@@ -110,8 +110,8 @@
                         <!-- Sender Selection -->
                         <h:outputLabel for="selCompany" value="Empresa: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:selectOneMenu id="selCompany" value="#{studentBean.selectedItem.company.id}" styleClass="form-control">
-                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                            <h:selectOneMenu id="selCompany" value="#{studentBean.selectedCompanyId}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="0" noSelectionOption="true" />
                                 <f:selectItems value="#{companyBean.all}"  var="companyItem" itemValue="#{companyItem.id}" itemLabel="#{companyItem.name}" />
                             </h:selectOneMenu>
                         </div>
@@ -120,6 +120,16 @@
                         <!-- Sender Selection -->
                         <h:outputLabel for="textStudentClock" value="Número de reloj: " styleClass="control-label"></h:outputLabel>
                         <h:inputText styleClass="form-control" pt:type="number" id="textStudentClock" value="#{studentBean.selectedItem.clockId}" pt:placeholder="Reloj"></h:inputText>
+                    </div>
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selStudentStatus" value="Estatus: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selStudentStatus" value="#{studentBean.selectedStatusId}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="0" noSelectionOption="true" />
+                                <f:selectItems value="#{statusBean.all}" var="item" itemValue="#{item.id}" itemLabel="#{item.name}" />
+                            </h:selectOneMenu>
+                        </div>
                     </div>
                 </div>
 

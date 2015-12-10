@@ -18,16 +18,20 @@ import javax.faces.event.AjaxBehaviorEvent;
 import org.apache.log4j.Logger;
 import org.primefaces.event.DragDropEvent;
 
+import com.inspiracode.inspiraschool.dto.cat.Company;
 import com.inspiracode.inspiraschool.dto.cat.Group;
 import com.inspiracode.inspiraschool.dto.cat.Period;
 import com.inspiracode.inspiraschool.dto.cat.SieGroup;
 import com.inspiracode.inspiraschool.dto.cat.Student;
+import com.inspiracode.inspiraschool.dto.cat.StudentStatus;
 import com.inspiracode.inspiraschool.dto.cross.GroupAssignment;
 import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
+import com.inspiracode.inspiraschool.service.cat.CompanyService;
 import com.inspiracode.inspiraschool.service.cat.GroupService;
 import com.inspiracode.inspiraschool.service.cat.PeriodService;
 import com.inspiracode.inspiraschool.service.cat.SieGroupService;
+import com.inspiracode.inspiraschool.service.cat.StatusService;
 import com.inspiracode.inspiraschool.service.cat.StudentService;
 
 @ManagedBean
@@ -48,6 +52,12 @@ public class StudentBean extends BaseFacesBean<Student> {
     @ManagedProperty("#{groupService}")
     private GroupService groupService;
 
+    @ManagedProperty("#{statusService}")
+    private StatusService statusService;
+
+    @ManagedProperty("#{companyService}")
+    private CompanyService companyService;
+
     private int periodId;
     private String sieGroupName;
     private Period selectedPeriod;
@@ -65,7 +75,7 @@ public class StudentBean extends BaseFacesBean<Student> {
     public List<GroupAssignment> getSelectedAssignments() {
 	return selectedAssignments;
     }
-    
+
     public List<GroupAssignment> getAvailableAssignments() {
 	availableAssignments.clear();
 	if (selectedGroup == null) {
@@ -80,7 +90,7 @@ public class StudentBean extends BaseFacesBean<Student> {
 	}
 
 	availableAssignments.removeAll(selectedAssignments);
-	
+
 	logger.debug("found " + availableAssignments.size() + " available assignments to show.");
 	return availableAssignments;
     }
@@ -103,10 +113,10 @@ public class StudentBean extends BaseFacesBean<Student> {
 
 	Set<GroupAssignment> groupAssignments = studentService.getStudentGroupsList(selectedItem);
 	selectedAssignments.clear();
-	for(GroupAssignment ga : groupAssignments){
+	for (GroupAssignment ga : groupAssignments) {
 	    selectedGroupId = ga.getGroup().getId();
 	    selectedGroup = groupService.getGroupWithAssignments(selectedGroupId);
-	    
+
 	    selectedAssignments.add(ga);
 	}
 
@@ -166,21 +176,21 @@ public class StudentBean extends BaseFacesBean<Student> {
     public void setSieEnabled(boolean sieEnabled) {
     }
 
-    public void addAllAssignments(ActionEvent actionEvent){
+    public void addAllAssignments(ActionEvent actionEvent) {
 	selectedAssignments.addAll(availableAssignments);
 	publishInfo("Todas las materias del grupo agregadas al alumno.");
     }
-    
-    public void removeAllAssignments(ActionEvent actionEvent){
+
+    public void removeAllAssignments(ActionEvent actionEvent) {
 	selectedAssignments.clear();
 	publishInfo("Todas las materias asignadas al alumno han sido retiradas.");
     }
-    
-    public void onRemoveAssignment(DragDropEvent event){
+
+    public void onRemoveAssignment(DragDropEvent event) {
 	availableAssignments.clear();
 	HtmlPanelGroup selectedGroupAssignmentsPanel = (HtmlPanelGroup) event.getComponent().findComponent("selectedGroupAssignmentsPanel");
-	if(selectedGroupAssignmentsPanel != null){
-	    selectedGroupAssignmentsPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback(){
+	if (selectedGroupAssignmentsPanel != null) {
+	    selectedGroupAssignmentsPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback() {
 
 		@Override
 		public void invokeContextCallback(FacesContext context, UIComponent target) {
@@ -188,30 +198,32 @@ public class StudentBean extends BaseFacesBean<Student> {
 		    GroupAssignment item = draggedItem != null ? (GroupAssignment) draggedItem.getAttributes().get("assignmentItem") : new GroupAssignment();
 		    selectedAssignments.remove(item);
 		    publishInfo("Asignatura " + item.getAssignment().getName() + " desvinculada del alumno.");
-		}});
+		}
+	    });
 	} else {
 	    publishError("Error al quitar asignatura");
 	}
     }
-    
-    public void onAddAssignment(DragDropEvent event){
+
+    public void onAddAssignment(DragDropEvent event) {
 	HtmlPanelGroup groupAssignmentPanel = (HtmlPanelGroup) event.getComponent().findComponent("groupAssignmentsPanel");
-	if(groupAssignmentPanel!=null){
-	    groupAssignmentPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback(){
+	if (groupAssignmentPanel != null) {
+	    groupAssignmentPanel.invokeOnComponent(FacesContext.getCurrentInstance(), event.getDragId(), new ContextCallback() {
 
 		@Override
 		public void invokeContextCallback(FacesContext context, UIComponent target) {
 		    HtmlPanelGroup draggedItem = (HtmlPanelGroup) target;
 		    GroupAssignment item = draggedItem != null ? (GroupAssignment) draggedItem.getAttributes().get("assignmentItem") : new GroupAssignment();
-		    if(!selectedAssignments.contains(item))
+		    if (!selectedAssignments.contains(item))
 			selectedAssignments.add(item);
 		    publishInfo("Asignatura " + item.getAssignment().getName() + " vinculada al alumno con éxito.");
-		}});
-	}else{
+		}
+	    });
+	} else {
 	    publishError("Error al agregar asignatura.");
 	}
     }
-    
+
     public void onRemoveSie(DragDropEvent event) {
 	this.availableSies.clear();
 	HtmlPanelGroup availableSies = (HtmlPanelGroup) event.getComponent().findComponent("selectedSies");
@@ -320,6 +332,36 @@ public class StudentBean extends BaseFacesBean<Student> {
 	this.selectedGroupId = selectedGroupId;
     }
 
+    public int getSelectedStatusId() {
+	if (getSelectedItem().getId() == 0)
+	    return 0;
+	return getSelectedItem().getStudentStatus().getId();
+    }
+
+    public void setSelectedStatusId(int selectedStatusId) {
+	if (selectedStatusId != 0) {
+	    StudentStatus dbStatus = statusService.get(selectedStatusId);
+	    getSelectedItem().setStudentStatus(dbStatus);
+	}
+    }
+
+    public int getSelectedCompanyId() {
+	if (getSelectedItem().getId() == 0)
+	    return 0;
+	if (getSelectedItem().getCompany() == null)
+	    return 0;
+
+	return getSelectedItem().getCompany().getId();
+    }
+
+    public void setSelectedCompanyId(int selectedCompanyId) {
+	if (selectedCompanyId != 0) {
+	    // TODO: Setup db company
+	    Company dbCompany = companyService.get(selectedCompanyId);
+	    getSelectedItem().setCompany(dbCompany);
+	}
+    }
+
     public Group getSelectedGroup() {
 	return selectedGroup;
     }
@@ -338,6 +380,22 @@ public class StudentBean extends BaseFacesBean<Student> {
 
     public void setSelectedAssignments(List<GroupAssignment> selectedAssignments) {
 	this.selectedAssignments = selectedAssignments;
+    }
+
+    public StatusService getStatusService() {
+	return statusService;
+    }
+
+    public void setStatusService(StatusService statusService) {
+	this.statusService = statusService;
+    }
+
+    public CompanyService getCompanyService() {
+	return companyService;
+    }
+
+    public void setCompanyService(CompanyService companyService) {
+	this.companyService = companyService;
     }
 
 }
