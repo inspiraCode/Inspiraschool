@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2015-12-10T00:17:54 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GruposCampus" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ac071bae-5db0-43b6-865b-6cfa8624b592">
+<!-- 2015-12-10T10:33:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GruposCampus" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" uuid="ac071bae-5db0-43b6-865b-6cfa8624b592">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="school_control"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<property name="ireport.callouts" value="callouts.1.fg=0,0,0\ncallouts.1.text=jaime 10/12/15 12\:14 AM\ncallouts.1.bounds=523,48,200,200\ncallouts.1.bg=255,255,0\n"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
@@ -126,6 +125,9 @@
 	<parameter name="GROUP_ID" class="java.lang.Integer" isForPrompting="false">
 		<defaultValueExpression><![CDATA[68]]></defaultValueExpression>
 	</parameter>
+	<parameter name="USER_NAME" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["[USER]"]]></defaultValueExpression>
+	</parameter>
 	<queryString>
 		<![CDATA[SELECT cg.id_group, cga.id_assignment, cst.student_name, ca.assignment_name, cts.partial_two, cst.enroll_number,ca.sie_index
 FROM cat_group cg
@@ -197,7 +199,7 @@ on cga.id = cts.id_group_assignment AND cst.Id_student = cts.id_student]]>
 				<textElement textAlignment="Right">
 					<font fontName="Calibri"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Reporte Generado por: "]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Reporte Generado por: " + $P{USER_NAME}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
