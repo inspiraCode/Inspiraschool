@@ -43,7 +43,7 @@ public class ScoreBean extends BaseFacesBean<Score> {
 	if (idGroupAssignment != loadedGroup) {
 	    result.clear();
 	    // Cargar calificaciones existentes
-	    List<Score> existingScores = scoreService.scoresByGroup(idGroupAssignment);
+	    List<Score> existingScores = scoreService.getScoresByGroup(idGroupAssignment);
 	    logger.debug(existingScores.size() + " existing scores in db.");
 	    if (existingScores != null && !existingScores.isEmpty()) {
 		result.addAll(existingScores);

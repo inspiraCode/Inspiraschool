@@ -1,5 +1,7 @@
 package com.inspiracode.inspiraschool.dto.cross;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inspiracode.inspiraschool.dto.BaseDTO;
@@ -20,6 +23,7 @@ import com.inspiracode.inspiraschool.dto.cat.Assignment;
 import com.inspiracode.inspiraschool.dto.cat.Group;
 import com.inspiracode.inspiraschool.dto.cat.Student;
 import com.inspiracode.inspiraschool.dto.cat.Teacher;
+import com.inspiracode.inspiraschool.dto.ctrl.Score;
 
 @Entity
 @Table(name = "cross_group_assignment", catalog = "school_control")
@@ -50,6 +54,9 @@ public class GroupAssignment implements BaseDTO {
     @JoinTable(name = "cross_student_group_assignment", catalog = "school_control", joinColumns = { @JoinColumn(name = "id_group_assignment") },
 	    inverseJoinColumns = { @JoinColumn(name = "id_student") })
     private Set<Student> students;
+    
+    @OneToMany(fetch=FetchType.LAZY, mappedBy="groupAssignment")
+    private List<Score> scores = new ArrayList<Score>();
 
     public int getId() {
 	return id;
@@ -101,6 +108,14 @@ public class GroupAssignment implements BaseDTO {
 
 	GroupAssignment oGa = (GroupAssignment) obj;
 	return oGa.getId() == this.getId();
+    }
+
+    public List<Score> getScores() {
+	return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+	this.scores = scores;
     }
 
 }

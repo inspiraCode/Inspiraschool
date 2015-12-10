@@ -94,6 +94,15 @@
                         <f:param name="item" value="#{item}" />
                         <i class="fa fa-times"></i> Borrar
                     </h:commandLink>
+                    <h:commandLink action="#{groupBean.partialOne(item)}" styleClass="btn btn-success" style="margin-left:10px;margin-right:10px;margin-bottom:5px;margin-top:5px;">
+                        <i class="fa fa-object-group"></i> Parcial 1
+                    </h:commandLink>
+                     <h:commandLink action="#{groupBean.partialTwo(item)}" styleClass="btn btn-success" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">
+                        <i class="fa fa-object-group"></i> Parcial 2
+                    </h:commandLink>
+                    <h:commandLink action="#{groupBean.finalScore(item)}" styleClass="btn btn-success" style="margin-right:10px;margin-bottom:5px;margin-top:5px;">
+                        <i class="fa fa-object-group"></i> Final
+                    </h:commandLink>
                 </h:column>
             </h:dataTable>
             </div>

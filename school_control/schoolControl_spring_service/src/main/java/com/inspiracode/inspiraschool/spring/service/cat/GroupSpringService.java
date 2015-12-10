@@ -28,4 +28,9 @@ public class GroupSpringService extends BaseSpringService<Group> implements Grou
     public Group getGroupWithAssignments(int groupId) {
 	return groupDAO.getGroupWithAssignments(groupId);
     }
+
+    @Override
+    public Group getGroupWithStudents(int groupId) {
+	return groupDAO.getGroupWithStudents(groupId);
+    }
 }

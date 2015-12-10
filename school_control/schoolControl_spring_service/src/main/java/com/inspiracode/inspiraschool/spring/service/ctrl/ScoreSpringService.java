@@ -27,7 +27,12 @@ public class ScoreSpringService extends BaseSpringService<Score> implements Scor
     }
 
     @Override
-    public List<Score> scoresByGroup(int groupId) {
+    public List<Score> getScoresByGroup(int groupId) {
 	return scoreDAO.scoresByGroup(groupId);
+    }
+
+    @Override
+    public Score getScoreByStudentAndAssignment(int studentId, int assignmentId) {
+	return scoreDAO.scoreByStudentAndAssignment(studentId, assignmentId);
     }
 }

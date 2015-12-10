@@ -46,7 +46,7 @@ public class GroupAssignmentBean extends BaseFacesReporteableBean<GroupAssignmen
 
     public List<ScoreModel> scoresReportList(GroupAssignment item) {
 	List<ScoreModel> result = new ArrayList<ScoreModel>();
-	List<Score> scores = scoreService.scoresByGroup(item.getId());
+	List<Score> scores = scoreService.getScoresByGroup(item.getId());
 
 	String userName = FacesContext.getCurrentInstance().getExternalContext().getUserPrincipal().getName();
 

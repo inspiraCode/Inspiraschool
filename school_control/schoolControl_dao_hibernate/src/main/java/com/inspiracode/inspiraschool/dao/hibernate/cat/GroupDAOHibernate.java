@@ -23,4 +23,13 @@ public class GroupDAOHibernate extends BaseHibernateDAO<Group> implements GroupD
 
 	return dbList.get(0);
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Group getGroupWithStudents(int groupId) {
+	List<Group> dbList = (List<Group>) getHibernateTemplate().find(QUERY_GROUP_FETCH_STUDENTS, groupId);
+	if (dbList.isEmpty())
+	    return null;
+	return dbList.get(0);
+    }
 }
