@@ -7,18 +7,18 @@
     xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:p="http://primefaces.org/ui">
 <ui:composition template="/templates/default/main.xhtml">
-	<ui:define name="title">EControl - Periodos #{periodBean.selectedItem.id>0?periodBean.selectedItem.id:'Nuevo'} </ui:define>
+	<ui:define name="title">EControl - Groupos #{groupBean.selectedItem.id>0?groupBean.selectedItem.id:'Nuevo'} </ui:define>
     <ui:define name="content">
         <!-- Page Heading -->
         <!--overview start-->
         <div class="row">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{periodBean.selectedItem.id==0}" value=" Nuevo Periodo"></h:outputText>
-                <h:outputText rendered="#{periodBean.selectedItem.id>0}" value=" #{periodBean.selectedItem.periodName} (#{periodBean.selectedItem.id})"></h:outputText></h3>
+            <h3 class="page-header"><i class="fa fa-industry"></i> <h:outputText rendered="#{groupBean.selectedItem.id==0}" value=" Nuevo Grupo"></h:outputText>
+                <h:outputText rendered="#{groupBean.selectedItem.id>0}" value=" #{groupBean.selectedItem.grade} (#{groupBean.selectedItem.period.periodName} #{groupBean.selectedItem.period.periodYear})"></h:outputText></h3>
             <ol class="breadcrumb">
                 <li><i class="fa fa-home"></i><a href="/EControl/pages/secure/index.xhtml">Inicio</a></li>
-                <li><i class="fa fa-industry"></i><h:outputText rendered="#{periodBean.selectedItem.id==0}" value=" Nuevo Periodo"></h:outputText>
-                <h:outputText rendered="#{periodBean.selectedItem.id>0}" value=" #{periodBean.selectedItem.periodName} (#{periodBean.selectedItem.id})"></h:outputText></li>
+                <li><i class="fa fa-industry"></i><h:outputText rendered="#{groupBean.selectedItem.id==0}" value=" Nuevo Grupo"></h:outputText>
+                <h:outputText rendered="#{groupBean.selectedItem.id>0}" value=" #{groupBean.selectedItem.grade} (#{groupBean.selectedItem.period.periodName} #{groupBean.selectedItem.period.periodYear})"></h:outputText></li>
             </ol>
           </div>
         </div>
@@ -27,13 +27,13 @@
         <h:form>
             <fieldset> 
                 <div class="row">
-                    <h:commandLink id="btnSaveId" action="#{periodBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
+                    <h:commandLink id="btnSaveId" action="#{groupBean.upload}" styleClass="btn btn-success" style="margin-right:10px;">
                         <i class="fa fa-save"></i> Grabar
                     </h:commandLink>
-                    <h:commandLink id="btnDeleteId" action="#{periodBean.delete(periodBean.selectedItem)}" rendered="#{periodBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar la carrera #{periodBean.selectedItem.periodName}?');" styleClass="btn btn-danger" style="margin-right:30px;">
+                    <h:commandLink id="btnDeleteId" action="#{groupBean.delete(groupBean.selectedItem)}" rendered="#{groupBean.selectedItem.id>0}" onclick="return confirm('¿Está usted seguro de eliminar el grupo #{groupBean.selectedItem.grade}?');" styleClass="btn btn-danger" style="margin-right:30px;">
                         <i class="fa fa-trash-o"></i> Borrar
                     </h:commandLink>
-                    <h:commandLink id="btnGoBackId" action="#{periodBean.showList}" styleClass="btn btn-primary">
+                    <h:commandLink id="btnGoBackId" action="#{groupBean.showList}" styleClass="btn btn-primary">
                         <i class="fa fa-arrow-left"></i> Regresar
                     </h:commandLink>
                 </div>
@@ -42,18 +42,55 @@
                 <div class="row" style="margin-top:10px;">
                     <div class="control-group col-md-4">
                         <!-- Sender Selection -->
-                        <h:outputLabel for="textPeriodName" value="Periodo: " styleClass="control-label"></h:outputLabel>
+                        <h:outputLabel for="textgrade" value="Grupo: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:inputText styleClass="form-control" id="textPeriodName" value="#{periodBean.selectedItem.periodName}" pt:placeholder="Periodo"></h:inputText>
+                            <h:inputText styleClass="form-control" id="textgrade" value="#{groupBean.selectedItem.grade}" pt:placeholder="Grupo"></h:inputText>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selGroupMode" value="Modalidad: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selGroupMode" value="#{groupBean.selectedItem.mode}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Tetramestral" itemValue="Tetramestral" />
+                                <f:selectItem itemLabel="Semestral" itemValue="Semestral" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px;">
+                    <div class="control-group col-md-3">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selGroupDayTrip" value="Turno: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selGroupDayTrip" value="#{groupBean.selectedItem.dayTrip}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItem itemLabel="Sábados" itemValue="SABADOS" />
+                                <f:selectItem itemLabel="Domingos" itemValue="DOMINGOS" />
+                            </h:selectOneMenu>
+                        </div>
+                    </div>
+                    <div class="control-group col-md-9">
+                        <!-- Sender Selection -->
+                        <h:outputLabel for="selCareer" value="Carrera: " styleClass="control-label"></h:outputLabel>
+                        <div class="controls">
+                            <h:selectOneMenu id="selCareer" value="#{groupBean.careerId}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{careerBean.all}"  var="item" itemValue="#{item.id}" itemLabel="#{item.name}" />
+                            </h:selectOneMenu>
                         </div>
                     </div>
                 </div>
                 <div class="row" style="margin-top:10px;">
                     <div class="control-group col-md-10">
                         <!-- Sender Selection -->
-                        <h:outputLabel for="textPeriodYear" value="Año: " styleClass="control-label"></h:outputLabel>
+                        <h:outputLabel for="selPeriod" value="Periodo: " styleClass="control-label"></h:outputLabel>
                         <div class="controls">
-                            <h:inputText pt:type="number" styleClass="form-control" id="textPeriodYear" value="#{periodBean.selectedItem.periodYear}" pt:placeholder="Año"></h:inputText>
+                            <h:selectOneMenu id="selPeriod" value="#{groupBean.periodId}" styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione" itemValue="#{null}" noSelectionOption="true" />
+                                <f:selectItems value="#{periodBean.all}"  var="periodItem" itemValue="#{periodItem.id}" itemLabel="#{periodItem.periodYear} #{periodItem.periodName}" />
+                            </h:selectOneMenu>
                         </div>
                     </div>
                 </div>
@@ -61,6 +98,58 @@
             </fieldset>
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </h:form>
+
+        <!-- TABS CONTROLLER -->
+        <div class="row" style="margin-top:15px;">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#assignments" data-toggle="tab">Materias</a>
+                </li>
+                <li><a href="#teachers" data-toggle="tab">Maestros</a>
+                </li>
+                <li><a href="#alumnos" data-toggle="tab">Alumnos</a>
+                </li>
+                <li><a href="#scores" data-toggle="tab">Calificaciones</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="assignments">
+                    <!-- /.navbar-top-links -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Materias</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar las materias que forman parte de este grupo y permitir agregar/quitar materias.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="teachers">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Maestros</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar el maestro que imparte cada materia asignada al grupo y permitir cambiar el maestro.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="alumnos">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Alumnos</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar los alumnos que forman parte del grupo y permitir quitar o agregar alumnos.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="scores">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Calificaciones</div>
+                        EN CONSTRUCCIÓN.<br/>
+                        <strong>Objetivo:</strong> Mostrar las calificaciones del grupo.
+                        <div class="panel-footer">Resúmen: ...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /TABS CONTROLLER -->
     </ui:define>
 </ui:composition>
 
