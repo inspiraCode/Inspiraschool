@@ -1,5 +1,6 @@
 package com.inspiracode.inspiraschool.jsf.beans.sys;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -10,6 +11,7 @@ import com.inspiracode.inspiraschool.dto.sys.Role;
 import com.inspiracode.inspiraschool.dto.sys.User;
 import com.inspiracode.inspiraschool.jsf.beans.BaseFacesBean;
 import com.inspiracode.inspiraschool.service.BaseService;
+import com.inspiracode.inspiraschool.service.sys.RoleService;
 import com.inspiracode.inspiraschool.service.sys.UserService;
 
 @ManagedBean
@@ -19,9 +21,30 @@ public class UserBean extends BaseFacesBean<User> {
 
     @ManagedProperty("#{userService}")
     private UserService userService;
+    @ManagedProperty("#{roleService}")
+    private RoleService roleService;
+
+    private String confirmPassword;
+
+    private List<Role> availableRoles = new ArrayList<Role>();
 
     public UserBean() {
 	super(User.class);
+    }
+
+    public List<Role> getAvailableRoles() {
+	if (availableRoles.isEmpty()) {
+	    availableRoles.addAll(roleService.getAll());
+	}
+
+	availableRoles.removeAll(getSelectedItem().getRoles());
+	return availableRoles;
+    }
+
+    public List<Role> getAssignedRoles() {
+	List<Role> result = new ArrayList<Role>();
+	result.addAll(getSelectedItem().getRoles());
+	return result;
     }
 
     public String getRolesByUser(User user) {
@@ -55,6 +78,22 @@ public class UserBean extends BaseFacesBean<User> {
     protected boolean validate() {
 	// TODO Auto-generated method stub
 	return true;
+    }
+
+    public String getConfirmPassword() {
+	return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+	this.confirmPassword = confirmPassword;
+    }
+
+    public RoleService getRoleService() {
+	return roleService;
+    }
+
+    public void setRoleService(RoleService roleService) {
+	this.roleService = roleService;
     }
 
 }
